@@ -1,0 +1,39 @@
+{
+  "name": "raneto",
+  "version": "0.2.0",
+  "description": "Markdown powered Knowledgebase",
+  "author": {
+    "name": "Gilbert Pellegrom",
+    "email": "gilbert@pellegrom.me"
+  },
+  "license": "MIT",
+  "keywords": [
+    "raneto",
+    "knowledgebase",
+    "markdown"
+  ],
+  "main": "./app",
+  "scripts": {
+    "start": "forever start -l forever.log -a -o out.log -e err.log  ./bin/www",
+    "stop": "forever stop ./bin/www"
+  },
+  "engines": {
+    "node": "~0.10.0"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "express": "~4.2.0",
+    "glob": "^4.0.0",
+    "hogan-express": "^0.5.2",
+    "lunr": "^0.5.3",
+    "markdown-toc": "^0.11.2",
+    "marked": "^0.3.2",
+    "moment": "^2.6.0",
+    "morgan": "~1.0.0",
+    "static-favicon": "~1.0.0",
+    "underscore": "^1.6.0",
+    "underscore.string": "^2.3.3"
+  }
+}

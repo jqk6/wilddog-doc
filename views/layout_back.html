@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{#meta.title}}{{meta.title}} - {{/meta.title}}{{config.site_title}}</title>
+    <meta name="description" content="野狗知识库，野狗文档，WildDog文档">
+    <meta name="keywords" content="wilddog, WildDog, realtime, PaaS, BaaS, HTMl5, CoAP, Thread, REST, Javascript, DTLS, websockets, realtime sync, UDP, JSON, developer, B2B, SDK, iOS, Android, Mac OS, Windows, 野狗, 野狗实时, 野狗云, 实时应用, 实时同步, 实时数据库, 跨平台, 物联网, 构建实时应用, 受限网络, 传感网, 解决方案, 云平台, 云计算, 云服务, 公有云, 私有云, 开发者">
+    <meta name="format-detection" content="email=no" />
+    <meta name="format-detection" content="address=no" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/highlightjs/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="/styles/raneto.css">
+
+    <style>
+        .home-categories a{
+    color: black;
+    text-decoration:none;        
+        }
+    .home-categories a:hover {
+    color: black;
+    text-decoration:none;
+     border-bottom: 1px solid black;
+    }
+    </style>
+</head>
+
+<body class="{{body_class}}">
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <a href="/">
+                        <div class="header-logo">
+                            <div style="float:left">
+                                <img width="36" height="36" src="/images/header-logo.png" style="
+    margin-top: 30px;
+">
+                            </div>
+
+                            <div style="float:left;margin-top: -38px;margin-left: 10px;"><i style="color:white">(</i>
+                            </div>
+                            <div style="font-size: 25px;margin-top: 33px;margin-left: 12px;float:left">知识库</div>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="col-sm-6">
+
+                    <div>
+                        <div style="float:right;color:white;vertical-align:middle">登录 <i style="font-family: wd-icon;
+  font-style: normal;
+  color: white;
+  font-size: 12px;">4</i>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+
+                    <div class="help-search-input-wrapper">
+
+
+                        <div class="search-mag-glass">
+                            <div style="margin-top:10px;text-align:center;">
+                                <i style="font-size:16px;font-family: wd-icon;font-style: normal;">p</i> 
+                            </div>
+
+                        </div>
+
+                        <div style="float:right">
+                            <input type="search" placeholder="搜索知识库" name="query" id="search-input">
+                        </div>
+
+
+                        <div style="clear:both"></div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="container" style="position:relative;min-height: 100%;">
+
+        <div class="container-fluid" style="width:980px;">  
+
+            {{{ yield }}}
+        </div>
+
+        <footer class="footer" style="bottom: 0;width: 980px;margin: 20px auto 0 auto;">
+            <div class="container-fluid">
+             <footer id="index-footer" class="clearfix">
+            <div class="footer-nav">
+                <dl>
+                    <dt>产品与服务</dt>
+                    <dd><a href="/examples" target="_blank">示例</a>
+                    </dd>
+                    <dd><a href="/service" target="_blank">服务报价</a>
+                    </dd>
+                    <dd><a href="/terms/sa" target="_blank">用户协议</a></dd>
+                    <!--
+                    <dd><a href="#">健康状态</a>
+                    </dd>
+                    -->
+                </dl>
+                <dl>
+                    <dt>知识库</dt>
+                    <dd><a href="/5m" target="_blank">5分钟入门</a>
+                    </dd>
+                    <dd><a href="https://z.wilddog.com/" target="_blank">使用手册</a>
+                    </dd> 
+                    <dd><a href="https://talks.wilddog.com/" target="_blank">讨论</a>
+                    </dd> 
+                    
+                </dl>
+                <dl>
+                    <dt>野狗团队</dt>
+                    <dd><a href="/about" target="_blank">关于我们</a>
+                    </dd>
+                    <!--
+                    <dd><a href="#">帮助和支持</a>
+                    </dd>-->
+                    <dd><a href="/contact">联系我们</a>
+                    </dd>
+               <!--   <dd><a href="https://github.com/WildDogTeam/contribute" target="_blank">开源贡献</a>
+                    </dd> -->
+                    <dd>
+                        <a href="http://www.jobtong.com/e/21046#job_list" target="_blank"></a>
+                    </dd>
+                </dl>
+            </div><a href="https://www.wilddog.com">
+            <div class="footer-logo">
+                <div class="wilddog-info">
+                    <div class="wilddog-info-title">
+                        <i>(</i><sup class="wilddog-icon-sup">TM</sup>
+                    </div>
+                    <div class="wilddog-icon">
+                        <i>f</i><i>g</i>
+                    </div>
+                    <div class="wilddog-url">
+                        www.wilddog.com
+                    </div>
+                </div>
+                <div class="wilddog-img">
+                    <img style="position: relative;right: -16px;" src="/images/wilddog-img.svg" width="126">
+                </div>
+            </div>
+            <div style="clear:both"></div>
+            <div class="footer-link">
+                <div class="link-icons">
+                	<a href="http://weibo.com/5548962207" target="_blank">
+	                    <div class="link-icon link-icon-weibo">
+	                        <i>"</i>
+	                    </div>
+                    </a>
+                    <div class="link-icon link-icon-weixin">
+                        <i>#</i>
+                        <img id="weixin-code" src="/images/wilddog-weixin.jpg">
+                    </div>
+                    <a href="https://github.com/WildDogTeam" target="_blank">
+	                    <div class="link-icon link-icon-github">
+	                        <i>Z</i>
+	                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-info">
+                <ul>
+                    <li>Inspired by Firebase</li>
+                    <li>Copyright (c) 2014 - 2015 Wilddog, Inc. All rights reserved.</li>
+                    <li><a href="https://wilddog.daikeapp.com/tickets" target="_blank">客服工单</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+            </div>
+        </footer>
+    </div>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/highlightjs/highlight.pack.js"></script>
+    <script src="/bower_components/fitvids/jquery.fitvids.js"></script>
+    <script src="/bower_components/masonry/dist/masonry.pkgd.min.js"></script>
+    <script src="/scripts/raneto.js"></script>
+
+    <script>
+    $(document).ready(function () {
+         $(".link-icon-weixin").hover(function () {
+            $("#weixin-code").show();
+        }, function () {
+            $("#weixin-code").hide();
+        });        
+    });
+
+        
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-56016881-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+</body>
+
+</html>
