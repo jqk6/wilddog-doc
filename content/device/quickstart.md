@@ -4,7 +4,7 @@ Sort : 1
 */
 
 
-###一、申请wilddog，准备设备
+###一、申请wilddog云，准备设备
 你需要一个[**Wilddog账号**](https://www.wilddog.com/account/login)，一台电脑，一块支持Wiced的开发板，一根minUSB连接线（连接Wiced开发板和电脑）。
 
 通过wilddog账号你可以远程管理你的硬件设备。
