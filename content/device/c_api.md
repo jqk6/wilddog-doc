@@ -3,8 +3,8 @@ Title: C API文档
 Sort: 3
 */
 
-## sys init
- `void wilddog_sys_init(void)`
+## init
+ `void wilddog_init(void)`
 
  初始化wilddog SDK.
 
@@ -16,8 +16,8 @@ Sort: 3
 
  无
 
-## init
- `Wilddog_Ref_T *wilddog_init(Wilddog_Str_T *url)`
+## new
+ `Wilddog_T wilddog_new(Wilddog_Str_T *url)`
 
  初始化一个wilddog客户端.
 
@@ -29,14 +29,14 @@ Sort: 3
 
 **返回值**
 
-*	返回指向Wilddog\_Ref\_T 结构体的指针，如果创建失败，返回NULL.
+*	返回Wilddog\_T类型的client id，如果创建失败，返回0.
 #### sample
 
 ```c
 int main()
 {
 	//init client
-	Wilddog_Ref_T* wilddog=wilddog_init("coaps://myapp.wilddogio.com/user/jackxy/device/light/10abcde");
+	Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy/device/light/10abcde");
 	//do something
 	...
 	//recycle memeory
@@ -45,87 +45,87 @@ int main()
 ```
 
 ## get parent
-`Wilddog_Ref_T *wilddog_getParent(Wilddog_Ref_T *p_wilddog)`
+`Wilddog_T wilddog_getParent(Wilddog_T wilddog)`
 
  创建一个为当前客户端path父节点的客户端.
 
 **参数**
 
-* `p_wilddog` : 指向已经初始化的`Wilddog_Ref_T`结构体指针.
+* `wilddog` : client id.
 
 **返回值**
 
-*	返回指向Wilddog\_Ref\_T 结构体的指针，如果创建失败，返回NULL.
+*	返回父节点的id，如果创建失败，返回0.
 
 #### sample
 ```c
 //定位到user/jackxy
-Wilddog_Ref_T* p_wilddog=wilddog_init("coaps://myapp.wilddogio.com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
 //定位到user
-Wilddog_Ref_T* p_parent = wilddog_getParent(p_wilddog);
+Wilddog_T parent = wilddog_getParent(wilddog);
 ```
 ## get root
-`Wilddog_Ref_T *wilddog_getRoot(Wilddog_Ref_T *p_wilddog)`
+`Wilddog_T wilddog_getRoot(Wilddog_T wilddog)`
 
  创建一个为当前客户端path根节点的客户端.
 
 **参数**
 
-* `p_wilddog` : 指向已经初始化的`Wilddog_Ref_T`结构体指针.
+* `wilddog` : client id.
 
 **返回值**
 
-*	返回指向Wilddog\_Ref\_T 结构体的指针，如果创建失败，返回NULL.
+*	返回根节点的id，如果创建失败，返回0.
 #### sample
 ```c
 //定位到user/jackxy
-Wilddog_Ref_T* p_wilddog=wilddog_init("coaps://myapp.wilddogio.com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
 //定位到root("/")
-Wilddog_Ref_T* p_root = wilddog_getRoot(p_wilddog);
+Wilddog_T root = wilddog_getRoot(wilddog);
 ```
 ## get child
-`Wilddog_Ref_T *wilddog_getChild(Wilddog_Ref_T *p_wilddog, Wilddog_Str_T * childName)`
+`Wilddog_T wilddog_getChild(Wilddog_T wilddog, Wilddog_Str_T * childName)`
 
  创建一个当前客户端path下`childName`子节点的客户端.
 
 **参数**
 
-* `p_wilddog` : 指向已经初始化的`Wilddog_Ref_T`结构体指针.
+* `wilddog` : client id.
 * `childName` : 子节点的相对路径，多级子节点需用'/'隔开，即使子节点不存在也能创建.
 
 **返回值**
 
-*	返回指向Wilddog\_Ref\_T 结构体的指针，如果创建失败，返回NULL.
+*	返回子节点的id，如果创建失败，返回0.
 
 #### sample
 ```c
 //定位到user/jackxy
-Wilddog_Ref_T* p_wilddog=wilddog_init("coaps://myapp.wilddogio.com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
 //定位到user/jackxy/aaa
-Wilddog_Ref_T* p_child = wilddog_getChild(p_wilddog, "aaa");
+Wilddog_T child = wilddog_getChild(wilddog, "aaa");
 ```
 
 ## get key
-`Wilddog_Str_T *wilddog_getKey(Wilddog_Ref_T *p_wilddog)`
+`Wilddog_Str_T *wilddog_getKey(Wilddog_T wilddog)`
 
- 获取当前客户端对应的node名称.
+ 获取当前客户端对应node的key.
 
 **参数**
 
-* `p_wilddog` : 指向已经初始化的`Wilddog_Ref_T`结构体指针.
+* `wilddog` : client id.
 
 **返回值**
 
-*	返回node名称，如果创建失败，返回NULL.
+*	返回node的key，如果获取失败，返回NULL.
 
 ## destroy
- `Wilddog_Return_T wilddog_destroy(Wilddog_Ref_T **pp_wilddog);`
+ `Wilddog_Return_T wilddog_destroy(Wilddog_T *p_wilddog);`
 
  销毁一个客户端 回收内存.
  
 **参数**
 
-* `pp_wilddog` : 指向已经初始化的`Wilddog_Ref_T`结构体指针的指针.
+* `p_wilddog` : 指向client id的地址.
 
 **返回值**
 
@@ -172,7 +172,7 @@ wilddog_setAuth("aaa.wilddogio.com",newToken, strlen(newToken), myOnAuthFunc, (v
 ## query
 
 	Wilddog_Return_T wilddog_query(
-		Wilddog_Ref_T *p_wilddog,
+		Wilddog_T wilddog,
 		onQueryFunc callback,
 		void* arg)
 
@@ -180,7 +180,7 @@ wilddog_setAuth("aaa.wilddogio.com",newToken, strlen(newToken), myOnAuthFunc, (v
  
  **参数**
 
-* `p_wilddog` : 已经初始化的`Wilddog_Ref_T`结构体的指针.
+* `wilddog` : client id.
 * `callback` : 函数指针,类型是`void (*onQueryFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为205时）或者NULL，退出函数后即被销毁, `arg`为用户传递的值, `err`为状态码.
 * `arg` : 即用户给回调函数的arg.
 
@@ -190,68 +190,54 @@ wilddog_setAuth("aaa.wilddogio.com",newToken, strlen(newToken), myOnAuthFunc, (v
  
 #### sample
 ```c
-void myOnAuthFunc(void* arg, Wilddog_Return_T err)
-{
-	if(err < 0 || err >= 400)
-	{
-		printf("auth fail!\n");
-		return;
-	}
-	printf("hello world!\n");
-	*(int*)err = TRUE;
-	return;
-}
-void onQueryComplete(
-	const Wilddog_Node_T* p_snapshot,
-	void* arg,
+STATIC void test_onQueryFunc(
+	const Wilddog_Node_T* p_snapshot, 
+	void* arg, 
 	Wilddog_Return_T err)
 {
-	Wilddog_Node_T** p_data = (Wilddog_Node_T**)arg;
-    if(err<0 || err >= 400)
-        printf("query error:%d",errCode);
-    else
+	
+	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
 	{
-		*p_data = wilddog_node_clone(p_snapshot);
+		wilddog_debug("query error!");
+		return;
 	}
+	wilddog_debug("query success!");
+	if(p_snapshot)
+	{
+		*(Wilddog_Node_T**)arg = wilddog_node_clone(p_snapshot);
+	}
+	
 	return;
 }
-int main()
+int main(void)
 {
-	int ready = FALSE;
-	Wilddog_Str_T * p_str = NULL;
-	Wilddog_Node_T * p_data = NULL;
-	Wilddog_Ref_T* wilddog =wilddog_init("coap://a.wilddogio.com/a/b/c");
+	Wilddog_T wilddog = 0;
+	Wilddog_Node_T * p_node = NULL;
 	
-	if(!wilddog)
-		return -1;
-	wilddog_setAuth("a.wilddogio.com", "12345678", 8, myOnAuthFunc, (void*)&ready);
-    
-    while(1)
+	wilddog_init();
+	
+	wilddog = wilddog_new(<url>);
+
+	wilddog_query(wilddog, test_onQueryFunc, (void*)(&p_node));
+	while(1)
 	{
-        //使用事件循环的方式,需要循环接收网络事件并处理.
-		if(ready == TRUE)
+		if(p_node)
 		{
-			wilddog_query(wilddog,onQueryComplete, &p_data);
+			_wilddog_debug_printnode(p_node);
+			...
+			wilddog_node_delete(p_node);
 		}
-        wilddog_trySync();
-    }
-	p_str = wilddog_debug_n2jsonString(p_data);
-	if(p_str)
-	{
-		wilddog_debug("%s", p_str);
-		wfree(p_str);
+		wilddog_trySync();
 	}
-	if(p_data)
-		wilddog_node_delete(p_data);
-	if(wilddog)
-		wilddog_destroy(&wilddog);
-	return 0;
+	...
+	wilddog_destroy(&wilddog);
 }
+
 ```
 
 ## set
 	Wilddog_Return_T wilddog_set(
-		Wilddog_Ref_T *p_wilddog,
+		Wilddog_T wilddog,
 		Wilddog_Node_T *p_node,
 		onSetFunc callback,
 		void* arg)
@@ -260,7 +246,7 @@ int main()
  
  **参数**
 
-* `p_wilddog` :  已经初始化的`Wilddog_Ref_T`结构体的指针.
+* `wilddog` : client id.
 * `p_node` : `Wilddog_Node_T` 类型的指针, `Wilddog_Node_T` 为wilddog 客户端存储格式.
 * `callback` : 函数指针 ,类型是`void (*onSetFunc)(void* arg, Wilddog_Return_T err)`,其中`arg`为用户传递的值,`err`为状态码.
 * `arg` : 即用户给回调函数的arg.
@@ -271,49 +257,49 @@ int main()
 
 #### sample
 ```c
-void myOnAuthFunc(void* arg, Wilddog_Return_T err)
+STATIC void test_onSetFunc(void* arg, Wilddog_Return_T err)
 {
-	if(err < 0 || err >= 400)
+						
+	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
 	{
-		printf("auth fail!\n");
+		wilddog_debug("set error!");
 		return;
 	}
-	printf("hello world! %d\n", (int)arg);
+	wilddog_debug("set success!");
+	*(BOOL*)arg = TRUE;
 	return;
 }
-void onSetComplete(void* arg, Wilddog_Return_T err)
+int main(void)
 {
-    if(errCode<0)
-        printf("set error:%d",errCode);
-    else
+	BOOL isFinish = FALSE;
+	Wilddog_T wilddog = 0;
+	Wilddog_Node_T * p_node = NULL;
+
+	wilddog_init();
+
+	/* create a node to "wilddog", value is "123456" */
+	p_node = wilddog_node_createUString(NULL,"123456");
+
+	wilddog = wilddog_new(<url>);
+
+	wilddog_set(wilddog,p_node,test_onSetFunc,(void*)&isFinish);
+	wilddog_node_delete(p_node);
+	while(1)
 	{
-       //do something
-    }
-}
-...
-int main()
-{
-	Wilddog_Node_T * p_data = NULL;
-    Wilddog_Ref_T* wilddog =wilddog_init("coap://a.wilddogio.com/a/b/c");
-    ...
-	wilddog_setAuth("a.wilddogio.com", "12345678", 8, myOnAuthFunc, NULL);
-	...
-	//after authed
-	p_data = wilddog_node_createNum(NULL, 123);
-    wilddog_set(wilddog, p_data, onSetComplete, NULL);
-	wilddog_node_delete(p_data);
-    while(1)
-	{
-        //使用事件循环的方式,需要循环接收网络事件并处理.
-        wilddog_trySync();
-    }
+		if(TRUE == isFinish)
+		{
+			wilddog_debug("set success!");
+			...
+		}
+		wilddog_trySync();
+	}
 	wilddog_destroy(&wilddog);
 }
 ```
 
 ## push
 	Wilddog_Return_T wilddog_push(
-		Wilddog_Ref_T *p_wilddog, 
+		Wilddog_T wilddog, 
 		Wilddog_Node_T *p_node, 
 		onPushFunc callback, 
 		void* arg)
@@ -322,7 +308,7 @@ int main()
  
   **参数**
 
-* `p_wilddog` :  已经初始化的`Wilddog_Ref_T`结构体的指针.
+* `wilddog` :  client id.
 * `p_node` : `Wilddog_Node_T`类型的指针(node 库的使用API 请参见Node API).
 * `callback` : 函数指针 ,类型是`(*onPushFunc)(Wilddog_Str_T * p_newPath, void* arg, Wilddog_Return_T err)`,其中 `p_newPath` 是新增数据的完整path,`arg` 为用户传递的值,`err`为状态码.
 * `arg` : 即用户给回调函数的arg.
@@ -333,51 +319,52 @@ int main()
 
 #### sample
 ```c
-void myOnAuthFunc(void* arg, Wilddog_Return_T err)
+STATIC void test_onPushFunc(u8 *p_path,void* arg, Wilddog_Return_T err)
 {
-	if(err < 0 || err >= 400)
+						
+	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
 	{
-		printf("auth fail!\n");
+		wilddog_debug("push failed");
 		return;
-	}
-	printf("hello world! %d\n", (int)arg);
+	}		
+	wilddog_debug("new path is %s", p_path);
+	*(BOOL*)arg = TRUE;
 	return;
 }
-void onPushComplete(Wilddog_Str_T * p_newPath, void* arg, Wilddog_Return_T err)
+int main(void)
 {
-    if(errCode<0)
-        printf("set error:%d",errCode);
-    else
+	BOOL isFinish = FALSE;
+	Wilddog_T wilddog;
+	Wilddog_Node_T * p_node = NULL, *p_head = NULL;
+	wilddog_init();
+
+	p_head = wilddog_node_createObject(NULL);
+	p_node = wilddog_node_createNum("2",1234);
+	wilddog_node_add(p_head, p_node);
+	
+	wilddog = wilddog_new(<url>);
+	wilddog_push(wilddog, p_head, test_onPushFunc, (void *)&isFinish);	
+	wilddog_node_delete(p_head);
+	
+	while(1)
 	{
-       //do something
-    }
-}
-...
-int main()
-{
-	Wilddog_Node_T * p_data = NULL;
-    Wilddog_Ref_T* wilddog =wilddog_init("coap://a.wilddogio.com/a/b/c");
-    ...
-	wilddog_setAuth("a.wilddogio.com", "12345678", 8, myOnAuthFunc, NULL);
-	...
-	//after authed
-	p_data = wilddog_node_createNum(NULL, 123);
-    wilddog_push(wilddog, p_data, onPushComplete, NULL);
-	wilddog_node_delete(p_data);
-    while(1)
-	{
-        //使用事件循环的方式,需要循环接收网络事件并处理.
-        wilddog_trySync();
-    }
+		if(isFinish)
+		{
+			wilddog_debug("push success!");
+			break;
+		}
+		wilddog_trySync();
+	}
 	wilddog_destroy(&wilddog);
 }
+
 ```
 
 
 ## remove
 
 	Wilddog_Return_T wilddog_remove(
-		Wilddog_Ref_T *p_wilddog, 
+		Wilddog_T wilddog, 
 		onRemoveFunc callback, 
 		void* arg)`
 
@@ -385,7 +372,7 @@ int main()
 
 **参数**
 
-* `p_wilddog` :  已经初始化的`Wilddog_Ref_T`结构体的指针.
+* `wilddog` :  client id.
 * `callback` : 函数指针 ,类型是`void (*onRemoveFunc)(void* arg, Wilddog_Return_T err)`,其中`arg` 为用户传递的值,`err`为状态码.
 * `arg` : 即用户给回调函数的arg.
 
@@ -395,40 +382,36 @@ int main()
 
 #### sample
 ```c
-void myOnAuthFunc(void* arg, Wilddog_Return_T err)
+STATIC void test_onDeleteFunc(void* arg, Wilddog_Return_T err)
 {
-	if(err < 0 || err >= 400)
+	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
 	{
-		printf("auth fail!\n");
+		wilddog_debug("delete failed!");
 		return;
 	}
-	printf("hello world! %d\n", (int)arg);
+	wilddog_debug("delete success!");
+	*(BOOL*)arg = TRUE;
 	return;
 }
-void onRemoveComplete(void* arg, Wilddog_Return_T err)
+
+int main(void)
 {
-    if(errCode<0)
-        printf("set error:%d",errCode);
-    else
+	BOOL isFinished = FALSE;
+	Wilddog_T wilddog;
+
+	wilddog_init();
+	wilddog = wilddog_new(<url>);
+
+	wilddog_remove(wilddog, test_onDeleteFunc, (void*)&isFinished);
+	while(1)
 	{
-       //do something
-    }
-}
-...
-int main()
-{
-	Wilddog_Node_T * p_data = NULL;
-    Wilddog_Ref_T* wilddog =wilddog_init("coap://a.wilddogio.com/a/b/c");
-    ...
-	wilddog_setAuth("a.wilddogio.com", "12345678", 8, myOnAuthFunc, NULL);
-	...
-	//after authed
-    wilddog_remove(wilddog, onRemoveComplete, NULL);
-    while(1)
-	{
-        //使用事件循环的方式,需要循环接收网络事件并处理.
-        wilddog_trySync();
-    }
+		if(TRUE == isFinished)
+		{
+			wilddog_debug("remove success!");
+			break;
+		}
+		wilddog_trySync();
+	}
 	wilddog_destroy(&wilddog);
 }
 ```
@@ -436,7 +419,7 @@ int main()
 
 ## on
 	Wilddog_Return_T wilddog_on(
-		Wilddog_Ref_T *p_wilddog, 
+		Wilddog_T wilddog, 
 		Wilddog_EventType_T event, 
 		onQueryFunc onDataChange, 
 		void* dataChangeArg)
@@ -445,7 +428,7 @@ int main()
 
 **参数**
 
-* `p_wilddog` :  已经初始化的`Wilddog_Ref_T`结构体的指针.
+* `wilddog` :  client id.
 * `event` : 关注的事件类型，见`Wilddog_EventType_T`定义.
 * `onDataChange` : 函数指针,类型是`(*onEventFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为205时）或者NULL，退出函数后即被销毁, `arg`为用户传递的值, `err`为状态码.
 * `dataChangeArg` : 即用户给回调函数的arg.
@@ -456,66 +439,65 @@ int main()
 
 #### sample
 ```c
-void myOnAuthFunc(void* arg, Wilddog_Return_T err)
-{
-	if(err < 0 || err >= 400)
-	{
-		printf("auth fail!\n");
-		return;
-	}
-	printf("hello world!\n");
-	*(int*)err = TRUE;
-	return;
-}
-void onQueryComplete(
-	const Wilddog_Node_T* p_snapshot,
+STATIC void test_onObserveFunc(
+	const Wilddog_Node_T* p_snapshot, 
 	void* arg,
 	Wilddog_Return_T err)
 {
-	Wilddog_Node_T** p_data = (Wilddog_Node_T**)arg;
-    if(err<0 || err >= 400)
-        printf("query error:%d",errCode);
-    else
+	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
 	{
-		//do some thing
+		wilddog_debug("observe failed!");
+		return;
 	}
+	wilddog_debug("observe data!");
+	
 	return;
 }
-int main()
+
+int main(void)
 {
-	int ready = FALSE;
-	Wilddog_Ref_T* wilddog =wilddog_init("coap://a.wilddogio.com/a/b/c");
-	
-	if(!wilddog)
-		return -1;
-	wilddog_setAuth("a.wilddogio.com", "12345678", 8, myOnAuthFunc, (void*)&ready);
-    
-    while(1)
+	BOOL isFinished = FALSE;
+	Wilddog_T wilddog;
+	STATIC int count = 0;	
+	wilddog_init();
+
+	wilddog = wilddog_new(TEST_ON_PATH);
+	if(0 == wilddog)
 	{
-        //使用事件循环的方式,需要循环接收网络事件并处理.
-		if(ready == TRUE)
+		wilddog_debug("new wilddog failed!");
+		return 0;
+	}
+	wilddog_on(wilddog, WD_ET_VALUECHANGE, test_onObserveFunc, (void*)&isFinished);
+	while(1)
+	{
+		if(TRUE == isFinished)
 		{
-			wilddog_on(wilddog, WD_ET_VALUECHANGE, onQueryComplete, NULL);
-			ready = FALSE;
+			wilddog_debug("get new data %d times!", count++);
+			isFinished = FALSE;
+			if(count > 10)
+			{
+				wilddog_debug("off the data!");
+				wilddog_off(wilddog, WD_ET_VALUECHANGE);
+				break;
+			}
 		}
-        wilddog_trySync();
-    }
-	if(wilddog)
-		wilddog_destroy(&wilddog);
-	return 0;
+		wilddog_trySync();
+	}
+	wilddog_destroy(&wilddog);
+	
 }
 ```
 
 ## off
 	Wilddog_Return_T wilddog_off(
-		Wilddog_Ref_T *p_wilddog, 
+		Wilddog_T *p_wilddog, 
 		Wilddog_EventType_T event)
 
  取消关注一个事件(对应于on)
 
 **参数**
 
-* `p_wilddog` :  已经初始化的`Wilddog_Ref_T`结构体的指针.
+* `wilddog` :  client id.
 * `event` : 取消的事件类型.
 
 **返回值**
@@ -538,7 +520,7 @@ int main()
 ## time increase
 `void wilddog_timeIncrease(u32 ms)`
 
- 为了实现更精确的时间定位，向用户提供的时间接口，用户可将该函数置于如定时器中.
+ 为了实现更精确的时间定位，向用户提供的时间接口，用户可自行调用该函数定位时间(如置于定时器中).
 
 **参数**
 
@@ -552,6 +534,7 @@ int main()
 ```c
 void timer_isr()
 {
+	//this timer increased per ms.
 	wilddog_timeIncrease(1);
 }
 ```
