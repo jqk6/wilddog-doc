@@ -7,6 +7,7 @@ Sort: 4
 ## Wilddog
 
 ### public Wilddog getParent()
+
 获得当前Path的父节点引用对象（Wilddog），如果当前已经到达root路径，调用该函数后返回依然是root的引用对象（Wilddog）。
 
 #### Return
@@ -23,6 +24,7 @@ Wilddog re3 = ref.getParent().getParent();
 ----
 
 ### public Wilddog child(String path)
+
 定位到当前路径下的相对路径的子节点，返回Wilddog对象引用。参数path为相对路径，多层级间需要使用“/”分隔，例如“a/b/c”。
 
 #### Param
@@ -62,75 +64,8 @@ name = ref.child("a").getKey();
 ```
 ----
 
-### public ValueEventListener addValueEventListener(ValueEventListener listener)
-在当前path上绑定监听事件，监听该节点数据的变化。用户需要实现ValueEventListener接口。
-
-#### Param
-* listener `ValueEventListener`
-listener将监听Change事件， `onDataChange()` 监听节点数据或子树的变化，参数snapshot为变化后的最新数据。
-
-#### Return
-`ValueEventListener` 用于删除时使用。
-
-#### Sample
-
-```java
-Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
-ValueEventListener listener = ref.addValueEventListener(new ValueEventListener(){
-	 public void onDataChange(DataSnapshot snapshot) {
-		 System.out.println(snapshot.getValue());
-	 }
-
-     public void onCancelled(WilddogError error) {
-	     if(error != null){
-		     System.out.println(error.getCode());
-	     }
-     }
-});
-
-```
-
-----
-
-### public ChildEventListener addChildEventListener(ChildEventListener listener)
-在当前path上绑定监听事件，监听该节点的子节点的数据的变化。用户需要实现ChildEventListener接口。
-
-#### Param
-* listener `ChildEventListener`
-> `onChildAdded()` 监听下一级添加新的子节点，参数snapshot为新的子节点的数据。
-> `onChildRemoved()` 监听下一级被删除的子节点，参数snapshot为被删除的子节点数据。
-> `onChildChanged()` 监听下一级被修改的子节点，子节点的下级节点中发生任意变化都将触发该事件，参数snapshot为修改后的子节点数据。
-
-#### Return
-`ChildEventListener` 用于删除时使用。
-
-#### Sample
-```java
-Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
-ChildEventListener listener = ref.addChildEventListener(new ChildEventListener(){
-	public void onChildAdded(DataSnapshot snapshot){
-		System.out.println(snapshot.getValue());
-	}
-	
-	public void onChildChanged(DataSnapshot snapshot){
-		System.out.println(snapshot.getValue());
-	}
-
-	public void onChildRemoved(DataSnapshot snapshot){
-		System.out.println(snapshot.getValue());
-	}
-
-	public void onCancelled(WilddogError error){
-		if(error != null){
-		    System.out.println(error.getCode());
-	    }
-	}
-});
-```
-
-----
-
 ### public void setValue(Object value)
+
 在当前Path进行覆盖性的赋值操作，将本地当前value或children（整颗子树）替换，并同步到云端。如果操作成功将触发已绑定的event，例如Change，ChildAdded等。
 该函数是线程安全的，将阻塞其他的本地数据操作。
 
@@ -166,7 +101,8 @@ ref.child("dota/heros/SF").setValue(hero);
 ```
 ----
 
-## public void setValue(Object value, CompletionListener listener)
+### public void setValue(Object value, CompletionListener listener)
+
 在当前Path进行覆盖性的赋值操作，将本地当前value或children（整颗子树）替换，并同步到云端，操作结果将回调用户自定义的listener。如果操作成功将触发已绑定的event，例如Change，ChildAdded等。
 该函数是线程安全的，将阻塞其他的本地数据操作。
 
@@ -226,6 +162,7 @@ ref.child("dota/heros/SF").setValue(hero, new CompletionListener(){
 ----
 
 ### public Wilddog push()
+
 在当前Path进行新添加操作，将在本地为新数据生成一个唯一ID，该ID将作为当前path的子节点，且作为新数据的父节点。同时同步到云端。如果操作成功将触发已绑定的event。最后将返回新ID的引用对象Wilddog。
 
 #### Return
@@ -250,6 +187,7 @@ ref.child("heros").push().setValue(hero);
 ----
 
 ### public void updateChildren(Map value)
+
 在当前Path进行更新操作，value与已有的数据做合并，并将交集部分替换为最新的数据。
 该函数是线程安全的，将阻塞其他的本地数据操作。
 
@@ -274,6 +212,7 @@ ref.child("a/b").updateChildren(children);
 ----
 
 ### public void updateChildren(Map children, CompletionListener listener)
+
 在当前Path进行更新操作，value与已有的数据做合并，并将交集部分替换为最新的数据。
 
 #### Param
@@ -308,6 +247,7 @@ ref.child("a/b").updateChildren(children, handler);
 ----
 
 ### public void removeValue()
+
 在当前Path进行删除操作，并同步到云端。如果操作成功将触发已绑定的event，例如Change，ChildRemoved。
 该函数是线程安全的，将阻塞其他的本地数据操作。
 
@@ -323,6 +263,7 @@ ref.child("a/b").removeValue();
 ----
 
 ### public void removeValue(CompletionListener listener)
+
 在当前Path进行删除操作，并同步到云端，操作结果将回调用户自定义的handler。如果操作成功将触发已绑定的event，例如Change，ChildRemoved。
 该函数是线程安全的，将阻塞其他的本地数据操作。
 
@@ -352,6 +293,7 @@ ref.child("a/b").removeValue(handler);
 
 
 ### public void  authWithPassword(String email, String password, AuthHandler handler)
+
 wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。 密码认证是使用用户的邮箱和密码，这是最简单的认证方式。认证失败后调用用户自定义failure方法， 认证成功调用success方法， 包含参数auth对象。
 
 #### Param
@@ -398,6 +340,7 @@ ref.authWithPassword("demo@wilddog.com", "demo1234", handler);
 ----
 
 ### public void  authWithOAuthToken(OauthEnum provider, String token, AuthHandler handler)
+
 wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。oauth token认证是第三方oauth的token登录app。认证失败后调用用户自定义failure方法， 认证成功调用success方法， 包含参数auth对象。
 
 #### Param
@@ -444,6 +387,7 @@ ref.authWithOAuthToken(OauthEnum.WEIBO, "2.00Q4iPUBuXlzeC0cXXXXXXXXXXXXXX", hand
 ----
 
 ### public void  authWithCustomToken(String token,  AuthHandler handler)
+
 wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。oauth token认证是第三方oauth的token登录app。认证失败后调用用户自定义failure方法， 认证成功调用success方法， 包含参数auth对象。
 
 #### Param
@@ -499,6 +443,7 @@ ref.authWithCustomToken("2.00Q4iPUBuXlzeC0cXXXXXXXXXXXXXX", handler);
 ----
 
 ### public void  createUser(String email, String password, AuthHandler handler)
+
 wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。创建密码认证用户， 创建用户成功后自动认证。
 
 #### Param
@@ -545,6 +490,7 @@ ref.createUser("demo@wilddog.com", "demo1234", handler);
 ----
 
 ### public void changeEmail(String oldEmail, String newEmail, String password, ResultHandler handler)
+
 为app 用户提供修改email。
 
 #### Param
@@ -582,6 +528,7 @@ ref.createUser("demo@wilddog.com", "demo-new@wilddog.com", "demo1234", handler);
 ----
 
 ### public void changePassword(String email, String oldPassword, String newPassword, ResultHandler handler)
+
 为app 用户提供修改email。
 
 #### Param
@@ -619,6 +566,7 @@ ref.changePassword("demo@wilddog.com", "demo1234", "demo5678", handler);
 ----
 
 ### public void removeUser(String email, String password, ResultHandler handler)
+
 为app提供删除用户的功能。
 
 #### Param
@@ -655,6 +603,7 @@ ref.removeUser("demo@wilddog.com", "demo1234", handler);
 ----
 
 ### public void resetPassword(String email, ResultHandler handler)
+
 重置app密码。
 
 #### Param
@@ -688,8 +637,6 @@ Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
 ResultHandler handler = new MyResultHandler ();
 ref.resetPassword("demo@wilddog.com", handler);
 ```
-
-
 
 ## Snapshot
 EventHandler触发时，作为参数传递给用户。如果是Changed、ChildChanged、ChildAdded接口获得最新的数据；如果是ChildRemoved接口获得被删除的数据。
@@ -770,3 +717,156 @@ EventHandler触发时，作为参数传递给用户。如果是Changed、ChildCh
 
 #### Return
 `Wilddog` 节点引用
+
+
+## Query
+
+### public ValueEventListener addValueEventListener(ValueEventListener listener)
+
+在当前path上绑定监听事件，监听该节点数据的变化。用户需要实现ValueEventListener接口。
+
+#### Param
+* listener `ValueEventListener`
+listener将监听Change事件， `onDataChange()` 监听节点数据或子树的变化，参数snapshot为变化后的最新数据。
+
+#### Return
+`ValueEventListener` 用于删除时使用。
+
+#### Sample
+
+```java
+Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
+ValueEventListener listener = ref.addValueEventListener(new ValueEventListener(){
+	 public void onDataChange(DataSnapshot snapshot) {
+		 System.out.println(snapshot.getValue());
+	 }
+
+     public void onCancelled(WilddogError error) {
+	     if(error != null){
+		     System.out.println(error.getCode());
+	     }
+     }
+});
+
+```
+
+----
+
+### public ChildEventListener addChildEventListener(ChildEventListener listener)
+
+在当前path上绑定监听事件，监听该节点的子节点的数据的变化。用户需要实现ChildEventListener接口。
+
+#### Param
+* listener `ChildEventListener`
+> `onChildAdded()` 监听下一级添加新的子节点，参数snapshot为新的子节点的数据。
+> `onChildRemoved()` 监听下一级被删除的子节点，参数snapshot为被删除的子节点数据。
+> `onChildChanged()` 监听下一级被修改的子节点，子节点的下级节点中发生任意变化都将触发该事件，参数snapshot为修改后的子节点数据。
+
+#### Return
+`ChildEventListener` 用于删除时使用。
+
+#### Sample
+```java
+Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
+ChildEventListener listener = ref.addChildEventListener(new ChildEventListener(){
+	public void onChildAdded(DataSnapshot snapshot){
+		System.out.println(snapshot.getValue());
+	}
+	
+	public void onChildChanged(DataSnapshot snapshot){
+		System.out.println(snapshot.getValue());
+	}
+
+	public void onChildRemoved(DataSnapshot snapshot){
+		System.out.println(snapshot.getValue());
+	}
+
+	public void onCancelled(WilddogError error){
+		if(error != null){
+		    System.out.println(error.getCode());
+	    }
+	}
+});
+```
+
+----
+
+### public void removeEventListener(ValueEventListener listener)
+
+取消已绑定的监听事件。
+#### Param
+* listener `ChildEventListener` 监听事件引用。
+
+----
+
+### public Query startAt()
+
+范围查询，配合orderBy*方式使用。表示起始的value值，大于某一指定的value。
+
+#### Param
+* value 类型为String double boolean
+
+----
+
+### public Query endAt()
+
+范围查询，配合orderBy*方式使用。表示终止的value值，小于某一指定的value。
+
+#### Param
+* value 类型为String double boolean
+
+----
+### public Query equalTo()
+
+精确匹配，配合orderBy*方式使用。表示等于某一指定的value。
+
+#### Param
+* value 类型为String double boolean
+
+----
+
+### public Query limitToFirst(int count)
+
+限制查询，配合orderBy*方式使用。表示从开始取固定条目数量。
+
+#### Param
+* count int 数量限制
+
+----
+
+### public Query limitToLast(int count)
+
+限制查询，配合orderBy*方式使用。表示取固定条目数量到结尾。
+
+#### Param
+* count int 数量限制
+
+----
+
+### public Query orderByChild(String childName)
+
+数据对象包含公有的子节点属性进行排序。
+
+#### Param
+* childName String 子节点名称
+
+----
+
+### public Query orderByKey()
+
+按照节点key名称排序。
+
+----
+
+### public Query orderByValue()
+
+按照节点value排序。
+
+----
+
+### public Query orderByPriority()
+
+按照节点的优先级排序。
+
+----
+

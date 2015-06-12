@@ -15,9 +15,10 @@ Sort: 1
 
 
 > **Download**
-> 你可以在这下载最新的Wilddog SDK：
-> [Download Wilddog Android SDK](https://cdn.wilddog.com/android/client/current/wilddog-android-0.2.0-SNAPSHOT.jar)
-
+> 你可以在这下载最新的Wilddog Java SDK：
+> [Download Wilddog Java SDK](https://cdn.wilddog.com/java/client/current/wilddog-client-jvm.jar)
+> 下载配套示例代码
+>  [Download Wilddog Java Sample](https://cdn.wilddog.com/java/sample/current/wilddog-sample.tar.gz)
 
 
 ----
@@ -33,7 +34,7 @@ Wilddog client = new Wilddog("https://<appId>.wilddogio.com/");
 Wilddog提供了数据读写API，通过`setValue()` `updateChildren()` `push()` `removeValue()` 修改对应节点的数据；通过`addValueEventListener()`立即读取数据，并监听某一节点数据的持续变化。
 
 ### 读数据
-使用`addValueEventListener()`方法附加一个event监听，你需要实现`ValueEventListener`接口，作为`addValueEventListener()`的参数，用来处理接受到的最新的数据变化。
+使用`addValueEventListener()`方法附加一个event监听，你需要实现`ValueEventListener`接口，作为`addValueEventListener()`的参数，用来处理接收到的最新的数据变化。
 
 ```Java
 client.addValueEventListener(new ValueEventListener(){
@@ -51,7 +52,7 @@ client.addValueEventListener(new ValueEventListener(){
 
 
 ### 写数据
-一旦我们有一个Wilddog引用，我们可以使用setValue给该节点设置值，值的类型为`String` `Boolean` `Number` `Map<String, Object>` 或者符合JavaBean规范的实体。
+我们拥有一个Wilddog引用以后，可以使用setValue给该节点设置值，值的类型为`String` `Boolean` `Number` `Map<String, Object>` 或者符合JavaBean规范的实体。
 ```Java
 client.setValue("hello world!!!");
 ```
