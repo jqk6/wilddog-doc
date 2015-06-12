@@ -9,16 +9,16 @@ Sort : 1
 
 通过wilddog账号你可以远程管理你的硬件设备。
 
-###二、下载 [**Wilddog CoAP SDK** ](https://github.com/WildDogTeam/wilddog_client_coap)
+###二、获取Wilddog CoAP SDK
 
 Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接口即可把Wilddog CoAP SDK移植到你的开发板上。
-
-	int wilddog_gethostbyname(wilddog_address_t* addr,char* host);
+```c
+	int wilddog_gethostbyname(Wilddog_Address_T* addr,char* host);
 	int wilddog_openSocket(int* socketId);
 	int wilddog_closeSocket(int socketId);
-	int wilddog_send(int socketId,wilddog_address_t*,void* tosend,size_t tosendLength);
-	int wilddog_receive(int socketId,wilddog_address_t*,void* toreceive,size_t toreceiveLength);
-
+	int wilddog_send(int socketId,Wilddog_Address_T*,void* tosend,s32 tosendLength);
+	int wilddog_receive(int socketId,Wilddog_Address_T*,void* toreceive,s32 toreceiveLength, s32 timeout);
+```
 ###三、往你的Wilddog云添加设备
 用你的账号登陆[**野狗云**](https://www.wilddog.com/account/login)添加应用，你会得到一个属于你应用的Url(如`https://uid.wilddogio.com/`);
 
@@ -33,19 +33,20 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 ###四、linux端
 在linux端对你Wilddog云上应用的设备进行获取、设置、订阅。
 
-1、进入**wilddog_coap_sdk**，编译生成`libwilddog.a`库：    
+
+1. 进入**wilddog\_coap\_sdk**，编译生成`libwilddog.a`库：    
        
-	  ~/git_code/wilddog_client_coap/sample/posix$ make 
-	  ~/git_code/wilddog_client_coap/sample/posix$ ls build/
-		libwilddog.a  ports  src
+		$ make 
+		$ ls lib/
+		libwilddog.a
 	
-2、编译`sample`，生成`wilddog_linux_client`可执行文件，利用该文件可以对的led进行`get/set/observe`：    
+2. 编译`example`，生成`wilddog_linux_client`可执行文件，利用该文件可以对led进行`get/set/observe`：    
 
-	~/git_code/wilddog_client_coap/sample/posix$ make sample
-	~/git_code/wilddog_client_coap/sample/posix$ ls
-	 build  Makefile   wilddog_linux_client.c wilddog_linux_client
+		$ make example
+		$ ls bin/
+		wilddog_linux_client
 
-2.1、 获取你的Wilddog云应用设备的数据：
+	2.1. 获取你的Wilddog云应用设备的数据：
 
 	$ ./wilddog_linux_client get https://uid.wilddogio.com/
 	......
