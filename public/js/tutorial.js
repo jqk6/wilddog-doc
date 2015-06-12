@@ -200,10 +200,17 @@
      editor.setTheme("ace/theme/eclipse");
      editor.getSession().setMode("ace/mode/html");
      editor.getSession().setUseWorker(false);
+     editor.setFontSize('16px');
      editor.setOptions({
          maxLines: Infinity
      });
-
+     editor.find('function', {
+         backwards: false,
+         wrap: false,
+         caseSensitive: false,
+         wholeWord: false,
+         regExp: false
+     });
      wd.tutorial.editor = editor;
 
      $("#advanceButton").click(function (e) {
