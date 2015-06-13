@@ -3,7 +3,7 @@ Title: API文档
 Sort: 3
 */
 
-
+# Wilddog
 
 ## new Wilddog(wilddogUrl)
 初始化一个Wilddog客户端
@@ -25,7 +25,7 @@ ref = new Wilddog("http://weather-control.wilddogio.com/city/Beijing");
 
 ----
 
-### authWithCustomToken(token,oncomplete)
+## authWithCustomToken(token,oncomplete)
 使用一个合法的token进行登录
 
 #### params
@@ -51,7 +51,7 @@ ref.authWithCustomToken("AUTH_TOKEN", function(error, authData) {
 
 ----
 
-### authAnonymously(oncomplete)
+## authAnonymously(oncomplete)
 
 匿名认证Wilddog
 
@@ -107,7 +107,7 @@ ref.authWithPassword({email:"Loki@asgard.com",password:"examplepassword"},
 ```
 ----
 
-### authWithOAuthPopup(provider,oncomplete);
+## authWithOAuthPopup(provider,oncomplete);
 通过oauth弹框流程认证
 调用`authWithOAuthPopup` ,页面将弹出OAuth认证页,用户在页面进行认证操作,此过程中的任何数据都不会经过第三方 (包括WILDDOG 服务),而且全部采用https 访问,因此安全可靠.当认证结束后弹框页自动关闭,wilddog 客户端认证完毕.
 
@@ -139,7 +139,7 @@ ref.authWithOAuthPopup("weixin",function(err,auth){
 
 ----
 
-### authWithOAuthRedirect(provider,oncomplete)
+## authWithOAuthRedirect(provider,oncomplete)
 通过OAuth跳转流程认证
 调用`authWithOAuthPopup` ,页面跳转到 OAuth认证也,用户在页面进行认证操作,此过程中的任何数据都不会经过第三方 (包括WILDDOG 服务),而且全部采用https 访问,因此安全可靠.当认证结束页面跳转回最初页面,认证结束
 
@@ -168,7 +168,7 @@ ref.authWithOAuthPopup("weixin",function(err,auth){
 
 ----
 
-### authWithOAuthToken(provider,accessToken,oncomplete)
+## authWithOAuthToken(provider,accessToken,oncomplete)
 通过accessToken直接认证
 如果用户已经拿到accessToken,可以通过此接口直接进行认证
 
@@ -198,7 +198,7 @@ ref.authWithOAuthToken("weixin", "<ACCESS-TOKEN>", function(error, authData) {
 
 ----
 
-### getAuth()
+## getAuth()
 
 同步返回当前Auth状态
 
@@ -224,7 +224,7 @@ if (authData) {
 
 ```
 
-### onAuth(onComplete,[context])
+## onAuth(onComplete,[context])
 监听客户端认证状态改变
 
 #### params
@@ -250,7 +250,7 @@ ref.onAuth(function(authData) {
 
 ```
 
-### offAuth(onComplete,[context])
+## offAuth(onComplete,[context])
 
 取消监听客户端认证状态，是`onAuth`的逆操作
 
@@ -285,7 +285,7 @@ ref.offAuth(onAuthCallback);
 
 ----
 
-### unauth()
+## unauth()
 
 取消认证
 
@@ -323,7 +323,9 @@ child_ref = ref.child('Beijing');
 
 
 
-### parent()
+## parent()
+
+返回父节点的引用
 
 #### return
 
@@ -336,7 +338,7 @@ var parent_ref = ref.parent();
 
 ----
 
-### root()
+## root()
 
 获得wilddog根结点的引用
 
@@ -356,7 +358,7 @@ root_ref = ref.root('Beijing');
 
 
 
-### key()
+## key()
 
 获取当前路径的最后一部分
 
@@ -376,7 +378,7 @@ var key = ref.key();
 
 
 
-### toString()
+## toString()
 获取当前节点的url
 
 #### return
@@ -393,7 +395,7 @@ var url = ref.toString();
 ----
 
 
-### set(value,[oncomplete])
+## set(value,[oncomplete])
 设置一个节点的值.并且同步到云端
 如果`value != null` ,当前数据会被value覆盖.如果中间路径不存在,Wilddog 会自动将中间路径补全.如果`value == null`,删除当前节点,效果等同于 remove
 
@@ -420,7 +422,7 @@ ref.set({"temp":10,"pm2.5":500});
 
 ----
 
-### update(value,[onComplete])
+## update(value,[onComplete])
 
 将输入对象的子节点合并到当前对象中
 
@@ -448,7 +450,7 @@ ref.update({"temp":10,"pm2.5":500});
 
 
 
-### remove([onComplete])
+## remove([onComplete])
 
 删除一个节点,效果等同于 `set(null,[onComplete])`,
 如果父级节点只有当前节点一个子节点, 会递归删除父级节点
@@ -473,7 +475,7 @@ ref.remove()
 ----
 
 
-### push(value,[oncomplete])
+## push(value,[oncomplete])
 
 在当前节点下新增一个节点,节点的`key` 自动生成,节点的数据是传入的参数 value
 
@@ -503,7 +505,7 @@ var url = newKey.url()
 --------
 
 
-### setWithPriority(value,priority,[oncomplete])
+## setWithPriority(value,priority,[oncomplete])
 把数据写到当前位置，类似set,不同之处是需要指定一个优先级。默认排序按照优先级排序。
 
 #### params
@@ -540,7 +542,7 @@ ref.setWithPriority(user,100)
 
 ----
 
-### setPriority(priority,[onComplete])
+## setPriority(priority,[onComplete])
 
 设置当前数据的优先级数值，这个数值可以是`Number`,也可以是	`String` 。用来改当前节点在同一父节点下所有子节点的排序顺序。这个排序会影响Snapshot.forEach()的顺序，同样也会影响`child_added`和`child_moved`事件中`prevChildName`参数。
 
@@ -574,7 +576,7 @@ ref.setPriority(1000);
 
 ```
 
-### transaction(updateFunction,[onComplete])
+## transaction(updateFunction,[onComplete])
 
 原子操作当前节点的数据。原子操作不同于set(),set操作是暴力的覆盖更新数据，不管数据在改变之前的值，而`transaction`操作是将当前值准备的更新为新值。确保不会跟其他客户端修改冲突。
 
@@ -659,7 +661,7 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 ----
 
 
-### changePassword(credentials,callback)
+## changePassword(credentials,callback)
 修改用户密码
 `WILDDOG` 平台托管的用户可以通过`changePassword` 修改密码
 
@@ -717,7 +719,7 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 
 -----
 
-### Wilddog.goOnline()
+## Wilddog.goOnline()
 
 手动改变连接状态，开启自动重连
 
@@ -731,7 +733,7 @@ Wilddog.goOnline(); // All local Wildodg instances automatically reconnect
 
 -----
 
-### Wilddog.goOffline()
+## Wilddog.goOffline()
 
 手动断开连接，关闭自动重连
 
@@ -746,9 +748,9 @@ Wilddog.goOffline(); // All local Wilddog instances are disconnected
 
 
 
-## Query
+# Query
 
-### on(type,callback,[cancelCallback]，[context])
+## on(type,callback,[cancelCallback]，[context])
 监听某个事件,注册回调函数.
 #### params
 
@@ -786,7 +788,7 @@ ref.on('child_added',function(snapshot){
 ```
 --------
 
-### off([type],[callback],[context])
+## off([type],[callback],[context])
 
 取消监听事件，取消 `on()` 注册的回调函数。
 
@@ -823,7 +825,7 @@ firebaseRef.off('value', onValueChange);
 
 ------
 
-### once(type,callback,[cancelCallbak],[context])
+## once(type,callback,[cancelCallbak],[context])
 
 同on 类似,不同之处在于 once只被执行一次
 
@@ -864,7 +866,7 @@ ref.once('child_added',function(snapshot){
 ----
 
 
-### orderByChild(key)
+## orderByChild(key)
 
 产生一个新`Query`对象，按照指定的子节点的值进行排序
 
@@ -888,7 +890,7 @@ ref.orderByChild("height").on("child_added",function(snapshot){
 
 ----
 
-### orderByKey()
+## orderByKey()
 
 产生一个新`Query`对象，按照key进行排序。
 
@@ -907,7 +909,7 @@ ref.orderByKey().on("child_added",function(snapshot){
 
 ----
 
-### orderByValue()
+## orderByValue()
 
 产生一个新`Query`对象，按照子节点的值进行排序
 
@@ -928,7 +930,7 @@ scoresRef.orderByValue().limitToLast(3).on("value", function(snapshot) {
 
 ----
 
-### orderByPriority()
+## orderByPriority()
 
 产生一个新`Query`对象，按照优先级排序
 
@@ -944,7 +946,7 @@ ref.orderByPriority().on("child_added", function(snapshot) {
 
 ----
 
-### startAt(value,[key])
+## startAt(value,[key])
 
 创建一个 `Query` 对象，指定一个起点。
 
@@ -958,6 +960,11 @@ ref.orderByPriority().on("child_added", function(snapshot) {
 
 起始子节点的key，只有在 `orderByPriority()`时有效
 
+
+#### return
+
+新生成的`Query` 对象
+
 ```js
 
 var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
@@ -970,7 +977,7 @@ ref.orderByKey().startAt('jack').on("child_added",function(snapshot){
 
 ----
 
-### endAt()
+## endAt(value,[key])
 
 
 创建一个 `Query` 对象，指定一个结束点。
@@ -986,28 +993,125 @@ ref.orderByKey().startAt('jack').on("child_added",function(snapshot){
 起始子节点的key，只有在 `orderByPriority()`时有效
 
 
+#### return
+
+新生成的`Query` 对象
+
+
+```js
+
+var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
+ref.orderByKey().endAt('jack').on("child_added",function(snapshot){
+  console.log(snapshot.key());
+});
+
+
+```
+
+----
+
+## equalTo(value,[key])
+
+创建一个 `Query` 对象,指定一个值，子节点必须与之匹配。
+
+#### params
+
+* value `String|Number|Null|Boolean` 
+
+需要匹配的数值，类型取决于这个查询用到的 `orderBy*()`函数。如果与`orderByKey()` 组合的话，`value` 一定时一个`String`
+
+* key `String`
+
+
+#### return
+
+新生成的`Query` 对象
+
+
+
+```js
+
+var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
+ref.orderByKey().equalTo('jack').on("child_added",function(snapshot){
+  console.log(snapshot.key());
+});
+
+
+```
+
+----
+
+## limitToFirst(limit)
+
+创建一个新`Query`对象，包含从从头（或startAt）开始特定数量的子节点
+
+#### params
+
+* limit `Number`
+
+这次查询能够包含的子节点的最大数量
+
+#### return
+
+新生成的`Query` 对象
+
+```js
+
+var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
+ref.orderByChild("height").limitToFirst(10).on("child_added",function(snapshot){
+  console.log(snapshot.key());
+});
+
+
+```
 
 
 ----
 
-### equalTo()
+## limitToLast(limit)
+
+创建一个新`Query`对象，包含从尾（或EndAt）开始特定数量的子节点
+
+#### params
+
+* limit `Number`
+
+这次查询能够包含的子节点的最大数量
+
+
+#### return
+
+新生成的`Query` 对象
 
 ----
 
-### limitToFirst()
+```js
 
-----
-
-### limitToLast()
-
-----
-
-### ref()
+var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
+ref.orderByChild("height").limitToLast(10).on("child_added",function(snapshot){
+  console.log(snapshot.key());
+});
 
 
+```
 
+## ref()
 
+获取这个查询的 `Wilddog` 引用
 
+#### return
+
+`Wilddog` 引用
+```js
+
+var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
+var query=ref.orderByChild("height").limitToLast(10).on("child_added",function(snapshot){
+  console.log(snapshot.key());
+});
+
+var locationRef=query.ref();//ref===locationRef
+
+```
 
 
 # Snapshot
