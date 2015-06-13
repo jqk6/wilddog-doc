@@ -18,7 +18,7 @@ Sort : 2
 
 	#应用层协议类型，目前只支持coap
 	APP_PROTO_TYPE:=coap
-	#加密类型，目前支持无加密(nosec)和dtls(仅linux端，wiced端仍在调试中)
+	#加密类型，目前只支持无加密(nosec)
 	APP_SEC_TYPE:=nosec
 	#平台类型，posix或wiced
 	PORT_TYPE：=wiced
@@ -35,7 +35,7 @@ Sort : 2
 	#define WILDDOG_RECEIVE_TIMEOUT 100 //每次接收网络数据包的最大等待时间(ms)
 ```
 ##2.数据结构
-互联网上的资源通过URL(URL=Host+path)来访问，浏览器通过解析URL的Host获取网站的IP，根据Path定位该网站内的资源，之后则根据Http协议解析请求是GET/PUT/DELETE/POST方法，并对资源进行操作。Wilddog_COAP_SDK的设计目标是使你通过URL即可访问和操作你的设备或传感器，同时设备和传感器通过URL访问和操作别的设备或传感器实现M2M。在云端你的设备数据是通过Json格式表示，在嵌入式端则通过树形的节点表示。
+互联网上的资源通过URL(URL=Host+path)来访问，浏览器通过解析`URL`的`Host`获取网站的IP，根据`Path`定位该网站内的资源，之后则根据Http协议解析请求是GET/PUT/DELETE/POST方法，并对资源进行操作。`Wilddog_COAP_SDK`的设计目标是使你通过`URL`即可访问和操作你的设备或传感器，同时设备和传感器通过`URL`访问和操作别的设备或传感器实现M2M。在云端你的设备数据是通过Json格式表示，在嵌入式端则通过树形的节点表示。
 ### 2.1了解云端数据
 当你在`wilddogio.com`云端添加一个名为`myapp`的应用时，你会得到一颗名为`myapp.wilddogio.com`的树。你可以通过`myapp.wilddogio.com`找到这棵树，只是这棵树刚发芽没有任何的枝叶，往你的应用`myapp`添加你的设备使这棵树开枝散叶。
 
@@ -58,7 +58,8 @@ Sort : 2
 	    }
 	}
 每个温度传感器均有独一无二的Url,通过该Url可以访问和操作你的传感器：
-    east：myapp.wilddogio.com/temperature/mydevice/east 
+
+	east：myapp.wilddogio.com/temperature/mydevice/east 
 	south：myapp.wilddogio.com/temperature/mydevice/south 
 	west：myapp.wilddogio.com/temperature/mydevice/west 
 	north：myapp.wilddogio.com/temperature/mydevice/north 
@@ -72,7 +73,8 @@ Sort : 2
 	/temperature/mydevice/west
 	/temperature/mydevice/north
 
-构建该节点的对应的接口参考C-API，和sdk的`./sample/posix/demo.c`
+构建该节点的对应的接口参考C-API，和sdk的`./sample/posix/demo.c`. 
+
 构建好该节点结构就可以发出URL请求，更新各个传感器的值，或者订阅各个传感器。
 
 服务器传来的数据也会转换成`Wilddog_Node_T`格式的节点树，并传递给用户的回调函数, 在`Wilddog_Node_T`格式中，数据的组织格式如下:
@@ -90,11 +92,11 @@ Sort : 2
 使用App的域名，建立一个Wilddog client连接。
 
 ```c
-	unsigned char* url="coap://led.wilddogio.com/led1";
+	unsigned char* url="coap://myapp.wilddogio.com/temperature/mydevice/east";
 	Wilddog_T client=wilddog_new(url);
 ```
 
-成功返回的client定位到`/led1` 这个数据节点上。此时并没有开始同步数据。多次调用`wilddog_new()`，可以通过传入不同的URI来定位不同的数据节点。定位完节点，获得节点的id `client` ，可以对该节点进行操作。
+成功返回的client定位到`/temperature/mydevice/east` 这个数据节点上。此时并没有开始同步数据。多次调用`wilddog_new()`，可以通过传入不同的URI来定位不同的数据节点。定位完节点，获得节点的id ，可以对该节点进行操作。
 
 ## 4. 发送请求
 请求包括以下几种：
