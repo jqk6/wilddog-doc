@@ -33,8 +33,7 @@ Wilddog云存储使用树形数据结构，替代古老的数据table的方式�
 ```
 
 ### 节点名称
-每个节点名称作为key，在同一父节点下值唯一。path作为节点的全名称，全局唯一。全名称有最大长度限制，小于等于1024Byte。节点名中不能包含一些特殊ASCII 字符，在ASCII范围内只支持 `0-1 a-z A-Z` 和 `_` `-` `:`三个符号，ASCII范围外支持UTF-8编码集。
-节点key一旦创建是不能修改的。
+每个节点名称作为key，在同一父节点下值唯一。path作为节点的全名称，全局唯一。全名称有最大长度限制，小于等于1024Byte。节点名中不能包含一些特殊ASCII 字符，在ASCII范围内只支持 `0-1 a-z A-Z` 和 `_` `-` `:`三个符号，ASCII范围外支持UTF-8编码集。节点key一旦创建是不能修改的。
 
 ### 节点Value
 节点值支持 `String` `Boolean` `Number` 和 `null` 。当数据为 `null` 的时候表示数据不存在（或者删除该节点）。
@@ -58,7 +57,7 @@ Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 
 Wilddog client = new Wilddog('https://<appId>.wilddogio.com/test/data');
 ```
 该引用的 `URI` 为 `/test/data`，也是数据节点的 `path` 
-因此，每个数据都有统一资源定位，通过浏览器访问地址 `https://<appId>.wilddogio.com/test/data.json`，可以获取该节点JSON数据；如果在登录状态可以直接访问 `https://<appId>.wilddogio.com/test/data`，进入该节点的数据预览页面。
+因此，每个数据都有统一资源定位，通过浏览器访问地址 `https://<appId>.wilddogio.com/test/data.json`，可以获取该节点JSON数据；如果在登录状态可以在浏览器中直接输入URL地址 `https://<appId>.wilddogio.com/test/data`，进入该节点的数据预览页面。
 
 ## 2 建立连接
 
@@ -268,7 +267,7 @@ users.put("Jason", jason);
 usersRef.setValue(users);
 ```
 
-## updateChildren()
+### updateChildren()
 如果你想修改或新建，一个或多个子节点时，又不想覆盖其他子节点，可以使用`updateChildren()` 方法。
 
 ```Java
@@ -299,7 +298,7 @@ System.out.println("create new key is : " + newRef.getKey());
 
 `push()` 成功后返回新的ID的Ref，可以使用`newRef.getKey()` 显示新的ID值。
 
-## removeValue()
+### removeValue()
 
 错误发布了一篇Blog，需要为用户提供一个删除的途径，那么在wildblog App中可以使用`removeValue()`。
 
@@ -316,7 +315,233 @@ newRef.setValue(blog);
 newRef.removeValue();
 ```
 
-## 使用Auth登录
+## 5 查询数据
+很多情况下，我们需要按条件查询部分数据。Wilddog提供Query功能，可以先对数据进行排序，如`orderByChild()`，`orderByKey()`， `orderByValue()` ，`orderByPriority()` ；再通过条件函数来筛选数据，如`limitToFirst()`，`limitToLast()`， `startAt()`， `endAt()`， `equalTo()` 。
+
+我们Wilddog同学认为野生动物是最cool的，我们使用[Wilddog的Zoo](https://zoo.wilddogio.com)数据库来演示Query功能。下面是Zoo的数据片段：
+```JSON
+{
+  "SnowLeopard": {
+    "shoulderHeight" : 50,
+    "length" : 120,
+    "tailLength" : 90,
+    "weight": 70
+  },
+  "Jaguar": {
+    "shoulderHeight" : 100,
+    "length" : 250,
+    "tailLength" : 80, 
+    "weight" : 170
+  },
+  "Wilddog": {
+    "shoulderHeight" : 60,
+    "length" : 110,
+    "tailLength" : 30, 
+    "weight" : 30
+  }
+}
+```
+我们可以通过四种方式排序，按照`key`，`child key`，`value` 和 `priority`。每一次query都会依赖一种排序方式，默认按照`priority`排序，每种排序详解如下：
+
+### `child key` 排序
+某一级数据对象拥有一个共同的子节点，可以使用接口`orderByCHild()`按照这个子节点的value排序。例如，现在我们查看所有野生动物的肩高情况，
+```Java
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
+Query query = ref.orderByChild("shoulderHeight");
+
+query.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        Map<String, Object> value = (Map<String, Object>)snapshot.getValue();
+        System.out.println(snapshot.getKey() + ", shoulder height is " + value.get("shoulderHeight") + " cm ");
+    }
+    // ....
+});
+```
+输出结果：
+```Java
+SnowLeopard, shoulder height is 50 cm
+Wilddog, shoulder height is 60 cm
+Jaguar, shoulder height is 100 cm
+```
+如果有一个数据对象没有包含指定的`child key`，其value按照null处理。这意味这个数据对象将排到最前面，详细的`oreder by` 规则可以参照[数据排序](https://z.wilddog.com/android/guide#6-)。
+query一次只能选用一个orederBy*。同一个query上多次调用orderBy*将抛出一个异常。
+
+### `key` 排序
+我们也可以按照节点的key name的字母顺排序，下面的示例使用字母序排列动物们：
+```Java
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
+Query query = ref.orderByKey();
+
+query.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        System.out.println(snapshot.getKey());
+    }
+    // ....
+});
+```
+输出结果：
+```Java
+Jaguar
+SnowLeopard
+Wilddog
+```
+
+### `value` 排序
+我们可以直接通过节点的值进行排序，使用orderByValue()方法。我们为野生动物们举行了一场睡觉运动会，记录了它们的成绩，我们可以为它们做一个排行榜，数据如下：
+```Java
+{
+  "records": {
+    "Wilddog" : 480,
+    "SnowLeopard" : 320,
+    "Jaguar" : 610,
+	"BrownBear":370,
+	"Porcupine" : 700,
+	"Hyena" : 260,
+	"BengalWhiteTiger" : 530
+  }
+}
+```
+```Java
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/records");
+Query query = ref.orderByValue();
+
+query.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+      System.out.println("The " + snapshot.getKey() + "  has been slept " + snapshot.getValue() + " hours");
+    }
+    // ....
+});
+```
+输出结果：
+```Java
+The Hyena has been slept for 260 hours
+The SnowLeopard has been slept for 320 hours
+The BrownBear has been slept for 370 hours
+The Wilddog has been slept for 480 hours
+The BengalWhiteTiger has been slept for 530 hours
+The Jaguar has been slept for 610 hours
+The Porcupine has been slept for 700 hours
+```
+
+### `priority` 排序
+如果对某一层数据对象使用过`setPriority`之后，可以使用`orderByPrioriy()`进行排序，具体排序规则可以查看[数据排序](https://z.wilddog.com/android/guide#6-)。
+
+## 6 数据排序
+本节讲述在Wilddog中数据是如何排序的，以及如何读取有序的数据。
+
+### orderByChild
+当使用`orderByChild()`时，包含指定字段的数据将会按照以下规则排序：
+1. 指定字段的值为`null`的子节点数据排在最前边。
+2. 接下来是指定字段的值为`false`的子节点数据。如果存在多个子节点该字段的值为`false`，那么这些子节点根据节点名按字典序排列。
+3.  接下来是指定字段的值为`true`的子节点数据。如果存在多个子节点该字段的值为`true`，那么这些子节点根据节点名按字典序排列。
+4. 接下来是指定字段的值为数值类型的子节点数据，按照升序排列。如果存在多个子节点该指定字段的值相同，那么这些子节点数据按照节点名排序。
+5. 接下来是字符串类型的值，按照字典序升序排列。如果存在多个子节点该指定字段的值相同，那么这些子节点数据按照节点名排序。
+6. 最后是对象类型的值，按照节点名升序排列。
+
+### orderByKey
+当使用`orderByKey()`对数据进行排序时，数据将会按照下面的规则，以字段名升序排列返回。注意，节点名只能是字符串类型。
+1. 节点名能转换为32-bit整数的子节点优先，按数值型升序排列。
+2. 接下来是字符串类型的节点名，按字典序排列。
+
+### orderByValue
+当使用`orderByValue()`时，子节点将会按照它们的值进行排序。排序的规则与`orderByChild()`相同，唯一的区别是使用的是本节点的值，而不是节点下指定字段的值。
+
+### orderByPriority
+当使用`orderByPriority()`对数据进行排序时，子节点数据将按照优先级和字段名进行排序。注意，优先级的值只能是数值型或字符串。
+1. 没有优先级的数据（默认）优先。
+2. 接下来是优先级为数值型的子节点。它们按照优先级数值排序，由小到大。
+3. 接下来是优先级为字符串的子节点。它们按照优先级的字典序排列。
+4. 当多个子节点拥有相同的优先级时（包括没有优先级的情况），它们按照节点名排序。节点名可以转换为数值类型的子节点优先（数值排序），接下来是剩余的子节点（字典序排列）。
+
+
+## 7 复杂查询
+我们已经知道如何将数据进行排序，然后通过下面的描述，我们将学会如何构建更加复杂的条件限制查询。
+
+### limit 查询
+我们要找出最肥的两只动物，对他们进行减肥训练。
+```Java
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
+Query queryRef = ref.orderByChild("weight").limitToLast(2);
+
+queryRef.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+     Map<String, Object> value = (Map<String, Object>)snapshot.getValue();
+        System.out.println(snapshot.getKey() + "'s weight is " + value.get("weight"));
+    }
+    // ....
+});
+```
+`orederByChild()`按照value的升序排序，所以最肥的在最后面，因此在配合使用`limitToLast(2)`取最后两条数据。使用`limitToFirst(2)`将获得重量最轻的前俩个。
+本示例中`onChildAdded()`将触发两次，除非总数据量不足2个。
+当使用`limitToLast(2)`后，如果新加入一只更肥的动物，将会推送给client，将原来两只中较轻的一只移除，最后client本地只有两只动物。
+
+如果我们想要创建一个睡觉运动会前三动物的排行榜。我们可以这么做：
+```Java
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/records");
+Query query = ref.orderByValue().limitToLast(3);
+
+query.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+       System.out.println("The " + snapshot.getKey() + "  has been slept " + snapshot.getValue() + " hours");
+    }
+    // ....
+});
+```
+
+### Range 查询
+使用`startAt()`，`endAt()`和 `equalTo()` 可以为我们的查询选择任意的起点和终点。例如，我们想要找到所有动物中身长至少1米的动物，可以结合`orderByChild()` 和 `startAt()`，
+```Java
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
+Query query = ref.orderByChild("length").startAt(100);
+
+queryRef.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        System.out.println(snapshot.getKey());
+    }
+    // ....
+});
+```
+`startAt()`与`endAt()`一起使用可以界定一个范围，我可以查找所有动物中身长在1米到1米5之间的动物，
+```Java
+
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
+Query query = ref.orderByChild("length").startAt(100).endAt(150);
+
+queryRef.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        System.out.println(snapshot.getKey());
+    }
+    // ....
+});
+```
+使用`equalTo()`可以精准配置数据，例如我们要查找孟加拉虎，
+
+```Java
+Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
+Query query = ref.orderByKey().equalTo("BengalWhiteTiger");
+
+query.addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        System.out.println(snapshot.getValue());
+    }
+    // ....
+});
+```
+
+
+## 8 离线事件
+Wilddog提供了离线事件触发功能。使用`OnDisconnect()`获得离线事件配置对象，它有4个方法`removeValue()`，`setValue()`，`updateChildren()`，`cancel()`。调用`removeValue()`，`setValue()`，`updateChildren()`后，将在服务端注册3个数据操作事件，当在Client彻底断线，服务端将侦测到client连接断开后，将触发已注册的事件。调用`cancel()` 将注销所有离线事件。
+
+
+## 9 使用Auth登录
 上面的Wildblog中使用的用户系统比较简陋，不能做ACL，比如获得用户自己的blog列表，用户只能删除自己的blog，等等。这时可以使用高级一些的auth接口并配合Rule模块来完成用户的ACL。
 ```Java
 ref.createUser("Jason", "12345678", null);
