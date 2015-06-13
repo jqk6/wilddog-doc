@@ -124,36 +124,36 @@ Query操作是CoAP GET方法的具体实现。
 回调函数`callback`对数据进行处理：
 
 ```c
-	STATIC void test_onQueryFunc(
-		const Wilddog_Node_T* p_snapshot, 
-		void* arg, 
-		Wilddog_Return_T err)
+STATIC void test_onQueryFunc(
+	const Wilddog_Node_T* p_snapshot, 
+	void* arg, 
+	Wilddog_Return_T err)
+{
+	
+	if(err ! WILDDOG_HTTP_OK)
 	{
-		
-		if(err ! WILDDOG_HTTP_OK)
-		{
-			wilddog_debug("query error!");
-			return;
-		}
-		wilddog_debug("query success!");
-		...
+		wilddog_debug("query error!");
 		return;
 	}
+	wilddog_debug("query success!");
+	...
+	return;
+}
 ```
 
 调用query接口函数：
 
-```c    
-	wilddog_query(wilddog, test_onQueryFunc, NULL);
+```c
+wilddog_query(wilddog, test_onQueryFunc, NULL);
 ```
 
 使用事件循环的方式,接收网络事件并处理：
 
 ```c
-    while(1)
-	{
-        wilddog_trySync();
-    }
+while(1)
+{
+    wilddog_trySync();
+}
 ```
 
 ### 发送on请求
@@ -165,34 +165,34 @@ On操作是CoAP针对Observe资源的一种扩展方法的实现；它可以看�
 回调函数`onDataChange`对数据进行处理：
 
 ```c
-	STATIC void test_onObserveFunc(
-		const Wilddog_Node_T* p_snapshot, 
-		void* arg,
-		Wilddog_Return_T err)
+STATIC void test_onObserveFunc(
+	const Wilddog_Node_T* p_snapshot, 
+	void* arg,
+	Wilddog_Return_T err)
+{
+	if(err ！= WILDDOG_HTTP_OK)
 	{
-		if(err ！= WILDDOG_HTTP_OK)
-		{
-			wilddog_debug("observe failed!");
-			return;
-		}
-		wilddog_debug("observe data!");
-		...
+		wilddog_debug("observe failed!");
 		return;
 	}
+	wilddog_debug("observe data!");
+	...
+	return;
+}
 ```
 
 调用On接口函数：
 
 ```c
-    wilddog_on(wilddog, WD_ET_VALUECHANGE, test_onObserveFunc, NULL);
+wilddog_on(wilddog, WD_ET_VALUECHANGE, test_onObserveFunc, NULL);
 ```
 
 使用事件循环的方式,接收网络事件并处理：
 
 ```c
-    while(1)
-	{
-        wilddog_trySync();
-    }
+while(1)
+{
+    wilddog_trySync();
+}
 ```
 
