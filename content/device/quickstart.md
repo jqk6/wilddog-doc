@@ -22,74 +22,59 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 ###三、往你的Wilddog云添加设备
 用你的账号登陆[**野狗云**](https://www.wilddog.com/account/login)添加应用，你会得到一个属于你应用的Url(如`https://uid.wilddogio.com/`);
 
-![](https://raw.githubusercontent.com/skylli/mycoap/master/img/1.png)
+![](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_1.png)
 
-点击“+”添加的设备，新建一个LED灯，同时你会获得访问你的led的url (如`https://uid.wilddogio.com/led)`，通过该url你可以访问和设置该led对应的值：
+点击刚创建的应用中的“管理应用”，进入管理页面，在此页面可以设置和查看当前应用的数据，我们试试新增一个名字为`led`，值为`0`的节点;
 
-![管理应用](https://raw.githubusercontent.com/skylli/mycoap/master/img/2.png)
+![管理应用](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_2.png)
 
-![添加应用](https://raw.githubusercontent.com/skylli/mycoap/master/img/3.png)
+![添加应用](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_3.png)
 	    
-###四、linux端
-在linux端对你Wilddog云上应用的设备进行获取、设置、订阅。
+###四、Linux端
+在Linux端对Wilddog云端的数据进行获取、设置和订阅。
+
+1.  进入**wilddog\_coap\_sdk**，编译生成libwilddog.a文件：
+
+	$ make
+
+	$ ls lib/
+
+	libwilddog.a
 
 
-1. 进入**wilddog\_coap\_sdk**，编译生成`libwilddog.a`库：    
-       
-		$ make 
-		$ ls lib/
-		libwilddog.a
-	
-2. 编译`example`，生成`wilddog_linux_client`可执行文件，利用该文件可以对led进行`get/set/observe`：    
+2.  编译example，生成wilddog、test\_remove、test\_query、test\_set、test\_push和test\_on可执行文件:
 
-		$ make example
-		$ ls bin/
-		wilddog_linux_client
+	$ make example
 
-	2.1. 获取你的Wilddog云应用设备的数据：
+	$ ls bin/
 
-	$ ./wilddog_linux_client get https://uid.wilddogio.com/
-	......
-	}
-	result:
-	{
-		"led":	"0"
-	}
+	wilddog test\_remove test\_query test\_set test\_push test\_on
 
-2.2、设置你的Wilddog云应用设备led的数据值为1(-dxx,xx为你要输入的数据)：
+3.  可以分别执行test\_set、test\_remove、test\_push、test\_query和test\_on程序，对Wilddog云端数据进行增删改查和订阅操作，例如：
 
-    $ ./wilddog_linux_client set https://uid.wilddogio.com/led -d1
-	......
-	data:1
-	}
-	result:
-	1
+	$ ./bin/test_query -l <刚建立的appid>
 
-2.3、 新添加一个新的设备到你Wilddog云应用上(关键值依赖与当前时间轴产生一个随机序列)：
+4.  如果想进一步了解wilddog api，你可以执行wilddog程序，它分成8个步骤来展现具体的操作：
 
-	 ./wilddog_linux_client push https://uid.wilddogio.com/temperature -d25
-	......
-	result:
-	{
-		"-JoOg8eUS52r-amr":	25
-	}
+	4.1. 在本地建立数据树，它与Wilddog云端的json格式的数据树是一一对应的。		
 
-2.4、 删除你Wilddog云应用上的led：
+	4.2. 在建立的本地数据树上进行部分数据节点的修改。
 
-	$ ./wilddog_linux_client delete https://uid.wilddogio.com/led
-	......
-	result:
-	(null)
+    4.3. Delete操作：清除Wilddog云端的json格式的数据树。 	
 
-2.5、订阅你Wilddog云应用上的led资源，一旦你Wilddog云应用上的led数据遇到改动时(值可能不变)，你会收到一条包含led最新值的coap封装数据包：
+    4.4. Set操作：将本地的数据树set到Wilddog云端，此时可以刷新Wilddog云端数据进行检查确认。
 
-	$ ./wilddog_linux_client observe https://uid.wilddogio.com/led
-	......
-	<DEBUG> onAck src/Wilddog.c(180):received ack code:205 
-	new data: 1 
+	4.5. Get操作：获取Wilddog云端的数据。
+
+	4.6. Push操作：在本地新建一个数据节点，并将该数据节点push到Wilddog云端数据树的根节点下。
+
+    4.7. Get操作:获取改动后的Wilddog云端的数据。
+
+    4.8. Observe On/Off操作： 订阅Wilddog云端的数据，只要Wilddog云端的数据被改动(值可能不变)，将会立即获取包含最新值的数据树。在wilddog程序中在获取一次变动后的数据，取消订阅操作，整个wilddog程序结束。
 
 
->现在你已经可以随意的访问和修改、订阅你wilddog云端的数据，很简单吧。但是怎么使你云端应用和你的硬件关联，使你wilddog云的led变为一个真实的led呢？
+参照wilddog程序，就可以按照具体的实际需求来对Wilddog云端的数据进行访问、修改和订阅。
+
 
 ###5.Wiced端
 我们已经把`wilddog_sdk`移植到Wiced平台上了，其实现代码在[**github**](https://github.com/WildDogTeam/wilddog_client_coap)上，可以点击下载,sample/wiced为其对应的sample。
@@ -98,7 +83,7 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 
 直接把git下载的文件夹COPY到`WICED/WICED-SDK-3.1.1/WICED-SDK/APPS/`下，如下：
 
-![路径](https://raw.githubusercontent.com/skylli/mycoap/master/img/45.png)
+![路径](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_4.png)
 
 5.2、配置wifi，打开`apps/wilddog_client_coap/sample/wiced/wifi_config_dct.h`填写热点名称和密码：
 
@@ -106,30 +91,24 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 	#define CLIENT_AP_SSID       "your ssid"
 	#define CLIENT_AP_PASSPHRASE "your ap password"
 
-5.3、在`application_start(void)`函数的while(1)里面添加你的应用代码：
-比如发一个get的request到你的wilddog云应用上的led，并判断该值为0则灭灯，否则点灯。
-
-	wilddog_t* client=wilddog_new("your_url");
-	/* query a client*/
-	wilddog_query(client,lightledcallbackfunc);
-	while(1){
-		/* Fill in your content*/
-
-		wilddog_trySync(client);
-
-	}
-
-5.4、建立Target
+5.3、建立Target
 
 在Make Target 窗口新建编译目标`wilddog_client_coap.sample.wiced-yourboard download run`其中yourboard为你的板子型号，我测试用的wiced开发板是BCM943362WCD4，因而Target name 是 wilddog_client_coap.sample.wiced-BCM943362WCD4 download run 如下图：
 
-![make target](https://raw.githubusercontent.com/skylli/mycoap/master/img/proj.png)
+![make target](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_5.png)
 
 
-5.5、编译烧录运行
+5.4、编译烧录运行
 
-让你的wiced开发板连接电脑(wiced开发板的驱动在wice_sdk里面有提供)，然后直接双击Make Target窗口的`wilddog_client_coap.sample.yourboard download run`（我的环境下是`	wilddog_client_coap.sample.wiced-BCM943362WCD4 download run`）编译sample，如果语法和链接部分没有错误则自动烧录到你的wiced开发板并直接重启运行，你可以修改你的wilddog云端数据来控制你的led灯了。
+让你的wiced开发板连接电脑(wiced开发板的驱动在wice_sdk里面有提供)，然后直接双击Make Target窗口的`wilddog_client_coap.sample.yourboard download run`（我的环境下是`	wilddog_client_coap.sample.wiced-BCM943362WCD4 download run`）编译，如果语法和链接部分没有错误则自动烧录到你的wiced开发板并直接重启运行，默认运行`test_demo`示例.
 	
+5.5、如果你想试试其他命令，你可以打开`demo.c`，其中在`application_start(void)`函数中，已存在一个`test_demo()`，这个函数的功能和linux端的`wilddog`类似，如想尝试`test_query`请如下操作：
+
+1. 在`demo.c`的`application_start(void)`函数之前一行，插入`int test_query(char* uid);`
+2. 将`application_start()`中的`test_demo`改为`test_query`，保存；
+3. 打开sample/wiced/wiced.mk;
+4. 向`$(NAME)_SOURCES`变量中增加你想使用的函数所在的文件，如`$(NAME)_SOURCES += test_query.c`，保存并重新编译烧录，下次运行的即是`test_query`.
+
 **至此**，你拥有了利用wilddog云分析管理你的传感器，灯泡，让它更加智能的能力。是的，就是这么简单，但这仅仅是开始，要想你的灵光一现变成现实你或许需要花10分钟查看后续的[**开发向导**](https://z.wilddog.com/device/guide)。
 
 
