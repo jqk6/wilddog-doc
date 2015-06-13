@@ -9,7 +9,7 @@ Sort : 1
 
 通过wilddog账号你可以远程管理你的硬件设备。
 
-###2、获取Wilddog CoAP SDK
+###2、获取[Wilddog CoAP SDK](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz)
 
 Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接口即可把Wilddog CoAP SDK移植到你的开发板上。
 ```c
@@ -79,11 +79,11 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 
 
 ####4.2 Wiced端
-我们已经把`wilddog_sdk`移植到Wiced平台上了，其实现代码在[**github**](https://github.com/WildDogTeam/wilddog_client_coap)上，可以点击下载,sample/wiced为其对应的sample。
+我们已经把`wilddog_sdk`移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz), `sample/wiced`为其对应的sample。
 
 1.	导入wiced：
 
-直接把git下载的文件夹COPY到`WICED/WICED-SDK-3.1.1/WICED-SDK/APPS/`下，如下：
+直接把下载的文件夹COPY到`WICED/WICED-SDK-3.1.1/WICED-SDK/APPS/`下，如下：
 
 ![路径](https://cdn.wilddog.com/z/iot/images/quickstart_3_4.png)
 
