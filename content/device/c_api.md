@@ -2,6 +2,9 @@
 Title: C API文档
 Sort: 3
 */
+
+###API分为两大类，交互API和节点操作API.
+
 # 交互API
 ## init
  `void wilddog_init(void)`
