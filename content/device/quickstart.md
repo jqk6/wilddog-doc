@@ -22,13 +22,13 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 ###3、往你的Wilddog云添加设备
 用你的账号登陆[**野狗云**](https://www.wilddog.com/account/login)添加应用，你会得到一个属于你应用的Url(如`https://uid.wilddogio.com/`);
 
-![](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_1.png)
+![](https://cdn.wilddog.com/z/iot/images/quickstart_3_1.png)
 
 点击刚创建的应用中的“管理应用”，进入管理页面，在此页面可以设置和查看当前应用的数据，我们试试新增一个名字为`led`，值为`0`的节点;
 
-![管理应用](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_2.png)
+![管理应用](https://cdn.wilddog.com/z/iot/images/quickstart_3_2.png)
 
-![添加应用](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_3.png)
+![添加应用](https://cdn.wilddog.com/z/iot/images/quickstart_3_3.png)
 	    
 ###4、数据操作
 
@@ -85,7 +85,7 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 
 直接把git下载的文件夹COPY到`WICED/WICED-SDK-3.1.1/WICED-SDK/APPS/`下，如下：
 
-![路径](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_4.png)
+![路径](https://cdn.wilddog.com/z/iot/images/quickstart_3_4.png)
 
 2.	配置wifi，打开`apps/wilddog_client_coap/sample/wiced/wifi_config_dct.h`填写热点名称和密码：
 
@@ -97,7 +97,7 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 
 在Make Target 窗口新建编译目标`wilddog_client_coap.sample.wiced-yourboard download run`, 其中yourboard为你的板子型号，我测试用的wiced开发板是BCM943362WCD4，因而Target name 是 `wilddog_client_coap.sample.wiced-BCM943362WCD4 download run`, 如下图：
 
-![make target](https://raw.githubusercontent.com/skylli/mycoap/master/img/quickstart_3_5.png)
+![make target](https://cdn.wilddog.com/z/iot/images/quickstart_3_5.png)
 
 
 4.	编译烧录运行
