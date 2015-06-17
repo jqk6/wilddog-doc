@@ -275,15 +275,7 @@ listener包含一个callback函数，用户可以实现`onComplete`函数，如�
 void
 
 #### Sample
-```java
-public class MyHandler implements CompletionListener {
-	public void onComplete(WilddogError error, Wilddog ref){
-		if(error != null){
-			System.out.println(error.getCode());
-		}
-	}
-}
-```
+
 ```java
 Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
 ResultHandler handler = new MyHandler();
@@ -294,348 +286,193 @@ ref.child("a/b").removeValue(handler);
 
 ### public void  authWithPassword(String email, String password, AuthHandler handler)
 
-wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。 密码认证是使用用户的邮箱和密码，这是最简单的认证方式。认证失败后调用用户自定义failure方法， 认证成功调用success方法， 包含参数auth对象。
+ 密码认证是使用用户的邮箱和密码，这是最简单的认证方式。
 
 #### Param
 *  email `String` app认证用户的email账户
 * password `String` app认证用户password密码
-* handler `AuthHandler`
-handler包含三个callback函数，用户可以实现AuthHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success(Auth auth)` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。
+* handler `AuthResultHandler` 回调函数，包括以下方法：
+> `onAuthenticated(Auth auth)` 操作成功。
+> `onAuthenticationError()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
 
 #### Ref
-* auth `Auth`认证信息, 包含用户id, token; 若使用微博或微信时,  则包含oauth属性
-uid `String` app用户的id
-provider `String` app用户的提供者, 值包括password, custom, dev, weibo
 token `String` app用户的token, 是用户访问的凭证
-email `String` app用户的email
-oauth `Map<String,Object>` 若使用微博或微信时, 则包含微博或微信的认证信息；否则为空
+uid `String` 用户user id
+provider `String`  值等于 "password"
+token `String` app用户的token, 是用户访问的凭证
+expires `ing` 超时时间，使用unix time单位秒
+providerData `Map<String,Object>` 若使用微博或微信时, 则包含微博或微信的认证信息；否则为空
 
 #### Return
 void
 
 #### Sample
+
 ```java
-public class MyAuthHandler implements AuthHandler {
-
-	public void timeout() {	}
-
-	public void success(Auth auth) {
-		System.out.println(auth);
-	}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-AuthHandler handler = new MyAuthHandler();
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+AuthResultHandler handler = new MyAuthResultHandler();
 ref.authWithPassword("demo@wilddog.com", "demo1234", handler);
 ```
 ----
 
-### public void  authWithOAuthToken(OauthEnum provider, String token, AuthHandler handler)
-
-wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。oauth token认证是第三方oauth的token登录app。认证失败后调用用户自定义failure方法， 认证成功调用success方法， 包含参数auth对象。
+### public void authWithOAuthToken(String provider, Map<String, String> options, Wilddog.AuthResultHandler handler)
+使用社交媒体帐号登录。使用通过第三方token，获取用户信息。
 
 #### Param
-*  provider`OauthEnum ` oauth的provider枚举， 例如：weibo，weixin，github
-* token`String` oauth的provider的token，例如 weibo 的token
-* handler `AuthHandler`
-handler包含三个callback函数，用户可以实现AuthHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success(Auth auth)` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。
+*  provider`String` 登陆使用的社交账户， 例如："weibo"，"weixin", "weixinmp" (微信公众帐号)，"qq"等
+* options`Map<String, String>` 使用社交帐号登陆的必要参数。
 
-#### Ref
-* auth `Auth`认证信息, 包含用户id, token; 若使用微博或微信时,  则包含oauth属性
-uid `String` app用户的id
-provider `String` app用户的提供者, 值包括password, custom, dev, weibo
-token `String` app用户的token, 是用户访问的凭证
-email `String` app用户的email
-oauth `Map<String,Object>` 若使用微博或微信时, 则包含微博或微信的认证信息；否则为空
 
 #### Return
 void
 
 #### Sample
 ```java
-public class MyAuthHandler implements AuthHandler {
-
-	public void timeout() {	}
-
-	public void success(Auth auth) {
-		System.out.println(auth);
-	}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-AuthHandler handler = new MyAuthHandler();
-ref.authWithOAuthToken(OauthEnum.WEIBO, "2.00Q4iPUBuXlzeC0cXXXXXXXXXXXXXX", handler);
+Map<String, String> options = new HashMap<String, String>();
+options.put("access_token", "<Weixin Access Token>");
+options.put("openId", "<Weixin Open Id>");
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+ref.authWithOAuthToken("weixin", options, new MyAuthResultHandler());
 ```
 ----
+
 
 ### public void  authWithCustomToken(String token,  AuthHandler handler)
 
-wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。oauth token认证是第三方oauth的token登录app。认证失败后调用用户自定义failure方法， 认证成功调用success方法， 包含参数auth对象。
+使用一个合法的token进行登录
 
 #### Param
-* token`String` token， 可以是以下值（secret值，wilddog管理app owner或deveploer的token， jwt自定一定token）
-* handler `AuthHandler`
-handler包含三个callback函数，用户可以实现AuthHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success(Auth auth)` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。
+* token`String` 已有的合法token,token 可以是一个Wilddog 超级密钥，或由密钥生成的token。
 
-#### Ref
-* auth `Auth`认证信息, 包含用户id, token; 若使用微博或微信时,  则包含oauth属性
-uid `String` app用户的id
-provider `String` app用户的提供者, 值包括password, custom, dev, weibo
-token `String` app用户的token, 是用户访问的凭证
-email `String` app用户的email
-oauth `Map<String,Object>` 若使用微博或微信时, 则包含微博或微信的认证信息；否则为空
 
 #### Return
 void
 
 #### Sample
+
 ```java
-public class MyAuthHandler implements AuthHandler {
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
 
-	public void timeout() {	}
-
-	public void success(Auth auth) {
-		System.out.println(auth);
-	}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-AuthHandler handler = new MyAuthHandler();
 // 1.使用secret登录
-ref.authWithCustomToken("PGXGTPOk4FbJYUZ4covLb4rnwkHlVltyXXXXXXX", handler);
+ref.authWithCustomToken("<The Secrets Of Your Wilddog App>", new MyAuthResultHandler());
 
-// 2.wilddog用户登录(开发者)
-ref.authWithCustomToken("fPlIkbN2KgHzrVXXXXX-82AVGRZnViEByXXXXX_9HHJvBfbIQWXfhsmNzl0kqlD4XXXXX_bJr6qqggXXXXX-engrlsAyjiEzozOwBZonuOuqMCBAXXXX_67lCvwGmsy5ALD0A5uRBiDluGu9F2XXXXX-N0eVC7cICBuWEOsn8LHxtripFV7IfbxCqY1tnXxbRUEXXXXXXX-xKGCRErXXXX", handler);
+// 2.集成自己帐号系统登录
+// 假如 "uid":"1"，"secret":"<The-First-Secret>",
+// 生成"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJpYXQiOjE0MzQ0NzMzMjgsImQiOnsidWlkIjoiMSIsInNvbWUiOiJhcmJpdHJhcnkiLCJkYXRhIjoiaGVyZSJ9fQ.fSmYzuOGPh7IApc7Jk_s17kk3KgS-ZB9Y9OCzczuMd0"
+// JWT 参见(http://jwt.io)
+ref.authWithCustomToken("<The JWT Token With Your First Secret Encoded>", new MyAuthResultHandler());
 
-// 3.使用custom登录( JWT token)
-ref.authWithCustomToken("2.00Q4iPUBuXlzeC0cXXXXXXXXXXXXXX", handler);
-
-// 4.使用custom登录( JWT token server oauth)
-ref.authWithCustomToken("2.00Q4iPUBuXlzeC0cXXXXXXXXXXXXXX", handler);
 ```
 ----
 
-### public void  createUser(String email, String password, AuthHandler handler)
+### public void  createUser(String email, String password, Wilddog.ResultHandler handler)
 
-wilddog为app提供多种认证方式，包含密码认证、OAuth认证、自定义token。创建密码认证用户， 创建用户成功后自动认证。
+通过邮箱注册用户 通过createUser 注册的终端用户会托管在WILDDOG 平台, 被注册的用户可以采用 authWithPassword 认证.
 
 #### Param
-*  email `String` app认证用户的email账户
-* password `String` app认证用户password密码
-* handler `AuthHandler`
-handler包含三个callback函数，用户可以实现AuthHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success(Auth auth)` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。。
+*  email `String` email账户
+* password `String`   密码
 
-#### Ref
-* auth `Auth`认证信息, 包含用户id, token; 若使用微博或微信时,  则包含oauth属性
-uid `String` app用户的id
-provider `String` app用户的提供者, 值包括password, custom, dev, weibo
-token `String` app用户的token, 是用户访问的凭证
-email `String` app用户的email
-oauth `Map<String,Object>` 若使用微博或微信时, 则包含微博或微信的认证信息；否则为空
+
+#### Return
+void
+
+#### Sample
+
+```java
+public class MyResultHandler implements Wilddog.ResultHandler {
+
+	public void onSuccess() {
+		System.out.println("MyResultHandler [success]");
+	}
+
+	public void onError(WilddogError error) {
+		if(error != null){
+			System.out.println(error.getCode());
+		}
+	}
+}
+```
+```java
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+ref.createUser("<email>", "<password>", new MyResultHandler());
+```
+----
+
+### public void changeEmail(String oldEmail, String password, String newEmail, Wilddog.ResultHandler handler)
+
+修改登录邮箱 WILDDOG 平台托管的用户可以通过changeEmail 修改登录邮箱
+
+
+
+#### Param
+*  oldEmail`String` 原来的email账户
+*  newEmail`String` 新的email账户
+* password `String` a用户password密码
 
 #### Return
 void
 
 #### Sample
 ```java
-public class MyAuthHandler implements AuthHandler {
-
-	public void timeout() {	}
-
-	public void success(Auth auth) {
-		System.out.println(auth);
-	}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-AuthHandler handler = new MyAuthHandler();
-ref.createUser("demo@wilddog.com", "demo1234", handler);
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+ref.changeEmail("<old-email>", "<password>", "<new-email>" , new MyResultHandler());
 ```
 ----
 
-### public void changeEmail(String oldEmail, String newEmail, String password, ResultHandler handler)
+### public void changePassword(String email, String oldPassword, String newPassword, Wilddog.ResultHandler handler)
 
 为app 用户提供修改email。
 
 #### Param
-*  oldEmail`String` app认证用户原来的email账户
-*  newEmail`String` app认证用户新的email账户
-* password `String` app认证用户password密码
-* handler `ResultHandler`
-handler包含三个callback函数，用户可以实现ResultHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success()` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。。
+*  email`String` 用户的email账户
+*  oldPassword`String` 用户原来password密码
+* newPassword`String` 用户新的password密码
 
 #### Return
 void
 
 #### Sample
+
 ```java
-public class MyResultHandler implements ResultHandler{
-
-	public void timeout() {}
-
-	public void success() {}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-ResultHandler handler = new MyResultHandler ();
-ref.createUser("demo@wilddog.com", "demo-new@wilddog.com", "demo1234", handler);
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+ref.changePassword("<email>", "<password>", "<new-password>", new MyResultHandler());
 ```
 ----
 
-### public void changePassword(String email, String oldPassword, String newPassword, ResultHandler handler)
-
-为app 用户提供修改email。
-
-#### Param
-*  email`String` app认证用户的email账户
-*  oldPassword`String` app认证用户原来password密码
-* newPassword`String` app认证用户新的password密码
-* handler `ResultHandler`
-handler包含三个callback函数，用户可以实现ResultHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success()` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。。
-
-#### Return
-void
-
-#### Sample
-```java
-public class MyResultHandler implements ResultHandler{
-
-	public void timeout() {}
-
-	public void success() {}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-ResultHandler handler = new MyResultHandler ();
-ref.changePassword("demo@wilddog.com", "demo1234", "demo5678", handler);
-```
-----
-
-### public void removeUser(String email, String password, ResultHandler handler)
+### public void removeUser(String email, String password, Wilddog.ResultHandler handler)
 
 为app提供删除用户的功能。
 
 #### Param
-*  email`String` app认证用户的email账户
-*  password`String` app认证用户password密码
-* handler `ResultHandler`
-handler包含三个callback函数，用户可以实现ResultHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success()` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。。
+*  email`String` 用户的email账户
+*  password`String` 用户password密码
 
 #### Return
 void
 
 #### Sample
 ```java
-public class MyResultHandler implements ResultHandler{
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+ref.removeUser("<email>", "<password>", new MyResultHandler());
 
-	public void timeout() {}
-
-	public void success() {}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-ResultHandler handler = new MyResultHandler ();
-ref.removeUser("demo@wilddog.com", "demo1234", handler);
 ```
 ----
 
-### public void resetPassword(String email, ResultHandler handler)
+### public void resetPassword(String email,  Wilddog.ResultHandler handler)
 
 重置app密码。
 
 #### Param
 *  email`String` app认证用户的email账户
-*  password`String` app认证用户password密码
-* handler `ResultHandler`
-handler包含三个callback函数，用户可以实现ResultHandler接口中的函数，如果某个callback函数没有响应的处理，接口实现为`{}`函数即可。
-callback函数如下：
-> `success()` 操作成功。
-> `failure()` 操作异常或失败，WilddogError作为函数参数返回给调用者。
-> `timeout()` 操作超时。。
 
 #### Return
 void
 
 #### Sample
 ```java
-public class MyResultHandler implements ResultHandler{
-
-	public void timeout() {}
-
-	public void success() {}
-
-	public void failure(WilddogError wilddogError) {
-		System.out.println(wilddogError);
-	}
-}
-```
-```java
-Wilddog ref = new Wilddog("http://demo.wilddogio.com/test");
-ResultHandler handler = new MyResultHandler ();
-ref.resetPassword("demo@wilddog.com", handler);
+Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+ref.resetPassword("<email>", new MyResultHandler());
 ```
 
 ## Snapshot

@@ -43,7 +43,7 @@ Sort : 2
 
 首先在你的树上开辟一个名为`mydevice`分支，再在该分支下开辟四个名分别为`east、south、west、north`分支并挂上一个传感器，在`wilddog`云端你的数据树看起来是这样的：
 
-![json tree](https://raw.githubusercontent.com/skylli/mycoap/master/img/guide_2_1.png)
+![json tree](https://cdn.wilddog.com/z/iot/images/guide_2_1.png)
 
 实际上在`wilddog`云端，你的数据树是用json来描述的，分支对应于json的节点：
 
@@ -79,7 +79,7 @@ Sort : 2
 
 服务器传来的数据也会转换成`Wilddog_Node_T`格式的节点树，并传递给用户的回调函数, 在`Wilddog_Node_T`格式中，数据的组织格式如下:
 
- ![json tree](https://raw.githubusercontent.com/skylli/mycoap/master/img/guide_2_2.png)
+ ![json tree](https://cdn.wilddog.com/z/iot/images/guide_2_2.png)
 
 注意点：
 

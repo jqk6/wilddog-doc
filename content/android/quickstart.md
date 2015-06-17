@@ -15,11 +15,8 @@ Sort: 1
 
 
 > **Download**
-> 你可以在这下载最新的Wilddog Java SDK：
-> [Download Wilddog Java SDK](https://cdn.wilddog.com/java/client/current/wilddog-client-jvm.jar)
-> 下载配套示例代码
->  [Download Wilddog Java Sample](https://cdn.wilddog.com/java/sample/current/wilddog-sample.tar.gz)
-
+> 你可以在这下载BETA版 Wilddog Java SDK：
+> [Download Wilddog Java SDK](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
 
 ----
 
