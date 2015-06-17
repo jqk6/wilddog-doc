@@ -12,7 +12,8 @@ Sort: 3
 #### params
 
 * wilddogUrl `string`
- 关注节点url,Wilddog 中任何数据都能够通过一个url来进行访问
+
+  关注节点url,Wilddog 中任何数据都能够通过一个url来进行访问
 
 
 #### return
@@ -29,12 +30,14 @@ ref = new Wilddog("http://weather-control.wilddogio.com/city/Beijing");
 使用一个合法的token进行登录
 
 #### params
+
 * token `string`
 
-	已有的合法token,token 可以是一个Wilddog 超级密钥，或由密钥生成的token。
+  已有的合法token,token 可以是一个Wilddog 超级密钥，或由密钥生成的token。
 
 * oncomplete `function(err,auth)` 
-  如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 。否则`err`为`null`， `auth`为包含用户认证信息的对象
+
+如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 。否则`err`为`null`， `auth`为包含用户认证信息的对象
   
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
@@ -79,17 +82,19 @@ ref.authWithAnonymously(
 ----
 
 ## authWithPassword(credentials,oncomplete)
+
 通过邮箱密码认证
 
 
 #### params
 
 * credentials `object`
-包含用户认证信息的数据,通常包含`email` `password` 
-(eg.`{"email":<email>,"password":<password>}`)
+
+  包含用户认证信息的数据,通常包含`email` `password` (eg.`{"email":<email>,"password":<password>}`)
 
 
-* oncomplete `function(err,auth)` 
+* oncomplete `function(err,auth)`
+ 
   如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 。否则`err`为`null`， `auth`为包含用户认证信息的对象
 
 ```js
@@ -113,9 +118,11 @@ ref.authWithPassword({email:"Loki@asgard.com",password:"examplepassword"},
 
 #### params
 * provider `string`
- oauth服务的提供平台,e.g.`"weibo"` 
+
+  oauth服务的提供平台,e.g.`"weibo"` 
  
 * oncomplete `function(err,auth)`
+
   回调函数，认证过程结束后会被Wilddog客户端调用,会有两个参数传递,`err`和`auth`。如果认证失败,`err` 参数是一个`Error`对象，包含错误信息。如果认证成功，`err`为null，`auth` 为包含认证信息的对象。其中包含 `uid`(用户唯一ID),`provider`(表示用户提供者的字符串),`auth`(token，payload),和 expires(过期时间，unix事件戳)
 
 
@@ -231,9 +238,10 @@ if (authData) {
 
 * onComplete `function(auth)`
 
-回调函数，onAuth被调用时触发一次，之后每次状态发生改变都触发一次。如果当前客户端已经认证，`auth` 为包含认证信息的对象。其中包含 `uid`(用户唯一ID),`provider`(表示用户提供者的字符串),`auth`(token，payload),和 expires(过期时间，unix事件戳)，否则，`auth`为`null`
+  回调函数，onAuth被调用时触发一次，之后每次状态发生改变都触发一次。如果当前客户端已经认证，`auth` 为包含认证信息的对象。其中包含 `uid`(用户唯一ID),`provider`(表示用户提供者的字符串),`auth`(token，payload),和 expires(过期时间，unix事件戳)，否则，`auth`为`null`
 
 * context `object`
+
  如果指定，你的回调函数中的this将指向这个参数
 
 
@@ -258,11 +266,11 @@ ref.onAuth(function(authData) {
 
 * onComplete `function(auth)`
 
-`onAuth`传入的对象
+  `onAuth`传入的对象
 
 * context `Object`
 
-`onAuth`时传入的对象
+  `onAuth`时传入的对象
 
 ```js
 var onAuthCallback = function(authData) {
@@ -304,7 +312,10 @@ ref.unauth();
 返回当前节点的子节点的引用
 
 #### params
-* key 子节点名,可以是相对当前节点的路径.
+
+* key 
+
+  子节点名,可以是相对当前节点的路径.
 
 #### return
 
@@ -404,13 +415,11 @@ var url = ref.toString();
 
 * value `object|string|number|boolean|null`
 
- value 可以是对象,字符串,数字,null.当value 不为null,设置当前节点的值为value
-
-
+  value 可以是对象,字符串,数字,null.当value 不为null,设置当前节点的值为value
 
 * onComplete `function(err)` 
 
-如果操作成功 `err==null` 否则,err为包含code的`object`
+  如果操作成功 `err==null` 否则,err为包含code的`object`
 
 ```js
 var ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -432,10 +441,12 @@ e.g. update之前 `{"l1":"on","l3":"off"}` ,`value={"l1":"off","l2":"on"}` updat
 
 #### params
 * value `object`
-包含子节点对象的集合
+
+  包含子节点对象的集合
 
 * onComplete `function(err)` 
-如果操作成功 `err==null` 否则,err为包含code的`object`
+
+  如果操作成功 `err==null` 否则,err为包含code的`object`
 
 ```js
 var ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -458,9 +469,9 @@ ref.update({"temp":10,"pm2.5":500});
 
 #### params
 
-* * onComplete `function(err)` 
+* onComplete `function(err)` 
 
-如果操作成功 `err==null` 否则,err为包含code的`object`
+  如果操作成功 `err==null` 否则,err为包含code的`object`
 
 
 ```js
@@ -483,11 +494,11 @@ ref.remove()
 
 * value `object|string|number|boolean|null`
 
-用户希望在当前节点下新增的数据.
+  用户希望在当前节点下新增的数据.
 
 * onComplete `function(err)` 
 
-如果操作成功 `err==null` 否则,err为包含code的`object`
+  如果操作成功 `err==null` 否则,err为包含code的`object`
 
 #### return
 
@@ -512,16 +523,15 @@ var url = newKey.url()
 
 * value `Object|String|Number|Boolean|Null`
 
- value 可以是对象,字符串,数字,null.当value 不为null,设置当前节点的值为value
+  value 可以是对象,字符串,数字,null.当value 不为null,设置当前节点的值为value
 
 * priority `String|Number`
 
-优先级数据
-
+  优先级数据
 
 * onComplete `function(err)` 
 
-如果操作成功 `err==null` 否则,err为包含code的`object`
+  如果操作成功 `err==null` 否则,err为包含code的`object`
 
 
 
@@ -563,12 +573,12 @@ ref.setWithPriority(user,100)
 
 * priority `String|Number`
 
-优先级数据
+  优先级数据
 
 
 * onComplete `function(err)` 
 
-如果操作成功 `err==null` 否则,err为包含code的`object`
+  如果操作成功 `err==null` 否则,err为包含code的`object`
 
 ```js
 var ref = new Wilddog("https://YOUR-APP.wilddogio.com/users/jack");
@@ -592,11 +602,11 @@ transaction操作在 需要原子操作的时候非常有用，比如 +1 操作�
 
 * updateFunction `function(data)`
 
-开发者提供的函数，这个函数定义开发者希望当前的数据如何改变成新的数据。`data` 是当前节点现在数据。函数应该返回新的数据，如果函数不返回任何数据，客户端将不会做任何操作，任何数据都不会被修改。
+  开发者提供的函数，这个函数定义开发者希望当前的数据如何改变成新的数据。`data` 是当前节点现在数据。函数应该返回新的数据，如果函数不返回任何数据，客户端将不会做任何操作，任何数据都不会被修改。
 
 * onComplete `function(err,commited,snapshot)`
 
-回调函数，transaction结束后会被调用。调用时会传入几个参数 `(err,commited,snapshot)`，如果操作失败，`err` 为一个包含错误信息的对象，否则`err`为`null`。`commited`是一个boolean值，表明原子操作是否已经成功提交，如果`updateFunction`没有返回任何数据，`commited`为`false`，因为没有任何数据被提交。`snapshot`指向最终的数据。
+  回调函数，transaction结束后会被调用。调用时会传入几个参数 `(err,commited,snapshot)`，如果操作失败，`err` 为一个包含错误信息的对象，否则`err`为`null`。`commited`是一个boolean值，表明原子操作是否已经成功提交，如果`updateFunction`没有返回任何数据，`commited`为`false`，因为没有任何数据被提交。`snapshot`指向最终的数据。
 
 ```js
 
@@ -635,15 +645,18 @@ wilmaRef.transaction(function(currentData) {
 ## createUser(credentials,onComplete)
 
 通过邮箱注册用户
+
 通过`createUser` 注册的终端用户会托管在`WILDDOG` 平台, 被注册的用户可以采用 `authWithPassword` 认证.
 
 #### params
 * credentials `object`
-包含用户认证信息的数据,通常包含`email` `password` 
+
+  包含用户认证信息的数据,通常包含`email` `password` 
 (eg.`{"email":<email>,"password":<password>}`)
 
 * onComplete `function(err,data)`
-如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 ,如果`err==null` data为包含用`id` ,`provider` 的 `object`
+
+  如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 ,如果`err==null` data为包含用`id` ,`provider` 的 `object`
 
 
 ```js
@@ -662,37 +675,48 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 
 
 ## changePassword(credentials,callback)
+
 修改用户密码
+
 `WILDDOG` 平台托管的用户可以通过`changePassword` 修改密码
 
 #### params
 
 * credentials `object`
-	需要包含 `email` 邮箱 `oldPassword`旧密码 `newPassword` 新密码
+
+  需要包含 `email` 邮箱 `oldPassword`旧密码 `newPassword` 新密码
 	
 * callback `function(err,data)`
- 如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 ,如果`err==null` data为包含用`id` ,`provider` 的 `object`
+
+  如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 ,如果`err==null` data为包含用`id` ,`provider` 的 `object`
 
 
 ----
 
 ## changeEmail(credentials,callback)
+
 修改登录邮箱
+
 `WILDDOG` 平台托管的用户可以通过`changeEmail` 修改登录邮箱
 
 #### params
 
 * credentials `object`
-	需要包含 `oldEmail` 新邮箱 `newEmail`旧邮箱 `password` 密码
+
+  需要包含 `oldEmail` 新邮箱 `newEmail`旧邮箱 `password` 密码
 	
 * callback `function(err)`
+
   回调函数,操作成功后会被调用,如果操作成功 `err==null` ,如果操作失败,`err` 是一个包含	`code` 的对象
 
 ----
 
 ## removeUser(credentials,callback)
+
 删除帐号
+
 `WILDDOG` 平台托管的用户可以通过`removeUser` 删除帐号
+
 #### params
 * credentials `object`
 	需要包含  `email`邮箱 `password` 密码
@@ -704,17 +728,21 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 -----
 
 ## resetPassword(credentials,callback)
+
 重置密码
+
 接口调用成功后并不会立刻重置密码,而是发一封邮件到此邮箱,用户通过该邮件的引导可完成重置密码操作
 `WILDDOG` 平台托管的用户可以通过`resetPassword` 重置密码
 
 #### param
+
 * credentials `object`
-	需要包含  `email`邮箱 
+
+  需要包含  `email`邮箱 
 	
 * callback `function(err)`
-回调函数,操作成功后会被调用,如果操作成功 `err==null` ,如果操作失败,`err` 是一个包含	`code` 的对象
 
+  回调函数,操作成功后会被调用,如果操作成功 `err==null` ,如果操作失败,`err` 是一个包含`code` 的对象
 
 
 -----
@@ -756,13 +784,13 @@ Wilddog.goOffline(); // All local Wilddog instances are disconnected
 
 * type
 
-|事件|说明|
- |----|----|
- |value| 当有数据请求或有任何数据发生变化时触发|
- |child_added| 当有新增子节点时触发|
- |child_changed|当某个子节点发生变化时触发 |
- |child_removed|当有子节点被删除时触发 |
- |child_moved|当有子节排序发生变化时触发 |
+>|事件|说明|
+|----|----|
+|value| 当有数据请求或有任何数据发生变化时触发|
+|child_added| 当有新增子节点时触发|
+|child_changed|当某个子节点发生变化时触发 |
+|child_removed|当有子节点被删除时触发 |
+|child_moved|当有子节排序发生变化时触发 |
 
 
 * callback `function(snapshot)` 
@@ -799,15 +827,15 @@ ref.on('child_added',function(snapshot){
 
 * type `String`
 
-`value`,`child_added`,`child_changed`,`child_removed`,`child_moved`  之一
+  `value`,`child_added`,`child_changed`,`child_removed`,`child_moved`  之一
 
 * callback `function(snapshot)` 
 
-`on()` 中被传入的函数
+  `on()` 中被传入的函数
 
 * context `Object`
 
-`on()` 中被传入的context
+  `on()` 中被传入的context
 
 ```js
 var onValueChange = function(dataSnapshot) { /* handle... */ };
@@ -833,7 +861,7 @@ firebaseRef.off('value', onValueChange);
 
 * type
 
-|事件|说明|
+>|事件|说明|
  |----|----|
  |value| 当有数据请求或有任何数据发生变化时触发|
  |child_added| 当有新增子节点时触发|
@@ -848,7 +876,7 @@ firebaseRef.off('value', onValueChange);
 
 * cancelCallback `function(err)`
 
-如果操作失败，这个函数会被调用。传入一个 `Error` 对象，包含为何失败的信息。
+  如果操作失败，这个函数会被调用。传入一个 `Error` 对象，包含为何失败的信息。
 
 
 
@@ -1113,16 +1141,22 @@ var locationRef=query.ref();//ref===locationRef
 
 ```
 
+----
+
 
 # Snapshot
+
 Snapshot是当前时间,某个节点数据的副本,Snapshot不会随当前节点数据的变化而发生改变.
 用户不会主动创建一个Snapshot,而是和 on或once 配合使用.
 
 ## val()
+
 返回当前快照的数据
+
 #### return 
+
 * `object|string|null|number|boolean`
-当前快照对应的数据
+  当前快照对应的数据
 
 ```js
 ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
