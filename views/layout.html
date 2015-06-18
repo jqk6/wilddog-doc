@@ -138,10 +138,17 @@
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-56016881-2', 'auto');
+        ga('create', 'UA-56016881-1', 'auto', {'allowLinker': true});
+        ga('require', 'linker');
+        ga('linker:autoLink', ['www.wilddog.com', 'wilddog.life'] );
         ga('send', 'pageview');
     </script>
-
+<script>
+        var _hmt = _hmt || [];
+        (function()
+        { var hm = document.createElement("script"); hm.src = "//hm.baidu.com/hm.js?b94d83d48fe0e3d8f6ce5b1e8023787a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); }
+        )();
+</script>
 
 </body>
 
