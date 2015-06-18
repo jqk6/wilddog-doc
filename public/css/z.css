@@ -194,7 +194,8 @@ i {
 }
 
 .header {
-    height: 115px;
+    padding-top:20px;
+    padding-bottom:20px;
     border-bottom: 1px solid rgb(44, 44, 44);
     background-color: rgb(44, 44, 44);
 }
@@ -361,7 +362,6 @@ h1 {
 }
 
 p {
-    margin-top: 0;
     margin-top: 16px;
     margin-left: 20px;
 }
@@ -436,15 +436,6 @@ hr {
     margin: 0;
     margin-bottom: 20px;
 }
-
-.copyright span {}
-
-.container-fluid {
-    /*padding: 0;*/
-    
-    width: 980px;
-}
-
 .header-logo sup {
     position: absolute;
     left: 120px;
@@ -474,6 +465,7 @@ hr {
 }
 
 .help-search-input-wrapper {
+    position:relative;
     height: 40px;
     margin-top: 12px;
 }
@@ -499,13 +491,14 @@ hr {
     border-bottom-right-radius: 5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    border-radius:5px;
 }
 
 #search-input {
     border: 0;
 	padding-left: 10px;
     vertical-align: top;
-    width: 435px;
+    width:100%;
     height: 40px;
     line-height: 40px;
     font-size: 15px;
@@ -513,16 +506,10 @@ hr {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-border-top-left-radius: 5px;
-    -ms-border-top-left-radius: 5px;
-    -o-border-top-left-radius: 5px;
-    border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -ms-border-bottom-left-radius: 5px;
-    -o-border-bottom-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
 }
 /* mac add */
 
@@ -547,7 +534,6 @@ footer {
     position: relative;
     height: 20px;
     clear: both;
-    width: 980px;
     margin: -40px auto 0 auto;
     text-align: center;
 }
@@ -607,4 +593,30 @@ footer {
 .footer-container a:hover {
     text-decoration: none;
     border-bottom: 1px solid rgb(153, 147, 145);
+}
+/*响应式开始*/
+.greeting .page-title{
+    font-size:30px;
+    line-height:36px;
+}
+.searchbar{
+    float: right;
+    width:100%;
+}
+#search{
+    position:absolute;
+    top:0;
+    right:0;
+}
+@media screen and (max-width:768px){
+    .greeting .page-title{
+        font-size:20px;
+    }
+    .header .link-index{
+       font-size:16px;
+       margin-top:16%;
+    }
+    .footer-container a{
+        margin-left:5px;
+    }
 }
