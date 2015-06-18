@@ -3,7 +3,7 @@ var path = require('path'),
 	glob = require('glob'),
 	_ = require('underscore'),
 	_s = require('underscore.string'),
-	marked = require('marked'),
+	marked = require('./marked'),
 	lunr = require('lunr');
 
 var raneto = {

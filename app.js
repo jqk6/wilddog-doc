@@ -5,11 +5,12 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     fs = require('fs'),
-	marked = require('marked'),
+	marked = require('./marked'),
     moment = require('moment'),
     raneto = require('./raneto'),
     config = require('./config'),
     toc = require('markdown-toc'),
+    pinyin=require("pinyin"),
     app = express(); // 使用nodejs express
 
 // view engine setup
@@ -82,8 +83,12 @@ app.all('*', function(req, res, next){
                 // Content
                 content = raneto.processVars(content, config);
                 var html = marked(content);
-               // var _toc=toc(content,{maxDepth:1});
-               // var _tocHtml=marked(_toc.content);
+                var _toc=toc(content,{maxdepth:3,slugify:function(raw){
+			return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
+		}});
+                var _tocHtml=marked(_toc.content);
+		console.log(_toc)
+		html=_tocHtml+html;
                 return res.render('page', {
                     config: config,
                     pages: pageList,
