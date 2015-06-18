@@ -9,7 +9,7 @@ Sort : 1
 
 通过wilddog账号你可以远程管理你的设备。
 
-###2、获取[Wilddog C SDK](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz)
+###2、获取[Wilddog C SDK](https://cdn.wilddog.com/c/client/0.4.1/wilddog.0.4.1.tar.gz)
 
 Wilddog C SDK体积小且不依赖于任何的平台，只要实现以下5个接口即可把Wilddog CoAP SDK移植到你的开发板上。
 
