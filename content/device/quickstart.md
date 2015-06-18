@@ -31,9 +31,9 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 ![添加应用](https://cdn.wilddog.com/z/iot/images/quickstart_3_3.png)
 	    
 ###4、数据操作
-
+通过**wilddog\_coap\_sdk**你可以实现设备和云端数据的实时同步，例如把**wilddog\_coap\_sdk**嵌入到室内温度传感器，云端即可获得实时的室温数据，这主要通过对数据的获取、设置、订阅来实现。**wilddog\_coap\_sdk**采用在相同密钥长度下最强大的非对称算法--椭圆曲线加密算法(ECC)交换秘钥，其后的数据交互使用AES-128加密。数据的操作和加密的实现已经集成到我们的SDK中。
 ####4.1 linux端
-在Linux端可以对Wilddog云端的数据进行获取、设置和订阅。
+在Linux端对Wilddog云端的数据进行获取、设置和订阅。
 
 1.  进入**wilddog\_coap\_sdk**，编译生成libwilddog.a文件：
 
@@ -111,7 +111,7 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 	3. 打开`sample/wiced/wiced.mk`;
 	4. 向`$(NAME)_SOURCES`变量中增加你想使用的函数所在的文件，如`$(NAME)_SOURCES += test_query.c`，保存并重新编译烧录，下次运行的即是`test_query`.
 
-**至此**，你拥有了利用wilddog云分析管理你的传感器，灯泡，让它更加智能的能力。是的，就是这么简单，但这仅仅是开始，要想你的灵光一现变成现实你或许需要花10分钟查看后续的[**开发向导**](https://z.wilddog.com/device/guide)。
+**至此**，可以实现云端和你的设备的数据同步，要设备对云端数据进行更加复杂的操作需要花十分钟阅读[**开发向导**](https://z.wilddog.com/device/guide)。
 
 
 
