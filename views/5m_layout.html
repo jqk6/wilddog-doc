@@ -7,11 +7,11 @@
     <title>5分钟快速入门 {{#meta.title}}{{meta.title}} - {{/meta.title}}{{config.site_title}}</title>
     <meta name="description" content="野狗知识库，野狗文档，WildDog文档">
     <meta name="keywords" content="wilddog, WildDog, realtime, PaaS, BaaS, HTMl5, CoAP, Thread, REST, Javascript, DTLS, websockets, realtime sync, UDP, JSON, developer, B2B, SDK, iOS, Android, Mac OS, Windows, 野狗, 野狗实时, 野狗云, 实时应用, 实时同步, 实时数据库, 跨平台, 物联网, 构建实时应用, 受限网络, 传感网, 解决方案, 云平台, 云计算, 云服务, 公有云, 私有云, 开发者">
-    <meta name="format-detection" content="email=no" />
-    <meta name="format-detection" content="address=no" />
-    <meta name="format-detection" content="telephone=no" />
-
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/bower_components/highlightjs/styles/monokai_sublime.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/index.css">
@@ -26,9 +26,9 @@
         <div id="main-body" class="clearfix">
 
             <header class="header">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 col-xs-12">
 
                             <a href="/">
                                 <div class="header-logo">
@@ -45,18 +45,15 @@
                             </a>
 
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 col-xs-12 row">
 
-                            <div>
-                                <div style="float:right;color:white;vertical-align:middle"><a style="color:#ddd" href="https://www.wilddog.com/account/login/">登录</a> <i style="font-family: wd-icon;
-  font-style: normal;
-  color: white;
-  font-size: 12px;">4</i>
+                            <div class="col-xs-6 col-sm-12">
+                                <div class="link-index" style="float:right;"><a style="color:#ddd" href="https://www.wilddog.com">野狗官网</a>
                                 </div>
                                 <div style="clear:both"></div>
                             </div>
 
-                            <div class="help-search-input-wrapper">
+                            <div class="help-search-input-wrapper col-xs-6 col-sm-12">
 
                                 <a id="search" href="javascript:void(0)" style="color:#ccc">
                                     <div class="search-mag-glass">
@@ -67,7 +64,7 @@
                                 </a>
 
 
-                                <div style="float:right">
+                                <div class="searchbar" style="float:right">
                                     <input type="search" placeholder="搜索知识库" name="query" id="search-input">
                                 </div>
 
@@ -81,9 +78,9 @@
                 </div>
             </header>
 
-            <div id="container" style="position:relative;min-height: 100%;">
+            <div class="container" style="position:relative;min-height: 100%;">
 
-                <div class="container-fluid" style="width:980px;">
+                <div class="container-fluid">
 
                     {{{ yield }}}
                 </div>
