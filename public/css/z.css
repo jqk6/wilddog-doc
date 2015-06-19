@@ -1,3 +1,6 @@
+ul,ol,li{
+    list-style:none;
+}
 .header {
     background-color: transparent;
     color: #ccc;
@@ -577,6 +580,23 @@ footer {
     margin-left: 10px;
     margin-top:35px;
     float:left
+}
+.steps{
+    padding-left:0;
+    width:auto;
+}
+.item{
+    float:left;
+    margin-right:36px;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:1px solid #666;
+    font-size:16px;
+    font-weight:bold;
+    line-height:50px;
+    text-align:center;
+    cursor:pointer;
 }
 @media screen and (max-width:767px){
     .wilddog-gov{
