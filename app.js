@@ -66,6 +66,13 @@ app.all('*', function(req, res, next){
                 body_class: 'page-home',
                 layout:'5m_layout'
             });
+        } else if(slug == '/outmen' && !fs.existsSync(filePath)){
+            return res.render('outmen', {
+		config : {},
+		pages : {},
+		body_class: '',
+		layout: ''
+	    });
         } else {
             fs.readFile(filePath, 'utf8', function(err, content) {
                 if(err){
@@ -129,3 +136,4 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+

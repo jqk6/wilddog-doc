@@ -7,7 +7,7 @@ Wilddog提供非常简单的用户帐号系统。它能轻松集成到你的现�
 
 
 
-## 概述
+# 概述
 大多数应用程序需要明确用户身份。为每一个用户定制不通的服务，并赋以不同的数据权限。验证用户的过程叫做身份认证。 Wilddog 提供一套完整的用户解决方案。
 
 使用wilddog  用户认证， 以下两点需要注意：
@@ -22,7 +22,7 @@ Wilddog支持邮箱&密码登录、社交帐号登录。App使用Wilddog用户�
 ----
 
 
-## 设置Authentication Provider
+# 设置Authentication Provider
 下面是wilddog支持的provider列表
 
 
@@ -35,7 +35,7 @@ Weibo	     | 使用weibo账户认证，只需要添加客户端代码。
 
 
 
-## 启动Providers
+# 启动Providers
 
  [1] :进入【控制面板】
  [2] :选择自己Wilddog App。
@@ -45,7 +45,7 @@ Weibo	     | 使用weibo账户认证，只需要添加客户端代码。
  [6]: 如果你使用第三方帐号登录，比如，微博，请b把博API Key和API Secret到表单里。
   
 
-## 用户登录
+# 用户登录
 
 这些接口接收的参数不同，但它们都有类似的签名和接受相同的回调函数。
 ```
@@ -76,7 +76,7 @@ ref.authWithOAuthRedirect("<provider>", authHandler);
 ```
 ----
 
-## 用户登出
+# 用户登出
 
 unauth()方法的作用是让用户的token无效
 
@@ -89,7 +89,7 @@ ref.unauth();
 ```
 
 
-## 携带自定数据
+# 携带自定数据
 
 Wilddog 生成JSON Web Tokens(JWTs)通过调用Wilddog.authWithCustomToken()可以携带他们自己的token。每个用户分配一个UID（唯一的ID），保证在同一个provider是唯一的， 无需为特别用户做任何修改。
 
@@ -142,7 +142,7 @@ function getName(authData) {
 ```
 
 
-## Dealing with Popups and Redirects
+# Dealing with Popups and Redirects
 
 Wilddog的OAuth认证支持三种不同的方式，弹出pop-up、浏览器重定向、凭据登录。
 
@@ -173,7 +173,7 @@ ref.authWithOAuthPopup("weibo", function(error, authData) {
 ```
 --------
 
-## Handling Errors
+# Handling Errors
 
 当你的app调用的认证方法时，传入一个回调函数。这个函数的调用结果， 正确返回authData 对象，错误返回错误码。
 

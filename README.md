@@ -1,5 +1,3 @@
-Raneto
-======
 
 Raneto is a free, open, simple Markdown powered Knowledgebase for Nodejs. [Find out more &rarr;](http://docs.raneto.com/what-is-raneto)
 
@@ -30,3 +28,16 @@ Credits
 
 Raneto was created by [Gilbert Pellegrom](http://gilbert.pellegrom.me) from
 [Dev7studios](http://dev7studios.com). Released under the [MIT license](https://raw.githubusercontent.com/gilbitron/Raneto/master/LICENSE).
+=======
+Wilddog 文档
+======
+
+
+
+# 文档书写规范
+
+* 序号使用阿拉伯数字
+* 为了样式，只使用 h1`#` h2`#` h4`#`
+
+ 
+>>>>>>> b19c4430e45537bcfc1d172fcac5d167b90fad4f
