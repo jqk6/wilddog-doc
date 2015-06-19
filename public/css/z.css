@@ -612,6 +612,7 @@ footer {
     color:#333;
     line-height:50px;
     text-align:center;
+    cursor:pointer;
     transform-origin:center center;
 }
 .scale-origin-left{
