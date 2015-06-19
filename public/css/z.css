@@ -17,10 +17,8 @@
     text-decoration: none;
 }
 
-.header .logo {
-    font-size: 20px;
-    line-height: 34px;
-    margin-left: 20px;
+.header .logo{
+    margin-top:32px;
 }
 
 .menu {
@@ -184,17 +182,14 @@ body {
     margin: 0 auto;
 }
 
-.col-sm-6 {
-    padding: 0;
-}
-
 i {
     font-family: wd-icon;
     font-style: normal;
 }
 
 .header {
-    height: 115px;
+    padding-top:20px;
+    padding-bottom:20px;
     border-bottom: 1px solid rgb(44, 44, 44);
     background-color: rgb(44, 44, 44);
 }
@@ -326,11 +321,6 @@ h5 {
     color: rgb(230, 80, 30);
 }
 
-.col-sm-3 {
-    text-align: left;
-    padding-left: 20px;
-}
-
 .menu {
     margin: 0;
     margin-top: 84px;
@@ -361,7 +351,6 @@ h1 {
 }
 
 p {
-    margin-top: 0;
     margin-top: 16px;
     margin-left: 20px;
 }
@@ -436,15 +425,6 @@ hr {
     margin: 0;
     margin-bottom: 20px;
 }
-
-.copyright span {}
-
-.container-fluid {
-    /*padding: 0;*/
-    
-    width: 980px;
-}
-
 .header-logo sup {
     position: absolute;
     left: 120px;
@@ -453,11 +433,6 @@ hr {
     padding: 7px 2px;
     background-color: rgb(230, 230, 230);
     border-radius: 3px;
-}
-
-.row {
-    margin-right: 0px;
-    margin-left: 0px;
 }
 
 .content h2 {
@@ -474,6 +449,7 @@ hr {
 }
 
 .help-search-input-wrapper {
+    position:relative;
     height: 40px;
     margin-top: 12px;
 }
@@ -499,13 +475,14 @@ hr {
     border-bottom-right-radius: 5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    border-radius:5px;
 }
 
 #search-input {
     border: 0;
 	padding-left: 10px;
     vertical-align: top;
-    width: 435px;
+    width:100%;
     height: 40px;
     line-height: 40px;
     font-size: 15px;
@@ -513,16 +490,10 @@ hr {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-border-top-left-radius: 5px;
-    -ms-border-top-left-radius: 5px;
-    -o-border-top-left-radius: 5px;
-    border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -ms-border-bottom-left-radius: 5px;
-    -o-border-bottom-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
 }
 /* mac add */
 
@@ -547,32 +518,10 @@ footer {
     position: relative;
     height: 20px;
     clear: both;
-    width: 980px;
     margin: -40px auto 0 auto;
     text-align: center;
 }
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
-.clearfix {
-    display: inline-block;
-}
 /* Hides from IE-mac \*/
-
-* html .clearfix {
-    height: 1%;
-}
-
-.clearfix {
-    display: block;
-}
-
 .home-categories a {
     color: black;
     text-decoration: none;
@@ -607,4 +556,66 @@ footer {
 .footer-container a:hover {
     text-decoration: none;
     border-bottom: 1px solid rgb(153, 147, 145);
+}
+/*响应式开始*/
+.greeting .page-title{
+    font-size:30px;
+    line-height:36px;
+}
+.searchbar{
+    float: right;
+    width:100%;
+}
+#search{
+    position:absolute;
+    top:0;
+    right:0;
+}
+.knowledge{
+    color:#ddd;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top:35px;
+    float:left
+}
+@media screen and (max-width:767px){
+    .wilddog-gov{
+        display:none;
+    }
+    .text-wilddog{
+        display:none;
+    }
+    .greeting .page-title{
+        font-size:20px;
+    }
+    .header .link-index{
+       font-size:16px;
+       margin-top:12px;
+       height:40px;
+       line-height:40px;
+    }
+    .header .logo{
+        margin-top: 0;
+    }
+    .knowledge{
+        height:40px;
+        line-height:64px;
+        font-size:14px;
+        margin-top:0;
+        margin-left:6px;
+    }
+    .header-logo{
+        margin-top:12px;
+        height:40px;
+        line-height:40px;
+    }
+    .footer-container a{
+        margin-left:5px;
+    }
+}
+@media screen and (max-width:479px){
+    .help-search-input-wrapper{
+        width:100%;
+        padding-left:0;
+    }
 }
