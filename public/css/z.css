@@ -17,10 +17,8 @@
     text-decoration: none;
 }
 
-.header .logo {
-    font-size: 20px;
-    line-height: 34px;
-    margin-left: 20px;
+.header .logo{
+    margin-top:32px;
 }
 
 .menu {
@@ -184,10 +182,6 @@ body {
     margin: 0 auto;
 }
 
-.col-sm-6 {
-    padding: 0;
-}
-
 i {
     font-family: wd-icon;
     font-style: normal;
@@ -327,11 +321,6 @@ h5 {
     color: rgb(230, 80, 30);
 }
 
-.col-sm-3 {
-    text-align: left;
-    padding-left: 20px;
-}
-
 .menu {
     margin: 0;
     margin-top: 84px;
@@ -446,11 +435,6 @@ hr {
     border-radius: 3px;
 }
 
-.row {
-    margin-right: 0px;
-    margin-left: 0px;
-}
-
 .content h2 {
     margin-left: 0px;
     font-weight: 600;
@@ -537,28 +521,7 @@ footer {
     margin: -40px auto 0 auto;
     text-align: center;
 }
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
-.clearfix {
-    display: inline-block;
-}
 /* Hides from IE-mac \*/
-
-* html .clearfix {
-    height: 1%;
-}
-
-.clearfix {
-    display: block;
-}
-
 .home-categories a {
     color: black;
     text-decoration: none;
@@ -608,15 +571,51 @@ footer {
     top:0;
     right:0;
 }
-@media screen and (max-width:768px){
+.knowledge{
+    color:#ddd;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top:35px;
+    float:left
+}
+@media screen and (max-width:767px){
+    .wilddog-gov{
+        display:none;
+    }
+    .text-wilddog{
+        display:none;
+    }
     .greeting .page-title{
         font-size:20px;
     }
     .header .link-index{
        font-size:16px;
-       margin-top:16%;
+       margin-top:12px;
+       height:40px;
+       line-height:40px;
+    }
+    .header .logo{
+        margin-top: 0;
+    }
+    .knowledge{
+        height:40px;
+        line-height:64px;
+        font-size:14px;
+        margin-top:0;
+        margin-left:6px;
+    }
+    .header-logo{
+        margin-top:12px;
+        height:40px;
+        line-height:40px;
     }
     .footer-container a{
         margin-left:5px;
+    }
+}
+@media screen and (max-width:479px){
+    .help-search-input-wrapper{
+        width:100%;
+        padding-left:0;
     }
 }

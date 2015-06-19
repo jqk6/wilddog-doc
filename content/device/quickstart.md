@@ -7,11 +7,12 @@ Sort : 1
 ###1、申请wilddog云，准备设备
 你需要一个[**Wilddog账号**](https://www.wilddog.com/account/login)，一台电脑，一块支持Wiced的开发板，一根minUSB连接线（连接Wiced开发板和电脑）。
 
-通过wilddog账号你可以远程管理你的硬件设备。
+通过wilddog账号你可以远程管理你的设备。
 
-###2、获取[Wilddog CoAP SDK](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz)
+###2、获取[Wilddog C SDK](https://cdn.wilddog.com/c/client/0.4.1/wilddog.0.4.1.tar.gz)
 
-Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接口即可把Wilddog CoAP SDK移植到你的开发板上。
+Wilddog C SDK体积小且不依赖于任何的平台，只要实现以下5个接口即可把Wilddog CoAP SDK移植到你的开发板上。
+
 ```c
 	int wilddog_gethostbyname(Wilddog_Address_T* addr,char* host);
 	int wilddog_openSocket(int* socketId);
@@ -31,11 +32,11 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 ![添加应用](https://cdn.wilddog.com/z/iot/images/quickstart_3_3.png)
 	    
 ###4、数据操作
-
+通过SDK你可以实现设备和云端数据的实时同步，例如把SDK嵌入到室内温度传感器，云端即可获得实时的室温数据，这主要通过对数据的获取、设置、订阅来实现。SDK采用在相同密钥长度下最强大的非对称算法--椭圆曲线加密算法(ECC)交换秘钥，其后的数据交互使用AES-128加密。
 ####4.1 linux端
-在Linux端可以对Wilddog云端的数据进行获取、设置和订阅。
+在Linux端对Wilddog云端的数据进行获取、设置和订阅。
 
-1.  进入**wilddog\_coap\_sdk**，编译生成libwilddog.a文件：
+1.  进入SDK，编译生成libwilddog.a文件：
 
 		$ make
 
@@ -50,7 +51,7 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 
 		$ ls bin/
 
-		wilddog test\_remove test\_query test\_set test\_push test\_on
+		wilddog test_remove test_query test_set test_push test_on
 
 3.  可以分别执行test\_set、test\_remove、test\_push、test\_query和test\_on程序，对Wilddog云端数据进行增删改查和订阅操作，例如：
 
@@ -79,39 +80,41 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 
 
 ####4.2 Wiced端
-我们已经把`wilddog_sdk`移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz), `sample/wiced`为其对应的sample。
+我们已经把SDK移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz), `sample/wiced`为其对应的sample。
 
-1.	导入wiced：
+1\.	导入wiced：
 
 直接把下载的文件夹COPY到`WICED/WICED-SDK-3.1.1/WICED-SDK/APPS/`下，如下：
 
 ![路径](https://cdn.wilddog.com/z/iot/images/quickstart_3_4.png)
 
-2.	配置wifi，打开`apps/wilddog_client_coap/sample/wiced/wifi_config_dct.h`填写热点名称和密码：
+2\.	配置wifi，假设你的目录名为`wilddog_client_coap`(注意，wiced平台下，目录名不能带`.`或`-` ), 打开`sample/wiced/wifi_config_dct.h`填写热点名称和密码：
 
 		/* This is the default AP the device will connect to (as a client)*/
 		#define CLIENT_AP_SSID       "your ssid"
 		#define CLIENT_AP_PASSPHRASE "your ap password"
 
-3.	建立Target
+3\. 配置你的appid，打开`sample/wiced/demo.c`，将`application_start`中的`uid`改为你的appid;
 
-在Make Target 窗口新建编译目标`wilddog_client_coap.sample.wiced-yourboard download run`, 其中yourboard为你的板子型号，我测试用的wiced开发板是BCM943362WCD4，因而Target name 是 `wilddog_client_coap.sample.wiced-BCM943362WCD4 download run`, 如下图：
+4\.	建立Target
+
+在Make Target 窗口新建编译目标`wilddog_client_coap.sample.wiced-yourboard download run`, 其中yourboard为你的板子型号，我们的wiced开发板型号是BCM943362WCD4，因而Target name 是 `wilddog_client_coap.sample.wiced-BCM943362WCD4 download run`, 如下图：
 
 ![make target](https://cdn.wilddog.com/z/iot/images/quickstart_3_5.png)
 
 
-4.	编译烧录运行
+5\.	编译烧录运行
 
 让你的wiced开发板连接电脑(wiced开发板的驱动在wice_sdk里面有提供)，然后直接双击Make Target窗口的`wilddog_client_coap.sample.yourboard download run`（我的环境下是`	wilddog_client_coap.sample.wiced-BCM943362WCD4 download run`）编译，如果语法和链接部分没有错误则自动烧录到你的wiced开发板并直接重启运行，默认运行`test_demo`示例.
 	
-5.	如果你想试试其他命令，例如想尝试`test_query`, 请如下操作：
+6\.	如果你想试试其他命令，例如想尝试`test_query`, 请如下操作：
 
 	1. 在`demo.c`的`application_start(void)`函数之前一行，插入`int test_query(char* uid);`
 	2. 将`application_start()`中的`test_demo`改为`test_query`，保存；
 	3. 打开`sample/wiced/wiced.mk`;
 	4. 向`$(NAME)_SOURCES`变量中增加你想使用的函数所在的文件，如`$(NAME)_SOURCES += test_query.c`，保存并重新编译烧录，下次运行的即是`test_query`.
 
-**至此**，你拥有了利用wilddog云分析管理你的传感器，灯泡，让它更加智能的能力。是的，就是这么简单，但这仅仅是开始，要想你的灵光一现变成现实你或许需要花10分钟查看后续的[**开发向导**](https://z.wilddog.com/device/guide)。
+**至此**，可以实现云端和你的设备的数据同步，如果要进行更多的操作请阅读[**开发向导**](https://z.wilddog.com/device/guide)。
 
 
 
