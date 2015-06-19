@@ -80,7 +80,7 @@ Wilddog C SDK体积小且不依赖于任何的平台，只要实现以下5个接
 
 
 ####4.2 Wiced端
-我们已经把SDK移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz), `sample/wiced`为其对应的sample。
+我们已经把SDK移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.1/wilddog.0.4.1.tar.gz), `sample/wiced`为其对应的sample。
 
 1\.	导入wiced：
 
