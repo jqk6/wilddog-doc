@@ -23,7 +23,7 @@
  //['myDataRef.on("child_added", function(snapshot) {', '//We"ll fill this in later.', '});'].join('\r\n');
  var codeline7 = "var message = snapshot.val();displayChatMessage(message.name, message.text);";
 
-var codelinestyle2 = "<span class=\"kwd\">var</span><span class=\"pln\"> myDataRef </span><span class=\"pun\">=</span><span class=\"pln\"> </span><span class=\"kwd\">new</span><span class=\"pln\"> </span><span class=\"typ\">Wilddog</span><span class=\"pun\">(</span><span class=\"str\">'https://demochat.wilddogio.com/'</span><span class=\"pun\">);</span>";
+ var codelinestyle2 = "<span class=\"kwd\">var</span><span class=\"pln\"> myDataRef </span><span class=\"pun\">=</span><span class=\"pln\"> </span><span class=\"kwd\">new</span><span class=\"pln\"> </span><span class=\"typ\">Wilddog</span><span class=\"pun\">(</span><span class=\"str\">'https://demochat.wilddogio.com/'</span><span class=\"pun\">);</span>";
 
  var codelinestyle3 = "<span class=\"pln\">myDataRef</span><span class=\"pun\">.</span><span class=\"kwd\">set</span><span class=\"pun\">(</span><span class=\"str\">'User '</span><span class=\"pln\"> </span><span class=\"pun\">+</span><span class=\"pln\"> name </span><span class=\"pun\">+</span><span class=\"pln\"> </span><span class=\"str\">' says '</span><span class=\"pln\"> </span><span class=\"pun\">+</span><span class=\"pln\"> text</span><span class=\"pun\">);</span>";
 
@@ -241,18 +241,18 @@ var codelinestyle2 = "<span class=\"kwd\">var</span><span class=\"pln\"> myDataR
      });
 
      $(".steps").find('.item').click(function() {
-        step=$(this).index();
-        if(step==1){
-            window.location.href="https://z.wilddog.com/5m";
-        }
-        wd.tutorial.setCodeLines(eval("codeline" + step));
-        $(".prettyprint").html(eval("codelinestyle" + step)).show();
-        wd.tutorial.setEditorValue(eval("html" + step));
-        $("#step-info").html(eval("info" + step));
-        wd.tutorial.editor.gotoLine(1);
-        $("#headertext").text(eval("title" + step));
-        $(this).addClass("scale-current").siblings().removeClass("scale-current");
-        $("#editor").show();
+         step = $(this).index();
+         if (step == 1) {
+             window.location.href = "/5m";
+         }
+         wd.tutorial.setCodeLines(eval("codeline" + step));
+         $(".prettyprint").html(eval("codelinestyle" + step)).show();
+         wd.tutorial.setEditorValue(eval("html" + step));
+         $("#step-info").html(eval("info" + step));
+         wd.tutorial.editor.gotoLine(1);
+         $("#headertext").text(eval("title" + step));
+         $(this).addClass("scale-current").siblings().removeClass("scale-current");
+         $("#editor").show();
      })
 
      $("#editor").fadeIn("fast");
