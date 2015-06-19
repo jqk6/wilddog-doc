@@ -4,7 +4,7 @@ Sort : 1
 */
 
 
-###1、申请wilddog云，准备设备
+## 1.申请wilddog云，准备设备
 你需要一个[**Wilddog账号**](https://www.wilddog.com/account/login)，一台电脑，一块支持Wiced的开发板，一根minUSB连接线（连接Wiced开发板和电脑）。
 
 通过wilddog账号你可以远程管理你的设备。
@@ -20,7 +20,8 @@ Wilddog C SDK体积小且不依赖于任何的平台，只要实现以下5个接
 	int wilddog_send(int socketId,Wilddog_Address_T*,void* tosend,s32 tosendLength);
 	int wilddog_receive(int socketId,Wilddog_Address_T*,void* toreceive,s32 toreceiveLength, s32 timeout);
 ```
-###3、往你的Wilddog云添加设备
+## 3.往你的Wilddog云添加设备
+
 用你的账号登陆[**野狗云**](https://www.wilddog.com/account/login)添加应用，你会得到一个属于你应用的Url(如`https://uid.wilddogio.com/`);
 
 ![](https://cdn.wilddog.com/z/iot/images/quickstart_3_1.png)
@@ -31,9 +32,11 @@ Wilddog C SDK体积小且不依赖于任何的平台，只要实现以下5个接
 
 ![添加应用](https://cdn.wilddog.com/z/iot/images/quickstart_3_3.png)
 	    
-###4、数据操作
+### 4.数据操作
+
 通过SDK你可以实现设备和云端数据的实时同步，例如把SDK嵌入到室内温度传感器，云端即可获得实时的室温数据，这主要通过对数据的获取、设置、订阅来实现。SDK采用在相同密钥长度下最强大的非对称算法--椭圆曲线加密算法(ECC)交换秘钥，其后的数据交互使用AES-128加密。
-####4.1 linux端
+
+#### 4.1 linux端
 在Linux端对Wilddog云端的数据进行获取、设置和订阅。
 
 1.  进入SDK，编译生成libwilddog.a文件：
@@ -79,8 +82,14 @@ Wilddog C SDK体积小且不依赖于任何的平台，只要实现以下5个接
 参照wilddog程序，就可以按照具体的实际需求来对Wilddog云端的数据进行访问、修改和订阅。
 
 
+<<<<<<< HEAD
 ####4.2 Wiced端
 我们已经把SDK移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.1/wilddog.0.4.1.tar.gz), `sample/wiced`为其对应的sample。
+=======
+#### 4.2 Wiced端
+我们已经把SDK移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz), `sample/wiced`为其对应的sample。
+
+>>>>>>> develop
 
 1\.	导入wiced：
 

@@ -33,7 +33,7 @@ var ref = new Wilddog("https://<appId>.wilddogio.com/");
 
 Wilddog提供了数据读写API，通过`set()` `update()` `push()` `remove()` 修改对应节点的数据；通过`on()`立即读取数据，并监听该节点数据的变化。
 
-### 写数据
+#### 写数据
 创建引用之后，就可以通过`set()` 写入任何合法的JSON数据。
 ```js
 ref.set({
@@ -46,7 +46,7 @@ ref.set({
 });
 ```
 
-### 读数据
+#### 读数据
 读数据是通过绑定callback函数并处理结果事件来实现的。假设我们按照上面的代码写入了数据，那么我们就可以使用`on()`函数来获取city字段的值。
 ```js
 ref.child("location/city").on("value", function(snapshot) {

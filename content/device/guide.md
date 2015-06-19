@@ -33,7 +33,7 @@ Sort : 2
 	#define WILDDOG_RETRANSMITE_TIME 10000 //重传超时时间(ms)
 	#define WILDDOG_RECEIVE_TIMEOUT 100 //每次接收网络数据包的最大等待时间(ms)
 ```
-##2.数据结构
+## 2.数据结构
 `Wilddog_C_SDK`的设计目标是使你通过`URL`即可访问和操作你的设备或传感器，同时设备和传感器也可以通过`URL`访问、操作其他设备或传感器。在云端你的设备数据是通过Json格式表示，在SDK中则通过树形的节点表示。
 ### 2.1了解云端数据
 当你在`wilddogio.com`云端添加一个名为`myapp`的应用时，你会得到一颗名为`myapp.wilddogio.com`的树。你可以通过`myapp.wilddogio.com`找到这棵树，初始状态下该树并没有任何叶子节点。
@@ -64,7 +64,7 @@ Sort : 2
 	west：myapp.wilddogio.com/temperature/mydevice/west 
 	north：myapp.wilddogio.com/temperature/mydevice/north 
 
-###2.2 建立和操作数据
+### 2.2 建立和操作数据
 在SDK中，每一级节点都都对应于路径path中的每一段，节点的key为该path的字符（注意path只能为字符，同时节点的key也只能为字符），上一级和下一级路径分别为其父节点和子节点(如mydevice和east)，同级路径为兄弟节点（如east和south），整个路径通过遍历链表的节点来查询和管理，上面四个传感器的Path如下:
 
 	/temperature/mydevice/east
@@ -97,7 +97,7 @@ Sort : 2
 
 成功返回的节点id定位到`/temperature/mydevice/east` 这个数据节点上。此时并没有开始同步数据。多次调用`wilddog_new()`，可以通过传入不同的URI来定位不同的数据节点。定位完节点，获得节点的id ，可以对该节点进行操作。
 
-## 4. 发送请求
+## 4.发送请求
 请求包括以下几种：
 
 	| 请求 | 用途 |
@@ -156,7 +156,7 @@ while(1)
 }
 ```
 
-### 发送on请求
+#### 发送on请求
 
 On操作是CoAP针对Observe资源的一种扩展方法的实现；它可以看做是Query操作的扩展。
 
