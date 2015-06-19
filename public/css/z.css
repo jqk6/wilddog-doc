@@ -619,3 +619,36 @@ footer {
         padding-left:0;
     }
 }
+
+
+/*****toc*****/
+
+.toc{
+
+
+}
+.toc li{
+    list-style-type: none;
+}
+.toc li a{
+    color: rgb(230,80,30);
+}
+.toc ul{
+    padding: 0;
+    font-size: 14px;
+}
+.toc>ul>li>a{
+    color: #000;
+
+}
+
+.toc ul>li>ul{
+    padding-left: 20px;
+    font-size: 12px;
+
+}
+
+.container-toc{
+    width: inherit;
+
+}

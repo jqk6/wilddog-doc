@@ -87,10 +87,9 @@ app.all('*', function(req, res, next){
 			return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
 		}});
                 var _tocHtml=marked(_toc.content);
-		console.log(_toc)
-		html=_tocHtml+html;
                 return res.render('page', {
                     config: config,
+                    toc:_tocHtml,
                     pages: pageList,
                     meta: meta,
                     content: html,

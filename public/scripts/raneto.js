@@ -26,3 +26,11 @@
     });
 
 })(jQuery, hljs);
+
+(function(){
+    $(".toc").addClass("container container-toc");
+    $(".toc>ul>li").addClass("col-md-6");
+
+
+
+})();
