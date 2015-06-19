@@ -6,7 +6,6 @@
  var title6 = "第六步, 我们来从云端读取数据";
  var title7 = "第七步, 我们来监听云端数据的变化";
 
- // var info1 = "<p style='font-size:20px;font-color:black'>首先创建一个HTML页面，然后把<script>代码添加到HTML的<head>代码里：</p>";
  var info2 = "<p style='font-size:20px;font-color:black'>在访问数据之前，需要在你的代码里创建一个Wilddog本地实例。</p><p>我们已经创建好了一个WildDog的云端数据库。它的网址是： https:/ / demochat.wilddogio.com / </p><p>为了完成这一步, 请在App中创建一个Wilddog实例： </p>";
  var info3 = "<p style='font-size:20px;font-color:black'>让我们发一个聊天消息吧。</p><p>你能够使用刚刚创建的reference通过set()方法写数据到野狗App。为了简单起见，我们通过text文本框来写消息， 通过回车键触发发送消息。为了完成这一步，使用set()方法来写消息， 代码如下：</p>";
  var info4 = "<p style='font-size:20px;font-color:black'>set()方法也能用于写数据object。</p><p>请修改你的代码，写一个带有text and name属性的数据object：</p>";
@@ -24,9 +23,7 @@
  //['myDataRef.on("child_added", function(snapshot) {', '//We"ll fill this in later.', '});'].join('\r\n');
  var codeline7 = "var message = snapshot.val();displayChatMessage(message.name, message.text);";
 
-// var codelinestyle1 = "<span class=\"tag\"><script</span><span class=\"str\"> src </span><span class=\"pun\">=</span><span class=\"pln\"> </span><span class=\"kwd\">new</span><span class=\"pln\"> </span><span class=\"typ\">Wilddog</span><span class=\"pun\">(</span><span class=\"str\">'https://demochat.wilddogio.com/'</span><span class=\"pun\">);</span>";
-
- var codelinestyle2 = "<span class=\"kwd\">var</span><span class=\"pln\"> myDataRef </span><span class=\"pun\">=</span><span class=\"pln\"> </span><span class=\"kwd\">new</span><span class=\"pln\"> </span><span class=\"typ\">Wilddog</span><span class=\"pun\">(</span><span class=\"str\">'https://demochat.wilddogio.com/'</span><span class=\"pun\">);</span>";
+var codelinestyle2 = "<span class=\"kwd\">var</span><span class=\"pln\"> myDataRef </span><span class=\"pun\">=</span><span class=\"pln\"> </span><span class=\"kwd\">new</span><span class=\"pln\"> </span><span class=\"typ\">Wilddog</span><span class=\"pun\">(</span><span class=\"str\">'https://demochat.wilddogio.com/'</span><span class=\"pun\">);</span>";
 
  var codelinestyle3 = "<span class=\"pln\">myDataRef</span><span class=\"pun\">.</span><span class=\"kwd\">set</span><span class=\"pun\">(</span><span class=\"str\">'User '</span><span class=\"pln\"> </span><span class=\"pun\">+</span><span class=\"pln\"> name </span><span class=\"pun\">+</span><span class=\"pln\"> </span><span class=\"str\">' says '</span><span class=\"pln\"> </span><span class=\"pun\">+</span><span class=\"pln\"> text</span><span class=\"pun\">);</span>";
 
@@ -243,17 +240,20 @@
          }
      });
 
-     // $(".steps").find('.item').click(function() {
-     //    step=$(this).index();
-     //    wd.tutorial.setCodeLines(eval("codeline" + step));
-     //    $(".prettyprint").html(eval("codelinestyle" + step)).show();
-     //    wd.tutorial.setEditorValue(eval("html" + step));
-     //    $("#step-info").html(eval("info" + step));
-     //    wd.tutorial.editor.gotoLine(1);
-     //    $("#headertext").text(eval("title" + step));
-     //    $(this).addClass("scale-current").siblings().removeClass("scale-current");
-     //    $("#editor").show();
-     // })
+     $(".steps").find('.item').click(function() {
+        step=$(this).index();
+        if(step==1){
+            window.location.href="https://z.wilddog.com/5m";
+        }
+        wd.tutorial.setCodeLines(eval("codeline" + step));
+        $(".prettyprint").html(eval("codelinestyle" + step)).show();
+        wd.tutorial.setEditorValue(eval("html" + step));
+        $("#step-info").html(eval("info" + step));
+        wd.tutorial.editor.gotoLine(1);
+        $("#headertext").text(eval("title" + step));
+        $(this).addClass("scale-current").siblings().removeClass("scale-current");
+        $("#editor").show();
+     })
 
      $("#editor").fadeIn("fast");
  }
