@@ -237,6 +237,7 @@
              $("#step-info").html(eval("info" + step));
              wd.tutorial.editor.gotoLine(1);
              $("#headertext").text(eval("title" + step));
+             $(".steps .item").eq((step-1)).addClass("scale-current").siblings().removeClass("scale-current");
              $("#editor").show();
              stepfinish = false;
          } else {
