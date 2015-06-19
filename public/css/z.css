@@ -1,3 +1,6 @@
+ul,ol,li{
+    list-style:none;
+}
 .header {
     background-color: transparent;
     color: #ccc;
@@ -577,6 +580,45 @@ footer {
     margin-left: 10px;
     margin-top:35px;
     float:left
+}
+.steps{
+    position:relative;
+    display:inline-block;
+    padding-left:0;
+    width:auto;
+}
+.steps .bg-line{
+    position:absolute;
+    left:0;
+    top:50%;
+    z-index:-1;
+    height:1px;
+    background-color:#333;
+    width:100%;
+}
+.steps .last{
+    margin-right:0;
+}
+.item{
+    position:relative;
+    float:left;
+    margin-right:36px;
+    width:50px;
+    height:50px;background-color:#fff;
+    border-radius:50%;
+    border:1px solid #666;
+    font-size:16px;
+    font-weight:bold;
+    color:#333;
+    line-height:50px;
+    text-align:center;
+    transform-origin:center center;
+}
+.scale-origin-left{
+    transform-origin:0 center;
+}
+.scale-current{
+    transform:scale(1.4);
 }
 @media screen and (max-width:767px){
     .wilddog-gov{
