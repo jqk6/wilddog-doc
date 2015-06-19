@@ -4,14 +4,16 @@ Sort: 1
 
 */
 
-## 第一步 创建账户和应用
+## 1.创建账户和应用
 首先注册并登陆Wilddog账号，进入[控制面板](https://www.wilddog.com/dashboard)。在控制面板中，可以创建应用(App)。每个App都拥有一个独一无二的以`wilddogio.com`结尾的URL。在同步和存取数据的时候，我们将使用这个URL。
 
 创建App成功后，Wilddog将为你初始化一个兼容JSON数据格式的树型数据库，之后你就可以操作这个数据库了。
 
 ----
 
-## 第二步 使用Wilddog Java Client
+## 2.使用Wilddog Java Client
+
+
 
 
 > **Download**
@@ -21,7 +23,7 @@ Sort: 1
 ----
 
 
-## 第三步 读写数据
+## 3.读写数据
 首先需要创建一个引用。调用Wilddog的构造函数，传递你的App对应的URL作为参数。
 ```Java
 Wilddog client = new Wilddog("https://<appId>.wilddogio.com/");

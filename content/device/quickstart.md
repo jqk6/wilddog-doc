@@ -4,12 +4,12 @@ Sort : 1
 */
 
 
-###1、申请wilddog云，准备设备
+## 1.申请wilddog云，准备设备
 你需要一个[**Wilddog账号**](https://www.wilddog.com/account/login)，一台电脑，一块支持Wiced的开发板，一根minUSB连接线（连接Wiced开发板和电脑）。
 
 通过wilddog账号你可以远程管理你的硬件设备。
 
-###2、获取[Wilddog CoAP SDK](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz)
+## 2.获取[Wilddog CoAP SDK](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz)
 
 Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接口即可把Wilddog CoAP SDK移植到你的开发板上。
 ```c
@@ -19,7 +19,7 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 	int wilddog_send(int socketId,Wilddog_Address_T*,void* tosend,s32 tosendLength);
 	int wilddog_receive(int socketId,Wilddog_Address_T*,void* toreceive,s32 toreceiveLength, s32 timeout);
 ```
-###3、往你的Wilddog云添加设备
+## 3.往你的Wilddog云添加设备
 用你的账号登陆[**野狗云**](https://www.wilddog.com/account/login)添加应用，你会得到一个属于你应用的Url(如`https://uid.wilddogio.com/`);
 
 ![](https://cdn.wilddog.com/z/iot/images/quickstart_3_1.png)
@@ -30,9 +30,10 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 
 ![添加应用](https://cdn.wilddog.com/z/iot/images/quickstart_3_3.png)
 	    
-###4、数据操作
+## 4.数据操作
 
-####4.1 linux端
+#### 4.1 linux端
+
 在Linux端可以对Wilddog云端的数据进行获取、设置和订阅。
 
 1.  进入**wilddog\_coap\_sdk**，编译生成libwilddog.a文件：
@@ -78,7 +79,8 @@ Wilddog CoAP SDK体积小不依赖于任何的平台，只要实现以下5个接
 参照wilddog程序，就可以按照具体的实际需求来对Wilddog云端的数据进行访问、修改和订阅。
 
 
-####4.2 Wiced端
+#### 4.2 Wiced端
+
 我们已经把`wilddog_sdk`移植到Wiced平台上了，代码[点此下载](https://cdn.wilddog.com/c/client/0.4.0/wilddog.0.4.0.tar.gz), `sample/wiced`为其对应的sample。
 
 1.	导入wiced：

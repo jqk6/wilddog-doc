@@ -34,9 +34,9 @@ Sort : 2
 	#define WILDDOG_RETRANSMITE_TIME 10000 //重传超时时间(ms)
 	#define WILDDOG_RECEIVE_TIMEOUT 100 //每次接收网络数据包的最大等待时间(ms)
 ```
-##2.数据结构
+## 2.数据结构
 互联网上的资源通过URL(URL=Host+path)来访问，浏览器通过解析`URL`的`Host`获取网站的IP，根据`Path`定位该网站内的资源，之后则根据Http协议解析请求是GET/PUT/DELETE/POST方法，并对资源进行操作。`Wilddog_COAP_SDK`的设计目标是使你通过`URL`即可访问和操作你的设备或传感器，同时设备和传感器通过`URL`访问和操作别的设备或传感器实现M2M。在云端你的设备数据是通过Json格式表示，在嵌入式端则通过树形的节点表示。
-### 2.1了解云端数据
+#### 2.1了解云端数据
 当你在`wilddogio.com`云端添加一个名为`myapp`的应用时，你会得到一颗名为`myapp.wilddogio.com`的树。你可以通过`myapp.wilddogio.com`找到这棵树，只是这棵树刚发芽没有任何的枝叶，往你的应用`myapp`添加你的设备使这棵树开枝散叶。
 
 假如你的房间里东南西北角各有一个温度传感器，如何把这四个传感器表示到你的数据树上呢？
@@ -64,7 +64,7 @@ Sort : 2
 	west：myapp.wilddogio.com/temperature/mydevice/west 
 	north：myapp.wilddogio.com/temperature/mydevice/north 
 
-###2.2 建立和操作数据
+#### 2.2 建立和操作数据
 对于`Wilddog_sdk`，嵌入式端通过coap接收包，不是当前host在ip层直接丢弃，对应的path需上层来处理。路径path的每一级在`Wilddog_sdk`里用节点来表示，
 通过path来定位设备。在`Wilddog_sdk`每一级路径path对应于一个节点，节点的key为该path的字符（注意path只能为字符同时节点的key也只能为字符），上一级和下一级路径分别为其父节点和子节点，同级路径为兄弟节点（如east和south），整个路径通过遍历链表的节点来查询和管理，上面四个传感器的Path如下
 
@@ -98,7 +98,7 @@ Sort : 2
 
 成功返回的client定位到`/temperature/mydevice/east` 这个数据节点上。此时并没有开始同步数据。多次调用`wilddog_new()`，可以通过传入不同的URI来定位不同的数据节点。定位完节点，获得节点的id ，可以对该节点进行操作。
 
-## 4. 发送请求
+## 4.发送请求
 请求包括以下几种：
 
 	| 请求 | 用途 |
@@ -156,7 +156,7 @@ while(1)
 }
 ```
 
-### 发送on请求
+#### 发送on请求
 
 On操作是CoAP针对Observe资源的一种扩展方法的实现；它可以看做是Query操作的扩展。
 

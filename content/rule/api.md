@@ -3,17 +3,17 @@ Title: API 文档
 Sort: 3
 */
 
-## RuleDataSnapshot
+# RuleDataSnapshot
 数据树节点的接口。
 
-### val()
+## val()
 获得节点的数据(String， Number， Boolean or null)
 
 #### Return
 `Object` 如果节点为叶子节点返回节点值；如果包含子节点将子树转化为json字符串返回；如果数据不存在，则返回null。
 
 ---
-### child(childPath) 
+## child(childPath) 
 获得指定直接下级子节点的`RuleDataSnapshot`对象。
 
 #### Param 
@@ -25,7 +25,7 @@ Sort: 3
 
 ---
 
-### parent() 
+## parent() 
 获得当前节点的父节点`RuleDataSnapshot`
 
 #### Return
@@ -33,7 +33,7 @@ Sort: 3
 
 ---
 
-### hasChild(childPath)
+## hasChild(childPath)
 判断当前节点是否存在指定子节点。
 
 #### Param
@@ -45,7 +45,7 @@ Sort: 3
 
 ---
 
-### hasChildren(pathList)
+## hasChildren(pathList)
 判断当前节点是否存在指定一组子节点。
 
 
@@ -58,7 +58,7 @@ Sort: 3
 
 ---
 
-### exist() 
+## exist() 
 判断当前节点是否存在
 
 #### Return
@@ -66,7 +66,7 @@ Sort: 3
 
 ----
 
-### isNumber()
+## isNumber()
 判断当前节点value的类型是否是数值型。
 
 #### Return
@@ -74,7 +74,7 @@ Sort: 3
 
 ----
 
-### isString()
+## isString()
 判断当前节点value的类型是否是`String`类型。
 
 #### Return
@@ -82,7 +82,7 @@ Sort: 3
 
 ----
 
-### isBoolean()
+## isBoolean()
 判断当前节点value的类型是否是布尔类型。
 
 #### Return
@@ -90,7 +90,7 @@ Sort: 3
 
 ----
 
-### isBoolean()
+## isBoolean()
 判断当前节点value的类型是否是布尔类型。
 
 #### Return
@@ -108,35 +108,35 @@ provider| String| 使用的auth方式，TODO 需要补充完整
 
 
 
-## String
+# String
 
-###  String toLowerCase() 
+##  String toLowerCase() 
 将字符串转为小写
 
 ---
-###  String toUpperCase()
+##  String toUpperCase()
 将字符串转为大写
 
 ---
 
-### String replace(char oldChar, char newChar) 
+## String replace(char oldChar, char newChar) 
 将字符串中的oldChar替换为newChar。
 
 ---
 
-### boolean matches(String regex)
+## boolean matches(String regex)
 判断字符串是否符合给定的正则规则。
 
 ---
-### boolean contains(CharSequence s)
+## boolean contains(CharSequence s)
 字符串是否包含指定子串。
 
 ---
-### boolean startsWith(String prefix)
+## boolean startsWith(String prefix)
 字符串以指定字符串开头。
 
 ---
-### boolean endsWith(String prefix)
+## boolean endsWith(String prefix)
 字符串以指定字符串结尾。
 
 ---
