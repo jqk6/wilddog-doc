@@ -570,15 +570,18 @@ int wilddog_receive
 
 #### 配置wifi和URL
 
-打开`app/wiced/wifi_config_dct.h`填写热点名称和密码：
+打开`app/wiced/wifi_config_dct.h`;
+
+配置URL：
+
+	#define TEST_URL "coaps://<appId>.wilddogio.com/"
+
+填写热点名称和密码：
 
 	/* This is the default AP the device will connect to (as a client)*/
 	#define CLIENT_AP_SSID       "your ssid"
 	#define CLIENT_AP_PASSPHRASE "your ap password"
 
-配置URL：
-
-	#define TEST_URL "coaps://<appId>.wilddogio.com/"
 
 #### 建立Target
 
@@ -595,6 +598,4 @@ int wilddog_receive
 让你的wiced开发板通过USB连接电脑，USB驱动在`WICED-SDK-3.1.2\WICED-SDK\tools\drivers`中。
 
 双击Make Target窗口刚刚建立的Target：`wilddog.app.wiced-<yourboard> download run`，编译完成后会自动烧录到开发板中运行。
-
-----
 
