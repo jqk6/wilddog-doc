@@ -14,7 +14,7 @@ Sort : 1
 我们的SDK已经在Linux平台和Wiced平台上成功移植，在此仅以Linux为例，Wiced平台请查看[<font style="color:#c7254e">开发向导</font>](https://z.wilddog.com/device/guide)中的移植SDK。
 
 
-> 你可以在这里下载 [<font style="color:#c7254e">Wilddog C/嵌入式 SDK</font>](https://cdn.wilddog.com/c/client/0.4.1/wilddog.0.4.1.tar.gz)
+> 你可以在这里下载 [<font style="color:#c7254e">Wilddog C/嵌入式 SDK</font>](https://cdn.wilddog.com/c/client/0.4.2/wilddog.0.4.2.tar.gz)
 
 
 
