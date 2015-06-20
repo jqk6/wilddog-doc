@@ -24,35 +24,34 @@ Sort : 1
 
 
 
-1. 解压SDK
+解压SDK
 	
-		$ tar zxvf wilddog.0.4.2.tar.gz
+	$ tar zxvf wilddog.0.4.2.tar.gz
 
-2. 编译SDK以及示例
 
-	编译SDK，编译后的库文件在lib目录下
+编译SDK，编译后的库文件在lib目录下
 
-		$ cd wilddog.0.4.2
-		$ make 
+	$ cd wilddog.0.4.2
+	$ make 
 
-	编译示例，编译后的可执行文件在bin目录下
+编译示例，编译后的可执行文件在bin目录下
 
-		$ make example
+	$ make example
 
 ----
 
 ## 第四步 运行示例
-3. 向应用URL存储一个key-value结构的数据
+向应用URL存储一个key-value结构的数据
 
-		$ ./bin/test set -l <应用URL> --key a --value 1 
+	$ ./bin/test set -l <应用URL> --key a --value 1 
 
-4. 获取应用URL的数据
+获取应用URL的数据
 
-		$ ./bin/test query -l <应用URL>
+	$ ./bin/test query -l <应用URL>
 		
-	执行结果：
+执行结果：
 		
-		"/":{"a":"1"}
+	"/":{"a":"1"}
 
 
 

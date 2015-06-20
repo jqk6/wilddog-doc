@@ -14,7 +14,8 @@
  Token:<token>
 ```
  
- * payload
+payload
+
  数据对象,字符串用JSON格式
 
 #### RESPONSE
@@ -57,10 +58,11 @@ Payload:<payload>
 Token: <token>
 ```
 
- * payload
+payload
+
   数据对象,字符串用JSON格式
   
- * token
+token
 	
 
 #### RESPONSE
