@@ -17,23 +17,27 @@ Sort : 2
 	├── README.md
 	└── src
 
-*	app : 用户代码目录，目前存放应用示例；
+`app` : 用户代码目录，目前存放应用示例；
 
-*	client.config : Linux平台下Makefile的条件编译选项，参见**配置SDK**；
+`client.config` : Linux平台下Makefile的条件编译选项，参见**配置SDK**；
 
-*	env.mk/Makefile : Linux平台下的Makefile，用于编译SDK；
+`env.mk/Makefile` : Linux平台下的Makefile，用于编译SDK；
 
-*	include : 包含以下四个文件：
-	*	wilddog.h : 提供了常用宏定义、结构体、别名的定义；
-	*	wilddog_api.h : API接口的声明；
-	*	wilddog_config.h : 用户可配置的参数，参见**配置SDK**；
-	*	wilddog_port.h : 平台相关的函数声明；
+`include` : 包含以下四个文件：
 
-	在SDK使用过程中，你只需要包含"wilddog_api.h"。
+	wilddog.h : 提供了常用宏定义、结构体、别名的定义；
 
-*	port : 平台相关的函数定义；
+	wilddog_api.h : API接口的声明；
 
-*	src : SDK代码存放目录。
+	wilddog_config.h : 用户可配置的参数，参见配置SDK；
+
+	wilddog_port.h : 平台相关的函数声明；
+
+   在SDK使用过程中，你只需要包含"wilddog_api.h"。
+
+`port` : 平台相关的函数定义；
+
+`src` : SDK代码存放目录。
 
 ## 2. 配置SDK
 
@@ -41,25 +45,35 @@ SDK包含条件编译选项和用户参数，供你对SDK进行配置。
 
 #### 配置条件编译选项
 
-*	Linux平台下，条件编译选项在SDK目录下的client.config文件中，包含以下三个选项：
+Linux平台下，条件编译选项在SDK目录下的client.config文件中，包含以下三个选项：
 
-	*	`APP_PROTO_TYPE` : 应用层协议，目前支持`coap`；
-	*	`APP_SEC_TYPE` : 加密方式，目前支持`dtls`和无加密`nosec`；
-	*	`PORT_TYPE` : 目前支持`posix`；
-<br></br>
+	`APP_PROTO_TYPE` : 应用层协议，目前支持`coap`；
 
-*	Wiced平台下，SDK嵌入了Wiced编译框架，条件编译选项在SDK目录下的app/wiced/wiced.mk中，配置项和Linux平台中相似，`PORT_TYPE`则支持`wiced`。
+	`APP_SEC_TYPE` : 加密方式，目前支持`dtls`和无加密`nosec`；
+
+	`PORT_TYPE` : 目前支持`posix`；
+
+Wiced平台下，SDK嵌入了Wiced编译框架，条件编译选项在SDK目录下的app/wiced/wiced.mk中，配置项和Linux平台中相似，`PORT_TYPE`则支持`wiced`。
+
+----
 
 #### 配置用户参数
 
 用户参数在SDK include目录下的wilddog_config.h中，包含如下参数：
 
-*	`WILDDOG_LITTLE_ENDIAN` : 目标机字节序，如果为大端则`undef`该宏定义；
-*	`WILDDOG_MACHINE_BITS` : 目标机位数，一般为8/16/32/64；
-*	`WILDDOG_PROTO_MAXSIZE` : 应用层协议数据包最大长度；
-*	`WILDDOG_REQ_QUEUE_NUM` : 数据请求队列的元素个数；
-*	`WILDDOG_RETRANSMITE_TIME` : 单次请求超时时间，单位为ms；
-*	`WILDDOG_RECEIVE_TIMEOUT` : 接收数据最大等待时间。
+`WILDDOG_LITTLE_ENDIAN` : 目标机字节序，如果为大端则`undef`该宏定义；
+
+`WILDDOG_MACHINE_BITS` : 目标机位数，一般为8/16/32/64；
+
+`WILDDOG_PROTO_MAXSIZE` : 应用层协议数据包最大长度；
+
+`WILDDOG_REQ_QUEUE_NUM` : 数据请求队列的元素个数；
+
+`WILDDOG_RETRANSMITE_TIME` : 单次请求超时时间，单位为ms；
+
+`WILDDOG_RECEIVE_TIMEOUT` : 接收数据最大等待时间。
+
+----
 
 ## 3.了解数据格式
 
@@ -308,7 +322,6 @@ int main()
 }
 ```
 
-
 ## 6. 修改数据
 
 修改数据的接口包括以下几种：
@@ -516,10 +529,11 @@ Wiced平台需要用户完成Makefile，格式有严格要求，Makefile文件�
 
 注意：如果你的平台不支持自定义Makefile，那么请根据条件编译选项，仅将你所需的文件拷贝到平台下，避免出现重定义。需要选择拷贝的路径有：
 
-*	`APP_PROTO_TYPE` : src/connecter/appProto目录下，根据编译选项拷贝文件夹；
+`APP_PROTO_TYPE` : src/connecter/appProto目录下，根据编译选项拷贝文件夹；
 
-*	`APP_SEC_TYPE` ： src/connecter/secure目录下，根据编译选项拷贝文件夹；
-*	`PORT_TYPE` ： port/目录下，根据编译选项拷贝文件夹，如果你的平台不属于`posix`或`wiced`，那么你需要自己实现平台相关的函数接口。
+`APP_SEC_TYPE` ： src/connecter/secure目录下，根据编译选项拷贝文件夹；
+
+`PORT_TYPE` ： port/目录下，根据编译选项拷贝文件夹，如果你的平台不属于`posix`或`wiced`，那么你需要自己实现平台相关的函数接口。
 
 ----
 
