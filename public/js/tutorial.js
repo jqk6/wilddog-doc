@@ -38,8 +38,8 @@
 
 
  //编辑框代码
- var html1 = [' <html>', '<head>', "[ 请将野狗示例代码粘贴在这 ]", '   </head>', '  <body>', '  </body>', ' </html>'].join('\r\n');
- var html2 = [' <html>', '  <head>', '   <script src=\"https://cdn.wilddog.com/js/client/current/wilddog.js\"><\/script>',
+ var html1 = [' <html>', '<head>', "[ 请将野狗示例代码粘贴在这 ]", '</head>', '<body>', '</body>', '</html>'].join('\r\n');
+ var html2 = [' <html>', '<head>', '   <script src=\"https://cdn.wilddog.com/js/client/current/wilddog.js\"><\/script>',
      '   </head>', '  <body>', '  <script>', '[ 请将野狗示例代码粘贴在这 ]', ' <\/script>', ' <\/body>', '</html > '
  ].join('\r\n');
 
