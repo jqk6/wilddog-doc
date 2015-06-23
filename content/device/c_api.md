@@ -26,13 +26,15 @@ Sort: 3
 
 **参数**
 
-* `url` : `coap[s]://<appid>.wilddogio.com/<path>`.
-* `<appid>` : 开发者在 wilddog 平台申请的应用id.
-* `<path>` : 客户端关心的路径.
+`url` : `coap[s]://<appid>.wilddogio.com/<path>`.
+
+`<appid>` : 开发者在 wilddog 平台申请的应用id.
+
+`<path>` : 客户端关心的路径.
 
 **返回值**
 
-*	返回`Wilddog_T`类型的client id，如果创建失败，返回0.
+返回`Wilddog_T`类型的client id，如果创建失败，返回0.
 #### sample
 
 ```c
@@ -54,11 +56,11 @@ int main()
 
 **参数**
 
-* `wilddog` : client id.
+`wilddog` : client id.
 
 **返回值**
 
-*	返回父节点的id，如果创建失败，返回0.
+返回父节点的id，如果创建失败，返回0.
 
 #### sample
 ```c
@@ -74,11 +76,11 @@ Wilddog_T parent = wilddog_getParent(wilddog);
 
 **参数**
 
-* `wilddog` : client id.
+`wilddog` : client id.
 
 **返回值**
 
-*	返回根节点的id，如果创建失败，返回0.
+返回根节点的id，如果创建失败，返回0.
 #### sample
 ```c
 //定位到user/jackxy
@@ -93,12 +95,13 @@ Wilddog_T root = wilddog_getRoot(wilddog);
 
 **参数**
 
-* `wilddog` : client id.
-* `childName` : 子节点的相对路径，多级子节点需用'/'隔开，即使子节点不存在也能创建.
+`wilddog` : client id.
+
+`childName` : 子节点的相对路径，多级子节点需用'/'隔开，即使子节点不存在也能创建.
 
 **返回值**
 
-*	返回子节点的id，如果创建失败，返回0.
+返回子节点的id，如果创建失败，返回0.
 
 #### sample
 ```c
@@ -115,11 +118,11 @@ Wilddog_T child = wilddog_getChild(wilddog, "aaa");
 
 **参数**
 
-* `wilddog` : client id.
+`wilddog` : client id.
 
 **返回值**
 
-*	返回node的key，如果获取失败，返回NULL.
+返回node的key，如果获取失败，返回NULL.
 
 ## destroy
  `Wilddog_Return_T wilddog_destroy(Wilddog_T *p_wilddog);`
@@ -128,11 +131,11 @@ Wilddog_T child = wilddog_getChild(wilddog, "aaa");
  
 **参数**
 
-* `p_wilddog` : 指向client id的地址.
+`p_wilddog` : 指向client id的地址.
 
 **返回值**
 
-* 返回 `0`:成功 `<0`:失败.
+返回 `0`:成功 `<0`:失败.
 
 ## setAuth
 
@@ -147,11 +150,15 @@ Wilddog_T child = wilddog_getChild(wilddog, "aaa");
 
 **参数**
 
-*	`p_host` : 想要进行auth认证的host字符串,如 `"<appid>.wilddogio.com"`。
-*	`p_auth` : auth信息数据的指针。
-*	`len` : auth信息的长度。
-*	`onAuth` : 函数指针，类型是`void (*onAuthFunc)(void* arg, Wilddog_Return_T err)`，其中`arg`为用户传递的值，（即下面的`args`），`err`为状态码，具体见`Wilddog_Return_T`定义。
-*	`args` : 用户参数接口，该值会传递到`onAuth`中。
+`p_host` : 想要进行auth认证的host字符串,如 `"<appid>.wilddogio.com"`。
+
+`p_auth` : auth信息数据的指针。
+
+`len` : auth信息的长度。
+
+`onAuth` : 函数指针，类型是`void (*onAuthFunc)(void* arg, Wilddog_Return_T err)`，其中`arg`为用户传递的值，（即下面的`args`），`err`为状态码，具体见`Wilddog_Return_T`定义。
+
+`args` : 用户参数接口，该值会传递到`onAuth`中。
 
 #### sample
 ```c
@@ -183,13 +190,15 @@ wilddog_setAuth("aaa.wilddogio.com",newToken, strlen(newToken), myOnAuthFunc, (v
  
  **参数**
 
-* `wilddog` : client id.
-* `callback` : 函数指针,类型是`void (*onQueryFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码.
-* `arg` : 即用户给回调函数的arg.
+`wilddog` : client id.
+
+`callback` : 函数指针,类型是`void (*onQueryFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码.
+
+`arg` : 即用户给回调函数的arg.
 
 **返回值**
 
-* 返回 `0`:成功 `<0`:失败.
+返回 `0`:成功 `<0`:失败.
  
 #### sample
 ```c
@@ -249,14 +258,17 @@ int main(void)
  
  **参数**
 
-* `wilddog` : client id.
-* `p_node` : `Wilddog_Node_T` 类型的指针, `Wilddog_Node_T` 为wilddog 客户端存储格式.
-* `callback` : 函数指针 ,类型是`void (*onSetFunc)(void* arg, Wilddog_Return_T err)`,其中`arg`为用户传递的值,`err`为状态码.
-* `arg` : 即用户给回调函数的arg.
+`wilddog` : client id.
+
+`p_node` : `Wilddog_Node_T` 类型的指针, `Wilddog_Node_T` 为wilddog 客户端存储格式.
+
+`callback` : 函数指针 ,类型是`void (*onSetFunc)(void* arg, Wilddog_Return_T err)`,其中`arg`为用户传递的值,`err`为状态码.
+
+`arg` : 即用户给回调函数的arg.
 
 **返回值**
 
-* 返回 `0`:成功 `<0`:失败.
+返回 `0`:成功 `<0`:失败.
 
 #### sample
 ```c
@@ -311,14 +323,17 @@ int main(void)
  
   **参数**
 
-* `wilddog` :  client id.
-* `p_node` : `Wilddog_Node_T`类型的指针(node 库的使用API 请参见后面的节点操作API).
-* `callback` : 函数指针 ,类型是`(*onPushFunc)(Wilddog_Str_T * p_newPath, void* arg, Wilddog_Return_T err)`,其中 `p_newPath` 是新增数据的完整path,`arg` 为用户传递的值,`err`为状态码.
-* `arg` : 即用户给回调函数的arg.
+`wilddog` :  client id.
+
+`p_node` : `Wilddog_Node_T`类型的指针(node 库的使用API 请参见后面的节点操作API).
+
+`callback` : 函数指针 ,类型是`(*onPushFunc)(Wilddog_Str_T * p_newPath, void* arg, Wilddog_Return_T err)`,其中 `p_newPath` 是新增数据的完整path,`arg` 为用户传递的值,`err`为状态码.
+
+`arg` : 即用户给回调函数的arg.
   
  **返回值**
 
-* 返回 `0`:成功 `<0`:失败.
+返回 `0`:成功 `<0`:失败.
 
 #### sample
 ```c
@@ -375,13 +390,15 @@ int main(void)
 
 **参数**
 
-* `wilddog` :  client id.
-* `callback` : 函数指针 ,类型是`void (*onRemoveFunc)(void* arg, Wilddog_Return_T err)`,其中`arg` 为用户传递的值,`err`为状态码.
-* `arg` : 即用户给回调函数的arg.
+`wilddog` :  client id.
+
+`callback` : 函数指针 ,类型是`void (*onRemoveFunc)(void* arg, Wilddog_Return_T err)`,其中`arg` 为用户传递的值,`err`为状态码.
+
+`arg` : 即用户给回调函数的arg.
 
 **返回值**
 
-* 返回 `0`:成功 `<0`:失败.
+返回 `0`:成功 `<0`:失败.
 
 #### sample
 ```c
@@ -431,14 +448,17 @@ int main(void)
 
 **参数**
 
-* `wilddog` :  client id.
-* `event` : 关注的事件类型，见`Wilddog_EventType_T`定义.
-* `onDataChange` : 函数指针,类型是`(*onEventFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码.
-* `dataChangeArg` : 即用户给回调函数的arg.
+`wilddog` :  client id.
+
+`event` : 关注的事件类型，见`Wilddog_EventType_T`定义.
+
+`onDataChange` : 函数指针,类型是`(*onEventFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码.
+
+`dataChangeArg` : 即用户给回调函数的arg.
  
 **返回值**
 
-* 返回 `0`:成功 `<0`:失败.
+返回 `0`:成功 `<0`:失败.
 
 #### sample
 ```c
@@ -500,12 +520,12 @@ int main(void)
 
 **参数**
 
-* `wilddog` :  client id.
-* `event` : 取消的事件类型.
+`wilddog` :  client id.
+`event` : 取消的事件类型.
 
 **返回值**
 
-* 返回 `0`:成功 `<0`:失败.
+返回 `0`:成功 `<0`:失败.
 
 ## try sync
  `void wilddog_trySync(void)`
@@ -527,7 +547,7 @@ int main(void)
 
 **参数**
 
-*	`ms` : 增加的时间,按毫秒计时.
+`ms` : 增加的时间,按毫秒计时.
 
 **返回值**
 
@@ -545,10 +565,10 @@ void timer_isr()
 
 节点总共有8种类型，如下：
 
-	#define	WILDDOG_NODE_TYPE_FALSE  0 //false类型
-	#define	WILDDOG_NODE_TYPE_TRUE   1 //true类型
+	#define WILDDOG_NODE_TYPE_FALSE  0 //false类型
+	#define WILDDOG_NODE_TYPE_TRUE   1 //true类型
 	#define WILDDOG_NODE_TYPE_NULL   2 //null类型
-	#define	WILDDOG_NODE_TYPE_NUM    3 //整数类型(32 bits 有符号数)
+	#define WILDDOG_NODE_TYPE_NUM    3 //整数类型(32 bits 有符号数)
 	#define WILDDOG_NODE_TYPE_FLOAT  4 //浮点类型
 	#define WILDDOG_NODE_TYPE_BYTESTRING 5 //二进制数组类型
 	#define WILDDOG_NODE_TYPE_UTF8STRING 6 //字符串类型

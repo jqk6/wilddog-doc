@@ -1,3 +1,3 @@
 /*
-  Title : 物联网
+  Title : C/嵌入式 SDK
 */

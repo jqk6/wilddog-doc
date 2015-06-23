@@ -14,7 +14,8 @@
  Token:<token>
 ```
  
- * payload
+payload
+
  数据对象,字符串用JSON格式
 
 #### RESPONSE
@@ -57,10 +58,11 @@ Payload:<payload>
 Token: <token>
 ```
 
- * payload
+payload
+
   数据对象,字符串用JSON格式
   
- * token
+token
 	
 
 #### RESPONSE
@@ -94,7 +96,7 @@ Token: <token>
 
 
 
-### 删除一个节点
+## 删除一个节点
 
  删除某个节点,以及节点下的所有子节点
 #### REQUEST
