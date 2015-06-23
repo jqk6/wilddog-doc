@@ -598,7 +598,7 @@ footer {
     top:50%;
     z-index:-1;
     height:1px;
-    background-color:#333;
+    background-color:#ddd;
     width:100%;
 }
 .steps .last{
@@ -612,14 +612,12 @@ footer {
     height:36px;
     background-color:#fff;
     border-radius:50%;
-    border:1px solid #666;
+    border:1px solid #ddd;
     font-size:16px;
-    font-weight:bold;
-    color:#333;
+    color:#666;
     line-height:36px;
     text-align:center;
     cursor:pointer;
-    transform-origin:center center;
 }
 .scale-current{
     border:0;
