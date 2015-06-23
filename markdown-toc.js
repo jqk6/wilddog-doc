@@ -38,11 +38,6 @@ function toc(str, options) {
     .render(str);
 }
 
-/**
- * Expose `insert` method
- */
-
-toc.insert = require('./lib/insert');
 
 /**
  * Generate a markdown table of contents. This is the

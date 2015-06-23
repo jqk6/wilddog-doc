@@ -109,15 +109,18 @@ var raneto = {
 					}
 				}
 
-				
-				filesProcessed.push({
+				var dirObj={
 					slug: shortPath,
+					path:filePath,
+					subDir:[],
 					title: _s.titleize(_s.humanize(path.basename(shortPath))),
 					is_index: false,
 					class: 'category-'+ raneto.cleanString(shortPath.replace(/\//g, ' ')),
 					sort: sort,
 					files: []
-				});
+				};
+				filesProcessed.push(dirObj);
+				
 			}
 			if(stat.isFile() && path.extname(shortPath) == '.md'){
 				try {
@@ -163,6 +166,7 @@ var raneto = {
 
 		return filesProcessed;
 	},
+
 
 	search: function(query) {
 		var files = glob.sync(__dirname +'/content/**/*.md');

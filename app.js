@@ -9,7 +9,7 @@ var express = require('express'),
     moment = require('moment'),
     raneto = require('./raneto'),
     config = require('./config'),
-    toc = require('markdown-toc'),
+    toc = require('./markdown-toc'),
     pinyin=require("pinyin"),
     app = express(); // 使用nodejs express
 
@@ -30,6 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
 * 对所有路径进行解析.
 */
+
+
 app.all('*', function(req, res, next){
     if(req.query.search){
         var searchResults = raneto.search(req.query.search);
@@ -49,7 +51,7 @@ app.all('*', function(req, res, next){
 	else if(req.params[0]){
         var slug = req.params[0];
         if(slug == '/') slug = '/index'; //如果是首页,那么转向/index
- 
+        
         
         var filePath = __dirname +'/content'+ slug +'.md',
             pageList = raneto.getPages(slug, config);
@@ -90,9 +92,9 @@ app.all('*', function(req, res, next){
                 // Content
                 content = raneto.processVars(content, config);
                 var html = marked(content);
-                var _toc=toc(content,{maxdepth:3,slugify:function(raw){
-			return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
-		}});
+                var _toc=toc(content,{maxdepth:1,slugify:function(raw){
+	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
+                }});
                 var _tocHtml=marked(_toc.content);
                 return res.render('page', {
                     config: config,

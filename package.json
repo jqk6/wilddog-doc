@@ -28,13 +28,20 @@
     "glob": "^4.0.0",
     "hogan-express": "^0.5.2",
     "lunr": "^0.5.3",
-    "markdown-toc": "^0.11.2",
     "moment": "^2.6.0",
     "morgan": "~1.0.0",
     "pinyin": "^2.5.0",
     "static-favicon": "~1.0.0",
     "underscore": "^1.6.0",
-    "underscore.string": "^2.3.3"
+    "underscore.string": "^2.3.3",
+    "concat-stream": "^1.4.8",
+    "extend-shallow": "^1.1.2",
+    "gray-matter": "^2.0.0",
+    "markdown-link": "^0.1.1",
+    "minimist": "^1.1.1",
+    "object.pick": "^1.1.1",
+    "remarkable": "^1.6.0",
+    "repeat-string": "^1.5.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5"
