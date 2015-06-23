@@ -9,7 +9,7 @@ var express = require('express'),
     moment = require('moment'),
     raneto = require('./raneto'),
     config = require('./config'),
-    toc = require('markdown-toc'),
+    toc = require('./markdown-toc'),
     app = express(); // 使用nodejs express
 
 // view engine setup
