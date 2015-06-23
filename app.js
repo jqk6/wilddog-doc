@@ -92,7 +92,7 @@ app.all('*', function(req, res, next){
                 // Content
                 content = raneto.processVars(content, config);
                 var html = marked(content);
-                var _toc=toc(content,{maxdepth:1,slugify:function(raw){
+                var _toc=toc(content,{maxdepth:3,slugify:function(raw){
 	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
                 }});
                 var _tocHtml=marked(_toc.content);
