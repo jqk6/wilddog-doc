@@ -581,6 +581,11 @@ footer {
     margin-top:35px;
     float:left
 }
+.flow{
+    position: absolute;
+    right:60px;
+    top:60px;
+}
 .steps{
     position:relative;
     display:inline-block;
@@ -602,24 +607,24 @@ footer {
 .item{
     position:relative;
     float:left;
-    margin-right:36px;
-    width:50px;
-    height:50px;background-color:#fff;
+    margin-right:20px;
+    width:36px;
+    height:36px;
+    background-color:#fff;
     border-radius:50%;
     border:1px solid #666;
     font-size:16px;
     font-weight:bold;
     color:#333;
-    line-height:50px;
+    line-height:36px;
     text-align:center;
     cursor:pointer;
     transform-origin:center center;
 }
-.scale-origin-left{
-    transform-origin:0 center;
-}
 .scale-current{
-    transform:scale(1.4);
+    border:0;
+    background-color:#ccc;
+    color:#fff;
 }
 @media screen and (max-width:767px){
     .wilddog-gov{
