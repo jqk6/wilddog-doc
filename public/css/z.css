@@ -626,8 +626,13 @@ footer {
 }
 
 @media screen and (min-width:1200px){
+    .container{
+        max-width:980px;
+        padding-left:0;
+        padding-right:0;
+    }
     footer{
-        width:1170px;
+        max-width:980px;
     }
 }
 @media screen and (max-width:767px){
