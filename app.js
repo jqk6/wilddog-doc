@@ -88,6 +88,7 @@ app.all('*', function(req, res, next){
                 var stat = fs.lstatSync(filePath);
                 // Meta
                 var meta = raneto.processMeta(content);
+		console.log(meta)
                 content = raneto.stripMeta(content);
                 // Content
                 content = raneto.processVars(content, config);
@@ -96,7 +97,11 @@ app.all('*', function(req, res, next){
 	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
                 }});
                 var _tocHtml=marked(_toc.content);
-                return res.render('page', {
+		var tmpl="page";
+		if(meta["tmpl"]){
+			tmpl=meta["tmpl"];
+		}
+                return res.render(tmpl, {
                     config: config,
                     toc:_tocHtml,
                     pages: pageList,
