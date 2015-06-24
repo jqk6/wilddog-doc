@@ -262,4 +262,3 @@ toc.linkify = linkify;
 toc.slugify = slugify;
 toc.titleize = titleize;
 toc.strip = strip;
->>>>>>> add-tob:markdown-toc.js

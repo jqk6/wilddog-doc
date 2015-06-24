@@ -196,4 +196,3 @@ var raneto = {
 };
 
 module.exports = raneto;
->>>>>>> add-tob
