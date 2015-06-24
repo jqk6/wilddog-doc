@@ -624,7 +624,21 @@ footer {
     background-color:#ccc;
     color:#fff;
 }
+
+@media screen and (min-width:1200px){
+    .container{
+        max-width:980px;
+        padding-left:0;
+        padding-right:0;
+    }
+    footer{
+        max-width:980px;
+    }
+}
 @media screen and (max-width:767px){
+    footer{
+        width:100%;
+    }
     .wilddog-gov{
         display:none;
     }
@@ -665,4 +679,3 @@ footer {
         padding-left:0;
     }
 }
-
