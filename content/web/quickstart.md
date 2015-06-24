@@ -15,7 +15,7 @@ Sort: 0
 ## 第二步 引入Wilddog SDK
 引入Wilddog SDK非常简单，只需在HTML文件中加入一个script标签。建议直接使用wilddog cdn中的库。
 ```html
-<script src = "http://cdn.wilddog.com/js/client/current/wilddog.js" >
+<script src = "https://cdn.wilddog.com/js/client/current/wilddog.js" ></script>
 
 ```
 
