@@ -1,0 +1,31 @@
+{
+  "name": "wilddog-doc",
+  "version": "0.0.0",
+  "homepage": "https://github.com/WildDogTeam/wilddog-doc",
+  "authors": [
+    "xiaoguangyu <xiaoguangyu@wilddog.cn>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "doc-ready": "~1.0.4",
+    "eventEmitter": "~4.2.11",
+    "eventie": "~1.0.6",
+    "fitvids": "~1.1.0",
+    "get-size": "~1.2.2",
+    "get-style-property": "~1.0.4",
+    "highlightjs": "~8.5.0",
+    "jquery-bridget": "~1.1.0",
+    "masonry": "~3.3.0",
+    "matches-selector": "~1.0.3",
+    "outlayer": "~1.4.0"
+  }
+}
