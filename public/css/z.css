@@ -172,7 +172,7 @@ ul,ol,li{
 /*需要替换的部分*/
 
 body {
-    color: #333130;
+    color: #666;
     font: 12px/1.5 arial, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif !important;
     height: 100%;
     text-rendering: optimizeLegibility;
@@ -374,7 +374,7 @@ h3 {
     margin-left: 20px;
 }
 
-h4 {
+h4,h6 {
     font-size: 14px;
     /*    font-weight: bold;*/
     
@@ -707,7 +707,7 @@ footer {
     line-height:24px;
     margin-bottom:0;
 }
-.content>h4{
+.content>h6{
     width:18%;
     text-align:right;
     color:#999;
@@ -759,6 +759,46 @@ blockquote table thead{
 blockquote table td{
     width:50%;
 }
-.content p>code{
+.content p>code,.content ul code,.content table code,.content ol code{
+    background:none;
     font-style:italic;
+    color:#333;
 }
+/*更改开发向导所有页面样式*/
+.guide-content h2{
+    font-weight:bold;
+}
+.guide-content>h4{
+    padding-left:18px;
+    position: static;
+    width:100%;
+    text-align:left;
+    color:#333;
+}
+.guide-content .toc>ul>li>a{
+    font-size:14px;
+}
+.guide-content>p{
+    padding-left:38px;
+}
+.guide-content>pre{
+    margin-left:38px;
+}
+.guide-content h4{
+    margin-bottom:10px;
+}
+h4>code{
+    background:none;
+    color:#333;
+    padding:0;
+}
+.guide-content p>strong{
+    display:block;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+
+
+
+
+

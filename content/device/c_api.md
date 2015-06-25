@@ -35,7 +35,7 @@ Sort: 3
 **返回值**
 
 返回`Wilddog_T`类型的client id，如果创建失败，返回0.
-#### sample
+###### sample
 
 ```c
 int main()
@@ -62,7 +62,7 @@ int main()
 
 返回父节点的id，如果创建失败，返回0.
 
-#### sample
+###### sample
 ```c
 //定位到user/jackxy
 Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
@@ -81,7 +81,7 @@ Wilddog_T parent = wilddog_getParent(wilddog);
 **返回值**
 
 返回根节点的id，如果创建失败，返回0.
-#### sample
+###### sample
 ```c
 //定位到user/jackxy
 Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
@@ -103,7 +103,7 @@ Wilddog_T root = wilddog_getRoot(wilddog);
 
 返回子节点的id，如果创建失败，返回0.
 
-#### sample
+###### sample
 ```c
 //定位到user/jackxy
 Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
@@ -160,7 +160,7 @@ Wilddog_T child = wilddog_getChild(wilddog, "aaa");
 
 `args` : 用户参数接口，该值会传递到`onAuth`中。
 
-#### sample
+###### sample
 ```c
 void myOnAuthFunc(void* arg, Wilddog_Return_T err)
 {
@@ -200,7 +200,7 @@ wilddog_setAuth("aaa.wilddogio.com",newToken, strlen(newToken), myOnAuthFunc, (v
 
 返回 `0`:成功 `<0`:失败.
  
-#### sample
+###### sample
 ```c
 STATIC void test_onQueryFunc(
 	const Wilddog_Node_T* p_snapshot, 
@@ -270,7 +270,7 @@ int main(void)
 
 返回 `0`:成功 `<0`:失败.
 
-#### sample
+###### sample
 ```c
 STATIC void test_onSetFunc(void* arg, Wilddog_Return_T err)
 {
@@ -335,7 +335,7 @@ int main(void)
 
 返回 `0`:成功 `<0`:失败.
 
-#### sample
+###### sample
 ```c
 STATIC void test_onPushFunc(u8 *p_path,void* arg, Wilddog_Return_T err)
 {
@@ -400,7 +400,7 @@ int main(void)
 
 返回 `0`:成功 `<0`:失败.
 
-#### sample
+###### sample
 ```c
 STATIC void test_onDeleteFunc(void* arg, Wilddog_Return_T err)
 {
@@ -460,7 +460,7 @@ int main(void)
 
 返回 `0`:成功 `<0`:失败.
 
-#### sample
+###### sample
 ```c
 STATIC void test_onObserveFunc(
 	const Wilddog_Node_T* p_snapshot, 
@@ -553,7 +553,7 @@ int main(void)
 
  无
 
-#### sample
+###### sample
 ```c
 void timer_isr()
 {
@@ -576,7 +576,7 @@ void timer_isr()
 
 ## 节点创建
 
-####创建一个Object类型节点
+######创建一个Object类型节点
 
 	Wilddog_Node_T * wilddog_node_createObject(Wilddog_Str_T* key)
 
@@ -588,7 +588,7 @@ void timer_isr()
 
  创建成功则返回节点的指针，失败返回NULL.
 
-####创建一个字符串类型节点
+######创建一个字符串类型节点
 
 	Wilddog_Node_T * wilddog_node_createUString(Wilddog_Str_T* key, Wilddog_Str_T *value)
 
@@ -602,7 +602,7 @@ void timer_isr()
 
  创建成功则返回节点的指针，失败返回NULL.
 
-####创建一个二进制数组类型节点
+######创建一个二进制数组类型节点
 
 	Wilddog_Node_T * wilddog_node_createBString(Wilddog_Str_T* key, u8 *value, int len)
 
@@ -618,7 +618,7 @@ void timer_isr()
 
  创建成功则返回节点的指针，失败返回NULL.
 
-####创建一个浮点类型节点
+######创建一个浮点类型节点
 
 	Wilddog_Node_T * wilddog_node_createFloat(Wilddog_Str_T* key, wFloat num)
 
@@ -632,7 +632,7 @@ void timer_isr()
 
  创建成功则返回节点的指针，失败返回NULL.
 
-####创建一个整数类型节点
+######创建一个整数类型节点
 
 	Wilddog_Node_T * wilddog_node_createNum(Wilddog_Str_T* key, s32 num)
 
@@ -646,7 +646,7 @@ void timer_isr()
 
  创建成功则返回节点的指针，失败返回NULL.
 
-####创建一个null类型节点
+######创建一个null类型节点
 
 	Wilddog_Node_T * wilddog_node_createNull(Wilddog_Str_T* key)
 
@@ -658,7 +658,7 @@ void timer_isr()
 
  创建成功则返回节点的指针，失败返回NULL.
 
-####创建一个TRUE类型节点
+######创建一个TRUE类型节点
 
 	Wilddog_Node_T * wilddog_node_createTrue(Wilddog_Str_T* key)
 
@@ -670,7 +670,7 @@ void timer_isr()
 
  创建成功则返回节点的指针，失败返回NULL.
 
-####创建一个FALSE类型节点
+######创建一个FALSE类型节点
 
 	Wilddog_Node_T * wilddog_node_createFalse(Wilddog_Str_T* key)
 
@@ -684,7 +684,7 @@ void timer_isr()
 
 ## 节点之间操作
 
-#### 增加
+###### 增加
 
 	Wilddog_Return_T wilddog_node_add(Wilddog_Node_T *parent, Wilddog_Node_T *child)
 
@@ -700,7 +700,7 @@ void timer_isr()
 
  成功返回 `0`, 失败返回 `<0`的值.
 
-#### 删除
+###### 删除
 
 	Wilddog_Return_T wilddog_node_delete( Wilddog_Node_T *head)
 
@@ -714,7 +714,7 @@ void timer_isr()
 
  成功返回 `0`, 失败返回 `<0`的值.
 
-#### 拷贝
+###### 拷贝
 
 	Wilddog_Node_T * wilddog_node_clone( Wilddog_Node_T *head)
 
@@ -728,7 +728,7 @@ void timer_isr()
 
  成功返回拷贝后新的头节点指针, 失败返回NULL.
 
-#### 查找
+###### 查找
 
 	Wilddog_Node_T *wilddog_node_find( Wilddog_Node_T *root, char *path)
 
@@ -747,7 +747,7 @@ void timer_isr()
 
 ##节点内部的操作
 
-####获取当前节点的key值
+######获取当前节点的key值
 
 	Wilddog_Str_T *wilddog_node_getKey(Wilddog_Node_T *node)
 
@@ -759,7 +759,7 @@ void timer_isr()
 
  成功返回指向节点key的指针，失败返回NULL.
 
-####设置当前节点的key值
+######设置当前节点的key值
 
 	Wilddog_Return_T wilddog_node_setKey(Wilddog_Node_T *node, Wilddog_Str_T *key)
 
@@ -773,7 +773,7 @@ void timer_isr()
 
  成功返回指向节点key的指针，失败返回NULL.
 
-####获取当前节点的类型
+######获取当前节点的类型
 
 	u8 wilddog_node_getType(Wilddog_Node_T *node)
 
@@ -785,7 +785,7 @@ void timer_isr()
 
  返回节点类型.
 
-####设置当前节点的类型
+######设置当前节点的类型
 
 	void wilddog_node_setType(Wilddog_Node_T *node, u8 type)
 
@@ -799,7 +799,7 @@ void timer_isr()
 
  无
 
-####获取当前节点的value值
+######获取当前节点的value值
 
 	Wilddog_Str_T* wilddog_node_getValue(Wilddog_Node_T *node, int * len)
 
@@ -813,7 +813,7 @@ void timer_isr()
 
  成功返回指向节点value的指针(可根据type和传出的len来转化)，失败返回NULL.
 
-####设置当前节点的value值
+######设置当前节点的value值
 
 	Wilddog_Return_T wilddog_node_setValue(Wilddog_Node_T *node, u8 *value, int len)
 
