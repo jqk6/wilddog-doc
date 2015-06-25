@@ -22,11 +22,35 @@
                 transitionDuration: 0
             });
         }
-
     });
 
 })(jQuery, hljs);
 (function(){
+    var headingLi = $(".toc>ul>li");
+    var headingLiLength = headingLi.length;
+    for(var i=0; i<headingLiLength; i++){
+
+        var smallLiArr=headingLi.eq(i);
+
+        var smallLiArray = smallLiArr.find('li');
+        if (smallLiArr.outerHeight()>220) {
+            smallLiArr.parent("ul").siblings('.wd-font').show();
+        };
+
+            for(var j = 0; j<Math.ceil(smallLiArray.length/2); j++){
+
+                 smallLiArray.eq(j).css({"float":"left"});
+
+                 smallLiArray.eq(smallLiArray.length-j-1).css({"float":"right"});
+
+             }
+
+    };
+
+
+
+
+
     var flag = true;
     var animateHeight;
     $(".wd-font").click(function(event) {
@@ -40,5 +64,7 @@
             flag = true;
         }
     });
+
 })();
+
 

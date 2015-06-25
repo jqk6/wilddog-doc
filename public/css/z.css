@@ -385,7 +385,7 @@ h4,h6 {
 
 pre {
     margin-top: 13px;
-    margin-left:158px;
+    margin-left:118px;
 }
 
 ul {
@@ -687,14 +687,17 @@ footer {
 .toc>ul{
     overflow:hidden;
 }
-.toc>ul>li{
+.toc>ul>li>ul{
+    overflow: hidden;
+}
+.toc>ul>li li{
+    width:50%;
     box-sizing:border-box;
     padding-right:20px;
-    float: left;
-    width:50%;
     word-break:break-all;
 }
 .toc>ul>li>a{
+    display:block;
     font-size:18px;
     color:#333;
 }
@@ -707,19 +710,19 @@ footer {
     font-size:14px;
 }
 .content>p,.content>ul{
-    padding-left:158px;
+    padding-left:118px;
 }
 .content>ul{
     line-height:24px;
     margin-bottom:0;
 }
 .content>h6{
-    width:20%;
+    width:15%;
     text-align:right;
     color:#999;
     position: relative;
     margin-left:0;
-    top:20px;
+    top:18px;
 }
 .hljs{
     font-family:"Microsoft Yahei";
@@ -850,7 +853,7 @@ h4>code{
     overflow:hidden;
 }
 .wd-font{
-    display:block;
+    display:none;
     position: absolute;
     bottom:0;
     left:0;

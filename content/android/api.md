@@ -8,12 +8,14 @@ Sort: 4
 
 ## public Wilddog getParent()
 
+###### 描述
+
 获得当前Path的父节点引用对象（Wilddog），如果当前已经到达root路径，调用该函数后返回依然是root的引用对象（Wilddog）。
 
-###### Return
+###### 返回值
 `Wilddog` 上级引用对象
 
-###### Sample
+###### 操作示例
 ```java
 Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test/a");
 // 获得'/test' 路径的引用
