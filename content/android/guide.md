@@ -1,22 +1,44 @@
 /*
 Title : 开发向导
 Sort : 2
-Tmpl : page-guide
 */
 
-## 1.了解 Wilddog 云数据存储
-#### 更像一个 JSON Tree
-Wilddog云存储使用树形数据结构，替代古老的数据table的方式。树形数据天然拥有关系型数据的特点，而且更能直观表述数据之间的关系。
-整个树形数据更像一个JSON对象，没有 table 或 record，所以我们使用JSON来表述这棵数据树。每一个数据节点，都可以用一个 path 来表示，如下：
+## 1  安装与设置
+### 创建账户和应用
+首先注册并登陆Wilddog账号，进入控制面板。在控制面板中，添加一个新的应用。你会获得一个独一无二的应用URL `https://<appId>.wilddogio.com/`，在同步和存取数据的时候，将使用这个URL。
+
+### 引入 Wilddog Java SDK
+
+下载SDK。
+[Download Wilddog Java SDK](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
+（目前只提供jvm版SDK，android版的SDK即将推出）
+
+导入SDK。
+将wilddog-client-jvm-xxx.jar拷贝到Android应用的libs目录中，然后在IDE中将jar文件添加到应用的classpath。
+
+
+## 2 了解数据
+
+### 数据是JSON树
+野狗的数据是JSON对象的形式存储在云端数据库中。当我们向JSON树添加一条数据的时候，它将以KEY/VALUE的形式存在于JSON树结构中。
+例如，当我们在`users/mchen/`节点下添加一个名字为`widgets`子节点时，数据将如下所示：
 
 ```JSON
-	{
-		"users" : {
-			"lich" : { "age" : 35, "Shape" : "thin" },
-			"Pudge" : {"age" : 60, "Shape" : "fat", "ability" : "gank" }
-		}		
-	}
+{
+  "users": {
+    "mchen": {
+      "friends": { "brinchen": true },
+      "name": "Mary Chen",
+      // our child node appears in the existing JSON tree
+      "widgets": { "one": true, "three": true }
+    },
+    "brinchen": { ... },
+    "hmadi": { ... }
+  }
+}
 ```
+在Java环境下，JSON树可被转换成为以下几种数据类型：`String` `Boolean` `Number` `Map<String, Object>`等
+
 `lich` 节点的path为`/users/lich`，该节点还有两个子节点做为它的属性。而 `Pudge` 节点可以拥有三个属性。所以更像NoSQL数据库的存储方式，比如mongoDB的JSON方式。`lich` 与 `Pudge` 节点做为 `users` 的子节点，可以将 `users` 看作一个table，`lich` 与 `Pudge` 看作 `users` 的数据项。
 
 更像NoSQL，或者说更像JSON对象的一点，可以给 `users` 添加一个 `amount` 子节点，可以看作 `users` 的属性，如下：
@@ -31,15 +53,15 @@ Wilddog云存储使用树形数据结构，替代古老的数据table的方式�
 	}
 ```
 
-#### 节点名称
+### 节点名称
 每个节点名称作为key，在同一父节点下值唯一。path作为节点的全名称，全局唯一。全名称有最大长度限制，小于等于1024Byte。节点名中不能包含一些特殊ASCII 字符，在ASCII范围内只支持 `0-1 a-z A-Z` 和 `_` `-` `:`三个符号，ASCII范围外支持UTF-8编码集。节点key一旦创建是不能修改的。
 
-#### 节点Value
+### 节点Value
 节点值支持 `String` `Boolean` `Number` 和 `null` 。当数据为 `null` 的时候表示数据不存在（或者删除该节点）。
 当本节点包含子节点的时候，可以将整个子树看作本节点的value。
 节点value最大长度不能超过1024Byte。
 
-#### List 与 Array
+### List 与 Array
 Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 与 `Array`，有替代方案解决，可以被存储为一个对象节点，整数作为key。如下：
 
 ```JSON
@@ -49,7 +71,7 @@ Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 
 {0: 'Jan', 1: 'Feb', 2: 'Mar'}
 ```  
 
-#### Path
+### Path
 每个数据节点都有一个对应的 `path` 。读和写Wilddog的数据时，我们首先创建一个数据存储的引用，加载指定的 `URL` 。其中， `URL` 包含一个 `URI` ，就是使用数据节点的 `ptah`  作为 `URI`  。
 
 ```Java
@@ -58,7 +80,7 @@ Wilddog client = new Wilddog('https://<appId>.wilddogio.com/test/data');
 该引用的 `URI` 为 `/test/data`，也是数据节点的 `path` 
 因此，每个数据都有统一资源定位，通过浏览器访问地址 `https://<appId>.wilddogio.com/test/data.json`，可以获取该节点JSON数据；如果在登录状态可以在浏览器中直接输入URL地址 `https://<appId>.wilddogio.com/test/data`，进入该节点的数据预览页面。
 
-## 2.建立连接
+## 2 建立连接
 
 使用App的域名，建立一个Wilddog client连接。
 ```Java
@@ -73,7 +95,7 @@ try{
 定位完节点，获得节点的引用，可以对该节点进行读写操作。
 
 
-## 3.获取数据
+## 3 获取数据
 
 Wilddog 通过为client附加一个异步EventListener监听器来获得数据。监听器将触发一次数据的初始化和同步后续数据变化。
 使用 `addValueEventListener()` 监听一个数据节点的变化。
@@ -98,26 +120,26 @@ Wilddog 通过为client附加一个异步EventListener监听器来获得数据�
 
 上面事例已经接触到了`ValueEventListener` 与 `Snapshot` 俩个重要类，下面详细说明这两个类。
 
-#### ValueEventListener 与 ChildEventListener
+### ValueEventListener 与 ChildEventListener
 
 监听器分4个监听事件，`Value Changed` `Child added` `Child removed` `Child Changed`。分别对应四个callback方法`onDataChanged()`  `onChildAdded()` `onChildRemoved()` `childChanged()`。
 
-**Value Changed**
+#### Value Changed
 
 本地第一次pull数据的时候，需要实现该接口，并在后续该数据节点发生变化时也将触发该方法。
 该方法获得Snapshot参数，代表最新的数据，非叶子节点，将包含所有下级的子节点。
 
-**Child Added**
+#### Child Added
 
 当本节点有新的子节点添加成功时，将触发`onChildAdded()`。如果一次同步有N个子节点添加成功，将触发N次`onChildAdded()`。如果新加的子节点还包含子节点，这个孙子节点不会触发`onChildAdded()`，但是将会触发`onChildChanged()`。
 该方法获得Snapshot参数，代表新添加的子节点数据，非叶子节点，将包含新的子节点的所有下级子节点。
 
-**Child Removed** 
+#### Child Removed 
 
 当本节点有子节点被删除成功时，将触发`onChildRemoved()`。如果一次同步有N个子节点被删除，将触发N次`onChildRemoved()`。如果被删除的子节点还包含子节点，这些孙子节点也将被删除，但是不会触发`onChildRemoved()`，但是将会触发`onChildChanged()` 。
 该方法获得Snapshot参数，代表被删除的子节点数据，非叶子节点，将包含被删除子节点的所有下级子节点。
 
-**Child Changed**
+#### Child Changed
 
 当本节点有子节点发生变化时，将触发`onChildChanged()`。如果一次同步有N个子节点被修改，将触发N次`onChildChanged()`。触发`onChildChanged()`的条件有：
 
@@ -125,7 +147,7 @@ Wilddog 通过为client附加一个异步EventListener监听器来获得数据�
 * 孙子节点有value发生变化；
 * 子节或孙子节点发生`childRemoved` `childChanged` `childAdded`。
 
-#### Snapshot
+### Snapshot
 
 与监听事件配合，在事件触发的时候作为参数传递给用户使用。不同的事件代表的含义不同。
 
@@ -138,7 +160,7 @@ Wilddog 通过为client附加一个异步EventListener监听器来获得数据�
 
 ## 4 修改数据
 
-#### 修改数据的方式
+### 修改数据的方式
 
 接口 | 描述
 ---- | ----
@@ -147,7 +169,7 @@ Wilddog 通过为client附加一个异步EventListener监听器来获得数据�
 `updateChildren()` | 更新当前Path节点的数据，不会取代已存在的子节点。
 `removeValue()` | 删除当前Path节点的数据
 
-#### setValue()
+### setValue()
 Wilddog通过 `setValue()` 保存新的数据到App中，将替换当前Path节点的所有数据。我们将构建一个简单的Blog App，来理解这些API的使用。把我们的blog程序的数据保存到下面这个wilddog引用中：
 
 ```Java
@@ -266,7 +288,7 @@ users.put("Jason", jason);
 usersRef.setValue(users);
 ```
 
-#### updateChildren()
+### updateChildren()
 如果你想修改或新建，一个或多个子节点时，又不想覆盖其他子节点，可以使用`updateChildren()` 方法。
 
 ```Java
@@ -278,7 +300,7 @@ jasonRef.updateChildren(nickname);
 
 上面代码更新用户Jason的nickName。如果我们使用 `setValue()` 而不是 `updateChildren()`，它将删除 `birthYear` `grade` `pv` 。
 
-#### push()
+### push()
 现在已经有了用户，需要增加一个发布blog的功能。你会想到使用`setValue`方法，这样是可以的。但是blog不像用户，用户可以使用唯一的用户名做key，blog的话要自己准备唯一key，不免有些麻烦。Wilddog提供一个`push()` 接口，这个接口将会为新建的数据创建一个唯一ID，这个唯一ID按照Wilddog的默认排序规则设计的，Wilddog默认的排序是按照字符串升序序列排序的，ID本身是按照时间戳转义的字符串。
 我们可以将Blog以时间顺序添加到wildblog中，使用`push()`生成ID，并按照这个ID排序：
 
@@ -297,7 +319,7 @@ System.out.println("create new key is : " + newRef.getKey());
 
 `push()` 成功后返回新的ID的Ref，可以使用`newRef.getKey()` 显示新的ID值。
 
-#### removeValue()
+### removeValue()
 
 错误发布了一篇Blog，需要为用户提供一个删除的途径，那么在wildblog App中可以使用`removeValue()`。
 
@@ -342,7 +364,7 @@ newRef.removeValue();
 ```
 我们可以通过四种方式排序，按照`key`，`child key`，`value` 和 `priority`。每一次query都会依赖一种排序方式，默认按照`priority`排序，每种排序详解如下：
 
-#### `child key` 排序
+### `child key` 排序
 某一级数据对象拥有一个共同的子节点，可以使用接口`orderByCHild()`按照这个子节点的value排序。例如，现在我们查看所有野生动物的肩高情况，
 ```Java
 Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
@@ -366,7 +388,7 @@ Jaguar, shoulder height is 100 cm
 如果有一个数据对象没有包含指定的`child key`，其value按照null处理。这意味这个数据对象将排到最前面，详细的`oreder by` 规则可以参照[数据排序](https://z.wilddog.com/android/guide#6-)。
 query一次只能选用一个orederBy*。同一个query上多次调用orderBy*将抛出一个异常。
 
-#### `key` 排序
+### `key` 排序
 我们也可以按照节点的key name的字母顺排序，下面的示例使用字母序排列动物们：
 ```Java
 Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
@@ -387,7 +409,7 @@ SnowLeopard
 Wilddog
 ```
 
-#### `value` 排序
+### `value` 排序
 我们可以直接通过节点的值进行排序，使用orderByValue()方法。我们为野生动物们举行了一场睡觉运动会，记录了它们的成绩，我们可以为它们做一个排行榜，数据如下：
 ```Java
 {
@@ -425,13 +447,13 @@ The Jaguar has been slept for 610 hours
 The Porcupine has been slept for 700 hours
 ```
 
-#### `priority` 排序
+### `priority` 排序
 如果对某一层数据对象使用过`setPriority`之后，可以使用`orderByPrioriy()`进行排序，具体排序规则可以查看[数据排序](https://z.wilddog.com/android/guide#6-)。
 
 ## 6 数据排序
 本节讲述在Wilddog中数据是如何排序的，以及如何读取有序的数据。
 
-#### orderByChild
+### orderByChild
 当使用`orderByChild()`时，包含指定字段的数据将会按照以下规则排序：
 1. 指定字段的值为`null`的子节点数据排在最前边。
 2. 接下来是指定字段的值为`false`的子节点数据。如果存在多个子节点该字段的值为`false`，那么这些子节点根据节点名按字典序排列。
@@ -440,15 +462,15 @@ The Porcupine has been slept for 700 hours
 5. 接下来是字符串类型的值，按照字典序升序排列。如果存在多个子节点该指定字段的值相同，那么这些子节点数据按照节点名排序。
 6. 最后是对象类型的值，按照节点名升序排列。
 
-#### orderByKey
+### orderByKey
 当使用`orderByKey()`对数据进行排序时，数据将会按照下面的规则，以字段名升序排列返回。注意，节点名只能是字符串类型。
 1. 节点名能转换为32-bit整数的子节点优先，按数值型升序排列。
 2. 接下来是字符串类型的节点名，按字典序排列。
 
-#### orderByValue
+### orderByValue
 当使用`orderByValue()`时，子节点将会按照它们的值进行排序。排序的规则与`orderByChild()`相同，唯一的区别是使用的是本节点的值，而不是节点下指定字段的值。
 
-#### orderByPriority
+### orderByPriority
 当使用`orderByPriority()`对数据进行排序时，子节点数据将按照优先级和字段名进行排序。注意，优先级的值只能是数值型或字符串。
 1. 没有优先级的数据（默认）优先。
 2. 接下来是优先级为数值型的子节点。它们按照优先级数值排序，由小到大。
@@ -459,7 +481,7 @@ The Porcupine has been slept for 700 hours
 ## 7 复杂查询
 我们已经知道如何将数据进行排序，然后通过下面的描述，我们将学会如何构建更加复杂的条件限制查询。
 
-#### limit 查询
+### limit 查询
 我们要找出最肥的两只动物，对他们进行减肥训练。
 ```Java
 Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
@@ -492,7 +514,7 @@ query.addChildEventListener(new ChildEventListener() {
 });
 ```
 
-#### Range 查询
+### Range 查询
 使用`startAt()`，`endAt()`和 `equalTo()` 可以为我们的查询选择任意的起点和终点。例如，我们想要找到所有动物中身长至少1米的动物，可以结合`orderByChild()` 和 `startAt()`，
 ```Java
 Wilddog ref = new Wilddog("https://zoo.wilddogio.com/animals");
@@ -603,9 +625,3 @@ newRef.setValue(blog);
 }
 ```
 这个Rule表示，登录用户只能修改自己的信息与自己的blog。
-
-
-
-
-
-
