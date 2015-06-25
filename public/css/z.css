@@ -433,6 +433,7 @@ hr {
 
 .content h2 {
    padding-bottom:32px;
+   padding-top:70px;
 }
 
 .faq-title {
@@ -708,10 +709,11 @@ footer {
     margin-bottom:0;
 }
 .content>h6{
-    width:18%;
+    width:20%;
     text-align:right;
     color:#999;
     position: relative;
+    margin-left:0;
     top:20px;
 }
 .hljs{
@@ -725,9 +727,6 @@ footer {
 .content>hr{
     display:none;
 }
-.content>pre{
-    margin-bottom:35px;
-}
 blockquote{
     border:0;
 }
@@ -739,21 +738,29 @@ blockquote{
     margin-top:40px;
 }
 .content .table{
+    border:1px solid #e5e5e5;
     font-size:14px;
     margin:0;
 }
 .content>.table{
-    display:block;
-    border:1px solid #e4e4e4;
+    padding:1px;
     margin-top:40px;
     margin-bottom:20px;
     margin-left:20px;
 }
+.table > tbody > tr > td,.table > thead > tr > th{
+    padding-left:40px;
+    border-top:0;
+}
 .table > thead > tr > th{
     border:0;
+}
+.table tr{
+    width:100%;
     font-weight:normal;
 }
-blockquote table thead{
+.table thead{
+    border-bottom:1px solid #e5e5e5;
     background-color:#fafafa;
 }
 blockquote table td{
@@ -785,7 +792,9 @@ blockquote table td{
     margin-left:38px;
 }
 .guide-content h4{
-    margin-bottom:10px;
+    font-size:16px;
+    margin-top:32px;
+    margin-bottom:14px;
 }
 h4>code{
     background:none;
@@ -797,8 +806,51 @@ h4>code{
     margin-top:20px;
     margin-bottom:10px;
 }
+.guide-content .table{
+    width:665px;
+    margin-left:38px;
+}
+.guide-content pre{
+    margin-left:38px;
+}
+.guide-content blockquote{
+    margin-left:0;
+    margin-bottom:0;
+}
+.guide-content blockquote p{
+    padding-left:38px;
+}
+.alert{
+    padding:0;
+    padding-top:32px;
+    padding-left:38px;
+    margin:0;
+}
 
-
+/*增加点击显示剩余目录效果*/
+.api-content .toc{
+    position: relative;
+    padding-bottom:30px;
+    height:220px;
+    overflow:hidden;
+}
+.wd-font{
+    display:block;
+    position: absolute;
+    bottom:0;
+    left:0;
+    background-color:#fff;
+    font-family:"wd-icon";
+    font-style:normal;
+    color:#e84d1e;
+    font-size:20px;
+    height:45px;
+    width:100%;
+    border-bottom:1px solid #e5e5e5;
+    line-height:45px;
+    text-align:center;
+    cursor:pointer;
+}
 
 
 

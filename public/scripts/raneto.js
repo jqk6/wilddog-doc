@@ -26,4 +26,19 @@
     });
 
 })(jQuery, hljs);
+(function(){
+    var flag = true;
+    var animateHeight;
+    $(".wd-font").click(function(event) {
+    animateHeight = $(".toc").children('ul').outerHeight();
+        if (flag) {
+            $(this).html("R").parent(".toc").animate({"height":animateHeight});
+            flag = false;
+        }
+        else{
+            $(this).html("4").parent(".toc").animate({"height":220});
+            flag = true;
+        }
+    });
+})();
 
