@@ -17,7 +17,7 @@ Tmpl : page-guide
 下一步,你需要将Wilddog javascript 客户端引入你的页面,在HTML的`<head>` 中增加一个 `script` 标签.推荐直接通过我们的 CDN 引入:
 
 ```html
-<script src="https://cdn.wilddog.com/js/client/current/wilddog.js">
+<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>
 ```
 
 ## 2.了解数据
