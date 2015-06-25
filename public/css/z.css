@@ -361,7 +361,6 @@ p {
 h2 {
     font-size: 16px;
     margin: 0;
-    margin-left:20px;
     padding-top:35px;
 }
 
@@ -379,7 +378,6 @@ h4,h6 {
     /*    font-weight: bold;*/
     
     margin: 0;
-    margin-top: 16px;
     margin-left: 20px;
 }
 
@@ -691,6 +689,7 @@ footer {
     overflow: hidden;
 }
 .toc>ul>li li{
+    float: left;
     width:50%;
     box-sizing:border-box;
     padding-right:20px;
@@ -702,6 +701,7 @@ footer {
     color:#333;
 }
 .toc ul{
+    overflow:hidden;
     padding-left:0;
     line-height:24px;
 }
@@ -725,14 +725,13 @@ footer {
     top:18px;
 }
 .hljs{
-    font-family:"Microsoft Yahei";
     color:#333;
     background-color:#fff;
 }
 .hljs>span{
     color:#333;
 }
-.content>hr{
+.content hr{
     display:none;
 }
 blockquote{
@@ -774,7 +773,7 @@ blockquote{
 blockquote table td{
     width:50%;
 }
-.content p a,.quickstart-content>ol a{
+.content p a,#quickstart>ol a{
     color:#e84d1e;
 }
 .content p>code,.content ul code,.content table code,.content ol code,.content h3 code{
@@ -783,14 +782,14 @@ blockquote table td{
     color:#333;
 }
 /*更改开发向导所有页面样式*/
-.guide-content h2,.quickstart-content h2{
+.guide-content h2,#quickstart h2{
     font-size:18px;
     font-weight:bold;
 }
 .api-content h2{
     padding-bottom:14px;
 }
-.guide-content>h4,.guide-content>h3,.quickstart-content>h4,.quickstart-content>h3{
+.guide-content>h4,.guide-content>h3,#quickstart>h4,#quickstart>h3{
     padding-left:18px;
     position: static;
     width:100%;
@@ -799,17 +798,17 @@ blockquote table td{
     padding-bottom:0;
     margin-top:32px;
 }
-.guide-content .toc>ul>li>a,.quickstart-content .toc>ul>li>a{
+.guide-content .toc>ul>li>a,#quickstart .toc>ul>li>a{
     font-size:14px;
 }
-.guide-content>p,.quickstart-content>p,.quickstart-content>ol{
+.guide-content>p,#quickstart>p,#quickstart>ol{
     padding-top:14px;
     padding-left:38px;
 }
-.guide-content>pre,.quickstart-content>pre{
+.guide-content>pre,#quickstart>pre{
     margin-left:38px;
 }
-.guide-content h4,.quickstart-content h4{
+.guide-content h4,#quickstart h4{
     font-size:16px;
     margin-top:32px;
     margin-bottom:14px;
@@ -819,23 +818,23 @@ h4>code{
     color:#333;
     padding:0;
 }
-.guide-content p>strong,.quickstart-content p>strong{
+.guide-content p>strong,#quickstart p>strong{
     display:block;
     margin-top:20px;
     margin-bottom:10px;
 }
-.guide-content .table,.quickstart-content .table{
+.guide-content .table,#quickstart .table{
     width:665px;
     margin-left:38px;
 }
-.guide-content pre,.quickstart-content pre{
+.guide-content pre,#quickstart pre{
     margin-left:38px;
 }
-.guide-content blockquote,.quickstart-content blockquote{
+.guide-content blockquote,#quickstart blockquote{
     margin-left:0;
     margin-bottom:0;
 }
-.guide-content blockquote p,.quickstart-content blockquote p{
+.guide-content blockquote p,#quickstart blockquote p{
     padding-left:38px;
 }
 .alert{
@@ -846,19 +845,22 @@ h4>code{
 }
 
 /*增加点击显示剩余目录效果*/
-.api-content .toc,.quickstart-content .toc{
+.api-content .toc,#quickstart .toc{
     position: relative;
     padding-bottom:30px;
     height:220px;
     overflow:hidden;
+    display:none;
 }
 .wd-font{
-    display:none;
+    font-family:"wd-icon";
+}
+.toc .wd-font{
+    display:block;
     position: absolute;
     bottom:0;
     left:0;
     background-color:#fff;
-    font-family:"wd-icon";
     font-style:normal;
     color:#e84d1e;
     font-size:20px;
@@ -869,6 +871,35 @@ h4>code{
     text-align:center;
     cursor:pointer;
 }
-
+/*返回顶部按钮*/
+.back-top{
+    position:fixed;
+    bottom:100px;
+    right:20%;
+    width:40px;
+    height:40px;
+    background-color:#999;
+    text-align:center;
+    color:#fff;
+    line-height:40px;
+    font-size:22px;
+    cursor:pointer;
+    border-radius:50%;
+    display:none;
+}
+.content h1:nth-child(1){
+    padding-bottom:35px;
+    border-bottom:1px solid #e5e5e5;
+}
+.toc{
+    padding-top:35px;
+}
+.api-content h2{
+    padding-top:35px;
+}
+#quickstart h2:first-child,#guide-content h2:first-child{
+    padding-top:35px;
+}
+}
 
 

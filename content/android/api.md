@@ -6,7 +6,11 @@ Sort: 4
 
 # Wilddog
 
-## public Wilddog getParent()
+## getParent()
+
+###### 定义
+
+public Wilddog getParent()
 
 ###### 描述
 
@@ -15,7 +19,7 @@ Sort: 4
 ###### 返回值
 `Wilddog` 上级引用对象
 
-###### 操作示例
+###### 示例
 ```java
 Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test/a");
 // 获得'/test' 路径的引用

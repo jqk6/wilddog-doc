@@ -25,25 +25,31 @@
     });
 
 })(jQuery, hljs);
-(function(){
+
+$(function(){
+    $(".api-content .toc,.quickstart-content .toc").slideDown(300);
     var headingLi = $(".toc>ul>li");
+
     var headingLiLength = headingLi.length;
+
     for(var i=0; i<headingLiLength; i++){
 
         var smallLiArr=headingLi.eq(i);
 
         var smallLiArray = smallLiArr.find('li');
-        if (smallLiArr.outerHeight()>220) {
-            smallLiArr.parent("ul").siblings('.wd-font').show();
+
+        if (smallLiArr.parent("ul").outerHeight()<220) {
+
+            smallLiArr.parent("ul").siblings('.wd-font').hide();
         };
 
-            for(var j = 0; j<Math.ceil(smallLiArray.length/2); j++){
+            // for(var j = 0; j<Math.ceil(smallLiArray.length/2); j++){
 
-                 smallLiArray.eq(j).css({"float":"left"});
+            //      smallLiArray.eq(j).css({"float":"left"});
 
-                 smallLiArray.eq(smallLiArray.length-j-1).css({"float":"right"});
+            //      smallLiArray.eq(smallLiArray.length-j-1).css({"float":"right"});
 
-             }
+            //  }
 
     };
 
@@ -53,7 +59,7 @@
 
     var flag = true;
     var animateHeight;
-    $(".wd-font").click(function(event) {
+    $(".toc .wd-font").click(function(event) {
     animateHeight = $(".toc").children('ul').outerHeight()+45;
         if (flag) {
             $(this).html("R").parent(".toc").animate({"height":animateHeight});
@@ -65,6 +71,21 @@
         }
     });
 
-})();
+    var backTop = $(".back-top");
+    var windHeight = $(window).height();
+    var scrollT;
+    $(window).scroll(function(event) {
+        scrollT = $(window).scrollTop();
+         if (scrollT>windHeight) {
+            backTop.fadeIn(300);
+         }
+         else{
+            backTop.fadeOut(300);
+         }
+    });
+    backTop.click(function(event) {
+        $(window).scrollTop(0);
+    });
+});
 
 
