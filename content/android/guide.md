@@ -1,6 +1,7 @@
 /*
 Title : 开发向导
 Sort : 2
+Tmpl : page-guide
 */
 
 ## 1.了解 Wilddog 云数据存储

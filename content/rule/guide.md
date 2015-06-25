@@ -1,6 +1,7 @@
 /*
 Title: 使用指南
 Sort: 2
+Tmpl : page-guide
 */
 
 ## 1. 理解 Wilddog 的安全策略
