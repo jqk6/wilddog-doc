@@ -4,41 +4,45 @@ Sort: 1
 
 */
 
-## 1.创建账户和应用
-首先注册并登陆Wilddog账号，进入[控制面板](https://www.wilddog.com/dashboard)。在控制面板中，可以创建应用(App)。每个App都拥有一个独一无二的以`wilddogio.com`结尾的URL。在同步和存取数据的时候，我们将使用这个URL。
 
-创建App成功后，Wilddog将为你初始化一个兼容JSON数据格式的树型数据库，之后你就可以操作这个数据库了。
-
-----
-
-## 2.使用Wilddog Java Client
-
-
-
-
-> **Download**
-> 你可以在这下载BETA版 Wilddog Java SDK：
-> [Download Wilddog Java SDK](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
+## 第一步 创建账户和应用
+首先注册并登陆Wilddog账号，进入控制面板。在控制面板中，添加一个新的应用。你会获得一个独一无二的应用URL `https://<appId>.wilddogio.com/`，在同步和存取数据的时候，将使用这个URL。
 
 ----
 
+## 第二步 引入 Wilddog Java SDK
 
-## 3.读写数据
-首先需要创建一个引用。调用Wilddog的构造函数，传递你的App对应的URL作为参数。
+###下载SDK。
+[Download Wilddog Java SDK](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
+（目前只提供jvm版SDK，android版的SDK即将推出）
+
+###导入SDK。
+将wilddog-client-jvm-xxx.jar拷贝到Android应用的libs目录中，然后在IDE中将jar文件添加到应用的classpath。
+
+----
+
+## 第三步 读写数据
+###创建引用
+为了读写数据，你需要创建对Wilddog数据库的引用。这里会用到之前获得的应用URL `https://<appId>.wilddogio.com/`。
 ```Java
-Wilddog client = new Wilddog("https://<appId>.wilddogio.com/");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/");
 ```
-`Wilddog()`的URL参数可以包含一个Path，用于定位到树形数据的某一节点上。树型数据的某一节点可以看作一个Path，上面例子中Path为`/`，代表树形Root节点。如果URL为`https://<appId>.wilddogio.com/message`，则代表树形的`/message`。
 
-Wilddog提供了数据读写API，通过`setValue()` `updateChildren()` `push()` `removeValue()` 修改对应节点的数据；通过`addValueEventListener()`立即读取数据，并监听某一节点数据的持续变化。
 
-### 读数据
-使用`addValueEventListener()`方法附加一个event监听，你需要实现`ValueEventListener`接口，作为`addValueEventListener()`的参数，用来处理接收到的最新的数据变化。
+### 写数据
+创建引用后，你可以使用`setValue()`方法写入数据，我们支持以下类型:
+`String` `Boolean` `Number` `Map<String, Object>`等。
+```Java
+ref.setValue("hello world!!!");
+```
+
+###读数据
+你需要添加`addValueEventListener()`方法来监听URL路径下的数据变化，回调方法`onDataChange()`用于处理接收到的变化数据。
 
 ```Java
-client.addValueEventListener(new ValueEventListener(){
+ref.addValueEventListener(new ValueEventListener(){
 	 public void onDataChange(DataSnapshot snapshot){
-		 System.out.println(snapshot.getValue());
+		 System.out.println(snapshot.getValue()); //打印结果 "hello world!!!"
 	 }
 	 public void onCancelled(WilddogError error){
 		 if(error != null){
@@ -47,13 +51,45 @@ client.addValueEventListener(new ValueEventListener(){
 	 }
 });
 ```
-调用`addValueEventListener()`方法后，将在`onDataChanged()`回调函数中获得节点最新的数据，之后的数据变化将会在四个回调函数中处理。
+上面的例子中，回调方法onDataChange()会在第一次数据库初始化时被调用一次，接下来会在每次数据发生改变时再次被调用。
 
+## 第四步 认证用户
+野狗提供以下用户认证方式：野狗默认用户数据库、自定义用户数据库、社交账户登录（微博、微信、QQ）、匿名登录。
 
-### 写数据
-我们拥有一个Wilddog引用以后，可以使用setValue给该节点设置值，值的类型为`String` `Boolean` `Number` `Map<String, Object>` 或者符合JavaBean规范的实体。
+以为默认用户数据库为例，首先需要在控制面中启用此认证方式。
+
+1. 进入“终端用户认证”界面。
+2. 切换到“野狗默认用户数据库”标签，选中“开启野狗默认用户数据库”。
+
+现在你就可以通过代码来创建新用户了
 ```Java
-client.setValue("hello world!!!");
+		ref.createUser("bobtony@wilddog.com", "correcthorsebatterystaple", new Wilddog.ValueResultHandler<Map<String, Object>>() {
+		    @Override
+		    public void onSuccess(Map<String, Object> result) {
+		        System.out.println("Successfully created user account with uid: " + result.get("uid"));
+		    }
+			@Override
+			public void onError(WilddogError erro) {
+				
+			}
+		});
 ```
-如果有client B通过`addValueEventListener()`监听了相同Path，那么在Client B上将收到上面`setValue()`的新值。
+当你创建完用户后，就可以使用`authWithPassword`方法来登录了。
+想了解更多的终端用户认证功能，请参考[终端用户认证](/auth/authentication)
 
+## 第五步 数据保护 
+你可以使用强大的”规则表达式”来控制数据的访问权限，并且可以实现输入数据的有效性校验。
+ 
+不论你是否需要，野狗都强烈建议你使用”规则表达式”来限制你的数据访问权限。” 规则表达式”的语法非常强大和灵活，你可以通过它来实现数据访问的细粒度控制。
+```Rule
+{
+  ".read": true,
+  ".write": "auth.uid === 'admin'",
+  ".validate": "newData.isString() && newData.val().length < 500"
+}
+```
+## 第六步 了解更多
+
+1. [开发向导](/android/guide)
+2. [Java API](/android/api)
+3. [代码示例](/android/examples)
