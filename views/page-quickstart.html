@@ -20,13 +20,18 @@
 
     </div>
     <div class="col-sm-9">
-        <section class="content guide-content">
+        <section class="content quickstart-content" >
             {{#pages}} {{#files}} {{#active}}
             <h1> {{title}} </h1> 
             {{/active}} {{/files}} {{/pages}}
             <div class="last-updated pull-right" style="margin-top:-28px;color:#ddd">
                 上次更改时间 {{last_modified}}
             </div>
+            <div class="toc">
+                {{{toc}}}
+                <i class="wd-font">4</i>
+            </div >
+
             {{{ content }}}
 
         </section>

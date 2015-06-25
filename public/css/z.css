@@ -432,7 +432,6 @@ hr {
 }
 
 .content h2 {
-   padding-bottom:32px;
    padding-top:70px;
 }
 
@@ -576,7 +575,7 @@ footer {
 }
 .flow{
     position: absolute;
-    right:60px;
+    right:0;
     top:60px;
 }
 .steps{
@@ -617,7 +616,10 @@ footer {
     background-color:#ccc;
     color:#fff;
 }
-
+#tutorialbody{
+    padding-left:0;
+    padding-right:0;
+}
 @media screen and (min-width:1200px){
     .container{
         max-width:980px;
@@ -671,6 +673,9 @@ footer {
         width:100%;
         padding-left:0;
     }
+}
+.content-block pre{
+    margin-left:10px;
 }
 /*知识库api文档样式改版*/
 .content{
@@ -744,7 +749,7 @@ blockquote{
 }
 .content>.table{
     padding:1px;
-    margin-top:40px;
+    margin-top:14px;
     margin-bottom:20px;
     margin-left:20px;
 }
@@ -766,32 +771,42 @@ blockquote{
 blockquote table td{
     width:50%;
 }
-.content p>code,.content ul code,.content table code,.content ol code{
+.content p a,.quickstart-content>ol a{
+    color:#e84d1e;
+}
+.content p>code,.content ul code,.content table code,.content ol code,.content h3 code{
     background:none;
     font-style:italic;
     color:#333;
 }
 /*更改开发向导所有页面样式*/
-.guide-content h2{
+.guide-content h2,.quickstart-content h2{
+    font-size:18px;
     font-weight:bold;
 }
-.guide-content>h4{
+.api-content h2{
+    padding-bottom:14px;
+}
+.guide-content>h4,.guide-content>h3,.quickstart-content>h4,.quickstart-content>h3{
     padding-left:18px;
     position: static;
     width:100%;
     text-align:left;
     color:#333;
+    padding-bottom:0;
+    margin-top:32px;
 }
-.guide-content .toc>ul>li>a{
+.guide-content .toc>ul>li>a,.quickstart-content .toc>ul>li>a{
     font-size:14px;
 }
-.guide-content>p{
+.guide-content>p,.quickstart-content>p,.quickstart-content>ol{
+    padding-top:14px;
     padding-left:38px;
 }
-.guide-content>pre{
+.guide-content>pre,.quickstart-content>pre{
     margin-left:38px;
 }
-.guide-content h4{
+.guide-content h4,.quickstart-content h4{
     font-size:16px;
     margin-top:32px;
     margin-bottom:14px;
@@ -801,23 +816,23 @@ h4>code{
     color:#333;
     padding:0;
 }
-.guide-content p>strong{
+.guide-content p>strong,.quickstart-content p>strong{
     display:block;
     margin-top:20px;
     margin-bottom:10px;
 }
-.guide-content .table{
+.guide-content .table,.quickstart-content .table{
     width:665px;
     margin-left:38px;
 }
-.guide-content pre{
+.guide-content pre,.quickstart-content pre{
     margin-left:38px;
 }
-.guide-content blockquote{
+.guide-content blockquote,.quickstart-content blockquote{
     margin-left:0;
     margin-bottom:0;
 }
-.guide-content blockquote p{
+.guide-content blockquote p,.quickstart-content blockquote p{
     padding-left:38px;
 }
 .alert{
@@ -828,7 +843,7 @@ h4>code{
 }
 
 /*增加点击显示剩余目录效果*/
-.api-content .toc{
+.api-content .toc,.quickstart-content .toc{
     position: relative;
     padding-bottom:30px;
     height:220px;

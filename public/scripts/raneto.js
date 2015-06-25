@@ -30,7 +30,7 @@
     var flag = true;
     var animateHeight;
     $(".wd-font").click(function(event) {
-    animateHeight = $(".toc").children('ul').outerHeight();
+    animateHeight = $(".toc").children('ul').outerHeight()+45;
         if (flag) {
             $(this).html("R").parent(".toc").animate({"height":animateHeight});
             flag = false;
