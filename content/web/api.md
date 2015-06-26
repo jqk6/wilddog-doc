@@ -3,21 +3,31 @@ Title: API文档
 Sort: 3
 */
 
+
 # Wilddog
 
-## new Wilddog(wilddogUrl)
+## new Wilddog()
+
+###### 定义
+
+new Wilddog(wilddogUrl)
+
+###### 说明
+
 初始化一个Wilddog客户端
 输入一个包含应用ID 和路径的url,初始化一个 Wildog 客户端
 
-###### params
+###### 参数
 
 * wilddogUrl `string`
 
   关注节点url,Wilddog 中任何数据都能够通过一个url来进行访问
 
+###### 返回值
 
-###### return
 * Wilddog 对象引用
+
+###### 示例
 
 ```js
 ref = new Wilddog("http://weather-control.wilddogio.com/city/Beijing");
@@ -26,10 +36,17 @@ ref = new Wilddog("http://weather-control.wilddogio.com/city/Beijing");
 
 ----
 
-## authWithCustomToken(token,oncomplete)
+## authWithCustomToken()
+ 
+###### 定义
+
+authWithCustomToken(token,oncomplete)
+
+###### 说明
+
 使用一个合法的token进行登录
 
-###### params
+
 
 * token `string`
 
@@ -39,6 +56,9 @@ ref = new Wilddog("http://weather-control.wilddogio.com/city/Beijing");
 
 如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 。否则`err`为`null`， `auth`为包含用户认证信息的对象
   
+
+###### 示例
+
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
 ref.authWithCustomToken("AUTH_TOKEN", function(error, authData) {
@@ -54,14 +74,22 @@ ref.authWithCustomToken("AUTH_TOKEN", function(error, authData) {
 
 ----
 
-## authAnonymously(oncomplete)
+## authAnonymously()
+
+###### 定义
+
+authAnonymously(oncomplete)
+
+###### 说明
 
 匿名认证Wilddog
 
-###### params
+###### 参数
 
 * oncomplete `function(err,auth)` 
   如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 。否则`err`为`null`， `auth`为包含用户认证信息的对象
+
+###### 示例
 
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
@@ -81,12 +109,19 @@ ref.authWithAnonymously(
 
 ----
 
-## authWithPassword(credentials,oncomplete)
+## authWithPassword()
+
+
+###### 定义
+
+authWithPassword(credentials,oncomplete)
+
+###### 说明
 
 通过邮箱密码认证
 
 
-###### params
+###### 参数
 
 * credentials `object`
 
@@ -96,6 +131,9 @@ ref.authWithAnonymously(
 * oncomplete `function(err,auth)`
  
   如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 。否则`err`为`null`， `auth`为包含用户认证信息的对象
+
+
+###### 示例
 
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
@@ -112,11 +150,18 @@ ref.authWithPassword({email:"Loki@asgard.com",password:"examplepassword"},
 ```
 ----
 
-## authWithOAuthPopup(provider,oncomplete);
+## authWithOAuthPopup();
+
+###### 定义
+
+authWithOAuthPopup(provider,oncomplete);
+
+###### 说明
+
 通过oauth弹框流程认证
 调用`authWithOAuthPopup` ,页面将弹出OAuth认证页,用户在页面进行认证操作,此过程中的任何数据都不会经过第三方 (包括WILDDOG 服务),而且全部采用https 访问,因此安全可靠.当认证结束后弹框页自动关闭,wilddog 客户端认证完毕.
 
-###### params
+###### 参数
 * provider `string`
 
   oauth服务的提供平台,e.g.`"weibo"` 
@@ -126,7 +171,7 @@ ref.authWithPassword({email:"Loki@asgard.com",password:"examplepassword"},
   回调函数，认证过程结束后会被Wilddog客户端调用,会有两个参数传递,`err`和`auth`。如果认证失败,`err` 参数是一个`Error`对象，包含错误信息。如果认证成功，`err`为null，`auth` 为包含认证信息的对象。其中包含 `uid`(用户唯一ID),`provider`(表示用户提供者的字符串),`auth`(token，payload),和 expires(过期时间，unix事件戳)
 
 
-
+###### 示例
 
 
 ```js
@@ -146,17 +191,26 @@ ref.authWithOAuthPopup("weixin",function(err,auth){
 
 ----
 
-## authWithOAuthRedirect(provider,oncomplete)
+## authWithOAuthRedirect()
+
+###### 定义
+
+authWithOAuthRedirect(provider,oncomplete)
+
+###### 说明
+
 通过OAuth跳转流程认证
 调用`authWithOAuthPopup` ,页面跳转到 OAuth认证也,用户在页面进行认证操作,此过程中的任何数据都不会经过第三方 (包括WILDDOG 服务),而且全部采用https 访问,因此安全可靠.当认证结束页面跳转回最初页面,认证结束
 
+###### 参数
 
-###### params
 * provider `string`  
  oauth服务的提供平台,e.g.`"weibo"` 
 
 * oncomplete `function(err,auth)`
   如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 。如果认证成功，则不会被调用
+
+###### 示例
 
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
@@ -175,20 +229,33 @@ ref.authWithOAuthPopup("weixin",function(err,auth){
 
 ----
 
-## authWithOAuthToken(provider,accessToken,oncomplete)
+## authWithOAuthToken()
+
+###### 定义
+
+authWithOAuthToken(provider,accessToken,oncomplete)
+
+###### 说明
+
+
 通过accessToken直接认证
 如果用户已经拿到accessToken,可以通过此接口直接进行认证
 
-###### param
+###### 参数
 
-* provider `string`  
+* provider `string` 
+
  oauth服务的提供平台,e.g.`"weibo"`
 
 * accessToken 	`string`
+
  oauth2.0 的access token	
 
 * oncomplete `function(err,auth)`
+
   回调函数，认证过程结束后会被Wilddog客户端调用,会有两个参数传递,`err`和`auth`。如果认证失败,`err` 参数是一个`Error`对象，包含错误信息。如果认证成功，`err`为null，`auth` 为包含认证信息的对象。其中包含 `uid`(用户唯一ID),`provider`(表示用户提供者的字符串),`auth`(token，payload),和 expires(过期时间，unix事件戳)
+
+###### 示例
 
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
@@ -207,9 +274,15 @@ ref.authWithOAuthToken("weixin", "<ACCESS-TOKEN>", function(error, authData) {
 
 ## getAuth()
 
+###### 定义
+
+getAuth()
+
+###### 说明
+
 同步返回当前Auth状态
 
-###### return
+###### 返回值
 
 如果当前用户已经认证，返回一个对象，这个对象包含`uid`(用户唯一ID),`provider`(表示用户提供者的字符串),`auth`(token，payload),和 expires(过期时间，unix事件戳)
 **authData**
@@ -222,6 +295,8 @@ ref.authWithOAuthToken("weixin", "<ACCESS-TOKEN>", function(error, authData) {
 |expires|number |过期时间 |
 |auth|object |auth对象的内容，对应Wilddog安全规则 中的Auth对象 |
 
+###### 示例
+
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
 var authData = ref.getAuth();
@@ -231,10 +306,17 @@ if (authData) {
 
 ```
 
-## onAuth(onComplete,[context])
+## onAuth()
+
+###### 定义
+
+onAuth(onComplete,[context])
+
+###### 说明
+
 监听客户端认证状态改变
 
-###### params
+###### 参数
 
 * onComplete `function(auth)`
 
@@ -244,6 +326,8 @@ if (authData) {
 
  如果指定，你的回调函数中的this将指向这个参数
 
+
+###### 示例
 
 ```js
 var ref=new Wilddog("https:<YOUR_APP>.wilddogio.com");
@@ -258,11 +342,17 @@ ref.onAuth(function(authData) {
 
 ```
 
-## offAuth(onComplete,[context])
+## offAuth()
+
+###### 定义
+
+offAuth(onComplete,[context])
+
+###### 说明
 
 取消监听客户端认证状态，是`onAuth`的逆操作
 
-###### params
+###### 参数
 
 * onComplete `function(auth)`
 
@@ -271,6 +361,8 @@ ref.onAuth(function(authData) {
 * context `Object`
 
   `onAuth`时传入的对象
+
+###### 示例
 
 ```js
 var onAuthCallback = function(authData) {
@@ -295,7 +387,15 @@ ref.offAuth(onAuthCallback);
 
 ## unauth()
 
+###### 定义
+
+unauth()
+
+###### 说明
+
 取消认证
+
+###### 示例
 
 ```js
 var ref=new Wilddog("https://YOUR_APP.wilddogio.com");
@@ -307,17 +407,23 @@ ref.unauth();
 
 ----
 
-## child(key)
+## child()
+
+###### 定义
+
+child(key)
+
+###### 说明
 
 返回当前节点的子节点的引用
 
-###### params
+###### 参数
 
 * key 
 
   子节点名,可以是相对当前节点的路径.
 
-###### return
+###### 返回值
 
 子节点的引用
 
@@ -336,26 +442,42 @@ child_ref = ref.child('Beijing');
 
 ## parent()
 
+###### 定义
+
+parent()
+
+###### 说明
+
 返回父节点的引用
 
-###### return
+###### 返回值
 
  父节点的引用
 
+###### 示例
+
 ```js
 var parent_ref = ref.parent();
-//return the refer to the father node of current
+//返回值 the refer to the father node of current
 ```
 
 ----
 
 ## root()
 
+###### 定义
+
+root()
+
+###### 说明
+
 获得wilddog根结点的引用
 
-###### return
+###### 返回值
 
 wilddog根节点的引用
+
+###### 示例
 
 ```js
 var ref = new Wilddog("https://weather-control.wilddogio.com/city");
@@ -371,16 +493,24 @@ root_ref = ref.root('Beijing');
 
 ## key()
 
+###### 定义
+
+key()
+
+###### 说明
+
 获取当前路径的最后一部分
 
-###### return
+###### 返回值
 * 当前路径的最后一部分
+
+###### 示例
 
 
 ```js
 
 var ref = new Wilddog("https://weather-control.wilddog.com/city/Beijing");
-//return the key to current node
+//返回值 the key to current node
 var key = ref.key();
 //key is 'Bejing'
 
@@ -390,15 +520,24 @@ var key = ref.key();
 
 
 ## toString()
+
+###### 定义
+
+toString()
+
+###### 说明
 获取当前节点的url
 
-###### return
+###### 返回值
+
 当前节点的url
+
+###### 示例
 
 ```js
 
 var ref = new Wilddog("https://weather-control.wilddog.com/city/Beijing");
-//return the key to current node
+//返回值 the key to current node
 var url = ref.toString();
 //url should be https://weather-control.wilddog.com/city/Beijing
 
@@ -406,12 +545,19 @@ var url = ref.toString();
 ----
 
 
-## set(value,[oncomplete])
+## set()
+
+###### 定义
+
+ set(value,[oncomplete])
+
+###### 说明
+
 设置一个节点的值.并且同步到云端
 如果`value != null` ,当前数据会被value覆盖.如果中间路径不存在,Wilddog 会自动将中间路径补全.如果`value == null`,删除当前节点,效果等同于 remove
 
 
-###### params
+###### 参数
 
 * value `object|string|number|boolean|null`
 
@@ -420,6 +566,8 @@ var url = ref.toString();
 * onComplete `function(err)` 
 
   如果操作成功 `err==null` 否则,err为包含code的`object`
+
+###### 示例
 
 ```js
 var ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -431,7 +579,13 @@ ref.set({"temp":10,"pm2.5":500});
 
 ----
 
-## update(value,[onComplete])
+## update()
+
+###### 定义
+
+update(value,[onComplete])
+
+###### 说明
 
 将输入对象的子节点合并到当前对象中
 
@@ -439,7 +593,7 @@ ref.set({"temp":10,"pm2.5":500});
 e.g. update之前 `{"l1":"on","l3":"off"}` ,`value={"l1":"off","l2":"on"}` update 后期望的数据是 `{"l1":"off","l2":"on","l3":"off"}`
 
 
-###### params
+###### 参数
 * value `object`
 
   包含子节点对象的集合
@@ -447,6 +601,8 @@ e.g. update之前 `{"l1":"on","l3":"off"}` ,`value={"l1":"off","l2":"on"}` updat
 * onComplete `function(err)` 
 
   如果操作成功 `err==null` 否则,err为包含code的`object`
+
+###### 示例
 
 ```js
 var ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -461,18 +617,26 @@ ref.update({"temp":10,"pm2.5":500});
 
 
 
-## remove([onComplete])
+## remove()
+
+###### 定义
+
+remove([onComplete])
+
+###### 说明
 
 删除一个节点,效果等同于 `set(null,[onComplete])`,
 如果父级节点只有当前节点一个子节点, 会递归删除父级节点
 
 
-###### params
+###### 参数
 
 * onComplete `function(err)` 
 
   如果操作成功 `err==null` 否则,err为包含code的`object`
 
+
+###### 示例
 
 ```js
 //the initial value of https://weather-control.wilddogio.com is 
@@ -486,11 +650,17 @@ ref.remove()
 ----
 
 
-## push(value,[oncomplete])
+## push()
+
+###### 定义
+
+push(value,[oncomplete])
+
+###### 说明
 
 在当前节点下新增一个节点,节点的`key` 自动生成,节点的数据是传入的参数 value
 
-###### params
+###### 参数
 
 * value `object|string|number|boolean|null`
 
@@ -500,10 +670,11 @@ ref.remove()
 
   如果操作成功 `err==null` 否则,err为包含code的`object`
 
-###### return
+###### 返回值
 
 * 新插入子节点的引用
 
+###### 示例
 
 ```js
 var ref = new Wilddog("https://weather-control.wilddogio.com/users")
@@ -516,10 +687,17 @@ var url = newKey.url()
 --------
 
 
-## setWithPriority(value,priority,[oncomplete])
+## setWithPriority()
+
+###### 定义
+
+setWithPriority(value,priority,[oncomplete])
+
+###### 说明
+
 把数据写到当前位置，类似set,不同之处是需要指定一个优先级。默认排序按照优先级排序。
 
-###### params
+###### 参数
 
 * value `Object|String|Number|Boolean|Null`
 
@@ -533,7 +711,7 @@ var url = newKey.url()
 
   如果操作成功 `err==null` 否则,err为包含code的`object`
 
-
+###### 示例
 
 ```js
 
@@ -552,7 +730,13 @@ ref.setWithPriority(user,100)
 
 ----
 
-## setPriority(priority,[onComplete])
+## setPriority()
+
+###### 定义
+
+setPriority(priority,[onComplete])
+
+###### 说明
 
 设置当前数据的优先级数值，这个数值可以是`Number`,也可以是	`String` 。用来改当前节点在同一父节点下所有子节点的排序顺序。这个排序会影响Snapshot.forEach()的顺序，同样也会影响`child_added`和`child_moved`事件中`prevChildName`参数。
 
@@ -569,7 +753,7 @@ ref.setWithPriority(user,100)
 
 
 
-###### params
+###### 参数
 
 * priority `String|Number`
 
@@ -580,13 +764,21 @@ ref.setWithPriority(user,100)
 
   如果操作成功 `err==null` 否则,err为包含code的`object`
 
+###### 示例
+
 ```js
 var ref = new Wilddog("https://YOUR-APP.wilddogio.com/users/jack");
 ref.setPriority(1000);
 
 ```
 
-## transaction(updateFunction,[onComplete])
+## transaction()
+
+###### 定义
+
+transaction(updateFunction,[onComplete])
+
+###### 说明
 
 原子操作当前节点的数据。原子操作不同于set(),set操作是暴力的覆盖更新数据，不管数据在改变之前的值，而`transaction`操作是将当前值准备的更新为新值。确保不会跟其他客户端修改冲突。
 
@@ -598,7 +790,7 @@ transaction操作在 需要原子操作的时候非常有用，比如 +1 操作�
 
 
 
-###### params
+###### 参数
 
 * updateFunction `function(data)`
 
@@ -608,13 +800,15 @@ transaction操作在 需要原子操作的时候非常有用，比如 +1 操作�
 
   回调函数，transaction结束后会被调用。调用时会传入几个参数 `(err,commited,snapshot)`，如果操作失败，`err` 为一个包含错误信息的对象，否则`err`为`null`。`commited`是一个boolean值，表明原子操作是否已经成功提交，如果`updateFunction`没有返回任何数据，`commited`为`false`，因为没有任何数据被提交。`snapshot`指向最终的数据。
 
+###### 示例
+
 ```js
 
 // Increment Fred's rank by 1.
 var ref = new Firebase('https://YOUR-APP.wilddogio.com/users/jack/rank');
 ref.transaction(function(currentRank) {
    // If /users/fred/rank has never been set, currentRank will be null.
-  return currentRank+1;
+  返回值 currentRank+1;
 });
 
 ```
@@ -623,10 +817,10 @@ ref.transaction(function(currentRank) {
 var wilmaRef = new Wilddog('https://YOUR-APP.wilddogio.com/users/wilma');
 wilmaRef.transaction(function(currentData) {
   if (currentData === null) {
-    return { name: { first: 'Wilma', last: 'Flintstone' } };
+    返回值 { name: { first: 'Wilma', last: 'Flintstone' } };
   } else {
     console.log('User wilma already exists.');
-    return; // Abort the transaction.
+    返回值; // Abort the transaction.
   }
 }, function(error, committed, snapshot) {
   if (error) {
@@ -642,13 +836,19 @@ wilmaRef.transaction(function(currentData) {
 ```
 ----
 
-## createUser(credentials,onComplete)
+## createUser()
+
+###### 定义
+
+createUser(credentials,onComplete)
+
+###### 说明
 
 通过邮箱注册用户
 
 通过`createUser` 注册的终端用户会托管在`WILDDOG` 平台, 被注册的用户可以采用 `authWithPassword` 认证.
 
-###### params
+###### 参数
 * credentials `object`
 
   包含用户认证信息的数据,通常包含`email` `password` 
@@ -658,6 +858,7 @@ wilmaRef.transaction(function(currentData) {
 
   如果操作成功`err` 为null,如果不成功 `err` 是一个包含 `code` 的对象 ,如果`err==null` data为包含用`id` ,`provider` 的 `object`
 
+###### 示例
 
 ```js
 ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
@@ -674,13 +875,19 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 ----
 
 
-## changePassword(credentials,callback)
+## changePassword()
+
+###### 定义
+
+changePassword(credentials,callback)
+
+###### 说明
 
 修改用户密码
 
 `WILDDOG` 平台托管的用户可以通过`changePassword` 修改密码
 
-###### params
+###### 参数
 
 * credentials `object`
 
@@ -693,16 +900,21 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 
 ----
 
-## changeEmail(credentials,callback)
+## changeEmail()
+
+###### 定义
+
+changeEmail(credentials,callback)
+
+###### 说明
 
 修改登录邮箱
 
 `WILDDOG` 平台托管的用户可以通过`changeEmail` 修改登录邮箱
 
-###### params
+###### 参数
 
 * credentials `object`
-
   需要包含 `oldEmail` 新邮箱 `newEmail`旧邮箱 `password` 密码
 	
 * callback `function(err)`
@@ -711,13 +923,19 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 
 ----
 
-## removeUser(credentials,callback)
+## removeUser()
+
+###### 定义
+
+removeUser(credentials,callback)
+
+###### 说明
 
 删除帐号
 
 `WILDDOG` 平台托管的用户可以通过`removeUser` 删除帐号
 
-###### params
+###### 参数
 * credentials `object`
 	需要包含  `email`邮箱 `password` 密码
 	
@@ -727,14 +945,20 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 
 -----
 
-## resetPassword(credentials,callback)
+## resetPassword
+
+###### 定义
+
+resetPassword(credentials,callback)
+
+###### 说明
 
 重置密码
 
 接口调用成功后并不会立刻重置密码,而是发一封邮件到此邮箱,用户通过该邮件的引导可完成重置密码操作
 `WILDDOG` 平台托管的用户可以通过`resetPassword` 重置密码
 
-###### param
+###### 参数
 
 * credentials `object`
 
@@ -747,9 +971,17 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 
 -----
 
-## Wilddog.goOnline()
+## goOnline()
+
+###### 定义
+
+Wilddog.goOnline()
+
+###### 说明
 
 手动改变连接状态，开启自动重连
+
+###### 示例
 
 ```js
 
@@ -761,9 +993,17 @@ Wilddog.goOnline(); // All local Wildodg instances automatically reconnect
 
 -----
 
-## Wilddog.goOffline()
+## goOffline()
+###### 定义
+
+Wilddog.goOffline()
+
+###### 说明
 
 手动断开连接，关闭自动重连
+
+
+###### 示例
 
 ```js
 
@@ -778,9 +1018,16 @@ Wilddog.goOffline(); // All local Wilddog instances are disconnected
 
 # Query
 
-## on(type,callback,[cancelCallback]，[context])
+## on()
+###### 定义
+
+on(type,callback,[cancelCallback]，[context])
+
+###### 说明
+
 监听某个事件,注册回调函数.
-###### params
+
+###### 参数
 
 * type
 
@@ -807,7 +1054,7 @@ Wilddog.goOffline(); // All local Wilddog instances are disconnected
 
  `callback` 中 `this` 指向的对象
 
-
+###### 示例
 
 ```js
 ref.on('child_added',function(snapshot){
@@ -816,14 +1063,20 @@ ref.on('child_added',function(snapshot){
 ```
 --------
 
-## off([type],[callback],[context])
+## off()
+
+###### 定义
+
+off([type],[callback],[context])
+
+###### 说明
 
 取消监听事件，取消 `on()` 注册的回调函数。
 
 
 
 
-###### params
+###### 参数
 
 * type `String`
 
@@ -836,6 +1089,9 @@ ref.on('child_added',function(snapshot){
 * context `Object`
 
   `on()` 中被传入的context
+
+
+###### 示例
 
 ```js
 var onValueChange = function(dataSnapshot) { /* handle... */ };
@@ -853,11 +1109,17 @@ firebaseRef.off('value', onValueChange);
 
 ------
 
-## once(type,callback,[cancelCallbak],[context])
+## once()
+
+###### 定义
+
+once(type,callback,[cancelCallbak],[context])
+
+###### 说明
 
 同on 类似,不同之处在于 once只被执行一次
 
-###### params
+###### 参数
 
 * type
 
@@ -884,6 +1146,7 @@ firebaseRef.off('value', onValueChange);
 
  `callback` 中 `this` 指向的对象
 
+###### 示例
 
 ```js
 ref.once('child_added',function(snapshot){
@@ -894,19 +1157,27 @@ ref.once('child_added',function(snapshot){
 ----
 
 
-## orderByChild(key)
+## orderByChild()
+
+###### 定义
+
+orderByChild(key)
+
+###### 说明
 
 产生一个新`Query`对象，按照指定的子节点的值进行排序
 
-###### params
+###### 参数
 
 * key `String`
 
 指定用来排序子节点的key
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
+
+###### 示例
 
 ```js
 var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
@@ -920,11 +1191,19 @@ ref.orderByChild("height").on("child_added",function(snapshot){
 
 ## orderByKey()
 
+###### 定义
+
+orderByKey()
+
+###### 说明
+
 产生一个新`Query`对象，按照key进行排序。
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
+
+###### 示例
 
 
 ```js
@@ -939,11 +1218,19 @@ ref.orderByKey().on("child_added",function(snapshot){
 
 ## orderByValue()
 
+###### 定义
+
+orderByValue()
+
+###### 说明
+
 产生一个新`Query`对象，按照子节点的值进行排序
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
+
+###### 示例
 
 ```js
 
@@ -960,10 +1247,16 @@ scoresRef.orderByValue().limitToLast(3).on("value", function(snapshot) {
 
 ## orderByPriority()
 
+###### 定义
+
+orderByPriority()
+
+###### 说明
+
 产生一个新`Query`对象，按照优先级排序
 
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
 
@@ -974,11 +1267,17 @@ ref.orderByPriority().on("child_added", function(snapshot) {
 
 ----
 
-## startAt(value,[key])
+## startAt()
+
+###### 定义
+
+startAt(value,[key])
+
+###### 说明
 
 创建一个 `Query` 对象，指定一个起点。
 
-###### params
+###### 参数
 
 * value `String|Number|Null|Boolean` 
 
@@ -989,9 +1288,11 @@ ref.orderByPriority().on("child_added", function(snapshot) {
 起始子节点的key，只有在 `orderByPriority()`时有效
 
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
+
+###### 示例
 
 ```js
 
@@ -1005,12 +1306,18 @@ ref.orderByKey().startAt('jack').on("child_added",function(snapshot){
 
 ----
 
-## endAt(value,[key])
+## endAt()
+
+###### 定义
+
+endAt(value,[key])
+
+###### 说明
 
 
 创建一个 `Query` 对象，指定一个结束点。
 
-###### params
+###### 参数
 
 * value `String|Number|Null|Boolean` 
 
@@ -1021,9 +1328,11 @@ ref.orderByKey().startAt('jack').on("child_added",function(snapshot){
 起始子节点的key，只有在 `orderByPriority()`时有效
 
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
+
+###### 示例
 
 
 ```js
@@ -1038,11 +1347,17 @@ ref.orderByKey().endAt('jack').on("child_added",function(snapshot){
 
 ----
 
-## equalTo(value,[key])
+## equalTo()
+
+###### 定义
+
+equalTo(value,[key])
+
+###### 说明
 
 创建一个 `Query` 对象,指定一个值，子节点必须与之匹配。
 
-###### params
+###### 参数
 
 * value `String|Number|Null|Boolean` 
 
@@ -1051,11 +1366,11 @@ ref.orderByKey().endAt('jack').on("child_added",function(snapshot){
 * key `String`
 
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
 
-
+###### 示例
 
 ```js
 
@@ -1069,19 +1384,27 @@ ref.orderByKey().equalTo('jack').on("child_added",function(snapshot){
 
 ----
 
-## limitToFirst(limit)
+## limitToFirst()
+
+###### 定义
+
+limitToFirst(limit)
+
+###### 说明
 
 创建一个新`Query`对象，包含从从头（或startAt）开始特定数量的子节点
 
-###### params
+###### 参数
 
 * limit `Number`
 
 这次查询能够包含的子节点的最大数量
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
+
+###### 示例
 
 ```js
 
@@ -1096,22 +1419,30 @@ ref.orderByChild("height").limitToFirst(10).on("child_added",function(snapshot){
 
 ----
 
-## limitToLast(limit)
+## limitToLast()
+
+###### 定义
+
+limitToLast(limit)
+
+###### 说明
 
 创建一个新`Query`对象，包含从尾（或EndAt）开始特定数量的子节点
 
-###### params
+###### 参数
 
 * limit `Number`
 
 这次查询能够包含的子节点的最大数量
 
 
-###### return
+###### 返回值
 
 新生成的`Query` 对象
 
-----
+
+
+###### 示例
 
 ```js
 
@@ -1123,13 +1454,24 @@ ref.orderByChild("height").limitToLast(10).on("child_added",function(snapshot){
 
 ```
 
+----
+
 ## ref()
+
+###### 定义
+
+ref()
+
+###### 说明
 
 获取这个查询的 `Wilddog` 引用
 
-###### return
+###### 返回值
 
 `Wilddog` 引用
+
+###### 示例
+
 ```js
 
 var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
@@ -1151,12 +1493,21 @@ Snapshot是当前时间,某个节点数据的副本,Snapshot不会随当前节�
 
 ## val()
 
+###### 定义
+
+val()
+
+###### 说明
+
 返回当前快照的数据
 
-###### return 
+###### 返回值 
 
 * `object|string|null|number|boolean`
   当前快照对应的数据
+
+###### 示例
+
 
 ```js
 ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -1174,13 +1525,21 @@ ref.update({"PM2.5":432})
 
 
 
-## child(key)
+## child()
 
-###### params
+###### 定义
+
+child(key)
+
+###### 说明
+
+###### 参数
 * key `string`
 	
 
-###### return 
+###### 返回值 
+
+###### 示例
 
 ```js
 ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -1202,11 +1561,22 @@ ref.update({"PM2.5":432})
 ```
 -----
 
-## forEach(callback)
+## forEach()
+
+###### 定义
+
+forEach(callback)
+
+###### 说明
+
 遍历快照中每一个子节点,执行回调函数
-###### params
+###### 参数
 * callback `function(key,data)`
   回调函数 `key` 当前子节点的key,`data` 当前子节点的value
+
+
+###### 示例
+
 
 ``` js
 ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -1223,17 +1593,26 @@ ref.update({"PM2.5":432})
 
 ----------------------------------------------------------------------------------------
 
-## hasChild(key)
+## hasChild()
+
+###### 定义
+
+hasChild(key)
+
+###### 说明
+
 检查是否存在某个子节点
 
-###### params
+###### 参数
 * key 输入参数,关注子节点的key
 
 
-###### return 
+###### 返回值 
 * `boolean` 
 	`true` 子节点存在
 	`false` 子节点不存在
+
+###### 示例
 
 ```js
 ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -1259,10 +1638,19 @@ ref.update({"PM2.5":432})
 ------------------------------------------------------------------------------------------
 
 ## key()
+
+###### 定义
+
+ key()
+
+###### 说明
+
 返回当前节点的key
 
-###### return 
+###### 返回值 
 * `string` 当前节点的key值
+
+###### 示例
 
 ```js
 ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
@@ -1284,17 +1672,33 @@ ref.on('child_changed',function(snapshot){
 --------------------------------------------------------------------------------------------
 
 ## numChildren()
+
+###### 定义
+
+numChildren()
+
+###### 说明
+
 返回子节点的个数
 
-###### return 
+###### 返回值 
 * `string` 子节点的个数
 
 ---------------------------------------------------------------------------------------------
 
 ## ref()
+
+###### 定义
+
+ref()
+
+###### 说明
+
 返回当前Wilddog 实例的引用
-###### return 
+###### 返回值 
 * 当前Wilddog 实例的引用
+
+###### 示例
 
 ```js
 ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
