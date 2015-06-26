@@ -30,6 +30,10 @@ $(function(){
     $(".api-content .toc,.quickstart-content .toc").slideDown(300);
     var headingLi = $(".toc>ul>li");
 
+    if(!headingLi.find("ul").length){
+        headingLi.css({"padding-bottom":0});
+    }
+
     var headingLiLength = headingLi.length;
 
     for(var i=0; i<headingLiLength; i++){
@@ -38,7 +42,7 @@ $(function(){
 
         var smallLiArray = smallLiArr.find('li');
 
-        if (smallLiArr.parent("ul").outerHeight()<220) {
+        if (smallLiArr.parent("ul").outerHeight()<230) {
 
             smallLiArr.parent("ul").siblings('.wd-font').hide();
         };
@@ -66,7 +70,7 @@ $(function(){
             flag = false;
         }
         else{
-            $(this).html("4").parent(".toc").animate({"height":220});
+            $(this).html("4").parent(".toc").animate({"height":230});
             flag = true;
         }
     });

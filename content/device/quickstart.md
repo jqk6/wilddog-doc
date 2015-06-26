@@ -40,21 +40,21 @@ Tmpl : page-quickstart
 
 4.  如果想进一步了解wilddog api，你可以执行wilddog程序，它分成8个步骤来展现具体的操作：
 
-   		(1). 在本地建立数据树，它与Wilddog云端的json格式的数据树是一一对应的。		
+(1). 在本地建立数据树，它与Wilddog云端的json格式的数据树是一一对应的。	
 
-   		(2). 在建立的本地数据树上进行部分数据节点的修改。
+(2). 在建立的本地数据树上进行部分数据节点的修改。
 
-   		(3). Delete操作：清除Wilddog云端的json格式的数据树。 	
+(3). Delete操作：清除Wilddog云端的json格式的数据树。 
 
-   		(4). Set操作：将本地的数据树set到Wilddog云端，此时可以刷新Wilddog云端数据进行检查确认。
+(4). Set操作：将本地的数据树set到Wilddog云端，此时可以刷新Wilddog云端数据进行检查确认。
 
-   		(5). Get操作：获取Wilddog云端的数据。
+(5). Get操作：获取Wilddog云端的数据。
 
-   		(6). Push操作：在本地新建一个数据节点，并将该数据节点push到Wilddog云端数据树的根节点下。
+(6). Push操作：在本地新建一个数据节点，并将该数据节点push到Wilddog云端数据树的根节点下。
 
-   		(7). Get操作:获取改动后的Wilddog云端的数据。
+(7). Get操作:获取改动后的Wilddog云端的数据。
 
-   		(8). Observe On/Off操作： 订阅Wilddog云端的数据，只要Wilddog云端的数据被改动(值可能不变)，将会立即获取包含最新值的数据树。在wilddog程序中在获取一次变动后的数据，取消订阅操作，整个wilddog程序结束。
+(8). Observe On/Off操作： 订阅Wilddog云端的数据，只要Wilddog云端的数据被改动(值可能不变)，将会立即获取包含最新值的数据树。在wilddog程序中在获取一次变动后的数据，取消订阅操作，整个wilddog程序结束。
 
 
 参照wilddog程序，就可以按照具体的实际需求来对Wilddog云端的数据进行访问、修改和订阅。
