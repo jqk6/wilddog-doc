@@ -1,7 +1,6 @@
 /*
 Title : 开发向导
 Sort : 2
-Tmpl : page-guide
 */
 
 ## 1  安装与设置
@@ -38,65 +37,269 @@ Tmpl : page-guide
   }
 }
 ```
-在Java环境下，JSON树可被转换成为以下几种数据类型：`String` `Boolean` `Number` `Map<String, Object>`等
+在Java环境下，JSON树可被转换成为以下几种数据类型：`String` `Boolean` `Number` `Map<String, Object>` `List<Object>`。
 
-`lich` 节点的path为`/users/lich`，该节点还有两个子节点做为它的属性。而 `Pudge` 节点可以拥有三个属性。所以更像NoSQL数据库的存储方式，比如mongoDB的JSON方式。`lich` 与 `Pudge` 节点做为 `users` 的子节点，可以将 `users` 看作一个table，`lich` 与 `Pudge` 看作 `users` 的数据项。
+##创建引用
+为了读写数据，你需要创建对Wilddog数据库的引用。这里会用到之前获得的应用URL `https://<appId>.wilddogio.com/`。
+```Java
+Wilddog rootRef = new Wilddog("https://docs-examples.wilddogio.com/web/data");
+```
+当创建一个引用不意味就马上创建一个连接。当执行读写操作时，才从云端取数据。 
 
-更像NoSQL，或者说更像JSON对象的一点，可以给 `users` 添加一个 `amount` 子节点，可以看作 `users` 的属性，如下：
-
-```JSON
-	{
-		"users" : {
-			"lich" : { "age" : 35, "Shape" : "thin" },
-			"Pudge" : {"age" : 60, "Shape" : "fat", "ability" : "gank" },
-			"amount" : 2
-		}		
-	}
+你可以直接访问path。例如：使用`/web/data/users/mchen/name`直接访问Mary Chen的`name`。
+```Java
+Wilddog rootRef = new Wilddog("https://docs-examples.wilddogio.com/web/data/users/mchen/name");
+```
+也可以使用`/web/data`的相对path`users/mchen/name`访问Mary Chen的`name`。
+```Java
+Wilddog rootRef = new Wilddog("https://docs-examples.wilddogio.com/web/data");
+rootRef.child("users/mchen/name");
 ```
 
 ### 节点名称
-每个节点名称作为key，在同一父节点下值唯一。path作为节点的全名称，全局唯一。全名称有最大长度限制，小于等于1024Byte。节点名中不能包含一些特殊ASCII 字符，在ASCII范围内只支持 `0-1 a-z A-Z` 和 `_` `-` `:`三个符号，ASCII范围外支持UTF-8编码集。节点key一旦创建是不能修改的。
+每个节点名称，在同一父节点下值唯一。节点的全名称叫path例如`/web/data/users/mchen/name`，是全局唯一。全名称的最大长度限制小于等于1024Byte。节点名称不能包含一些特殊ASCII 字符，支持 `0-1 a-z A-Z` 和 `_` `-` `:`，ASCII范围外支持UTF-8编码集。节点key一旦创建是不能修改的。
 
 ### 节点Value
-节点值支持 `String` `Boolean` `Number` 和 `null` 。当数据为 `null` 的时候表示数据不存在（或者删除该节点）。
-当本节点包含子节点的时候，可以将整个子树看作本节点的value。
-节点value最大长度不能超过1024Byte。
+节点Value支持 `String` `Boolean` `Number` 和 `null` 。当数据为 `null` 的时候表示数据不存在（或者删除该节点）。节点Value最大长度不能超过1024Byte。
+当本节点包含子节点的时候，整个子树是本节点的Value。
 
-### List 与 Array
-Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 与 `Array`，有替代方案解决，可以被存储为一个对象节点，整数作为key。如下：
+### 集合List 与 数据Array
+Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 与 `Array`，其中的元素必须是key为整数和value为object的键值对对象。如下：
 
 ```JSON
-// you want this
-['Jan', 'Feb', 'Mar']
-// replace
-{0: 'Jan', 1: 'Feb', 2: 'Mar'}
+// we send this
+['hello', 'world']
+// Wilddog databases store this
+{0: 'hello', 1: 'world'}
 ```  
+为了帮助开发者在野狗数据库中存储数组， 当返回的数据像一个数组， getValue()方法返回的数据将是一个数组，数组类型是ArrayList。
+```JSON
+// we send this
+['a', 'b', 'c', 'd', 'e']
+// Wilddog databases store this
+{0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e'}
 
-### Path
-每个数据节点都有一个对应的 `path` 。读和写Wilddog的数据时，我们首先创建一个数据存储的引用，加载指定的 `URL` 。其中， `URL` 包含一个 `URI` ，就是使用数据节点的 `ptah`  作为 `URI`  。
+// since the keys are numeric and sequential,
+// if we query the data, we get this
+['a', 'b', 'c', 'd', 'e']
 
+// however, if we then delete a, b, and d,
+// they are no longer mostly sequential, so
+// we do not get back an array
+{2: 'c', 4: 'e'}
+```  
+#### 限制和约束
+
+| 描述 | 约束 | 备注 |
+| --- | --- | --- |
+| 树的深度 |32 | |
+|key的长度 | 768byte | UTF-8 编码,不能包含 `.` `$` `#` `[` `]` `/` 和 ASCII 控制字符 |
+| 一个叶子节点的数据大小 | 10mb | UTF-8 编码 |
+| 通过SDK写入的数据大小限制 | 16mb | UTF-8 编码 |
+| 通过 REST 写入数据大小限制 |256mb | |
+| 一次能读取的节点 |1亿 | |     
+
+
+## 3 保存数据
+
+在本文档中，我们将介绍向数据库写入数据的方法:`setValue()`, `updateChildren()`, `push()`。
+
+### 保存数据的方法
+接口 | 描述
+---- | ----
+`setValue()` | 覆盖指定路径的所有数据，如messages/users/<username>
+`updateChildren()` | 对子节点进行合并操作。不存在的子节点将会被新增，存在子节点将会被替换。
+`push()` | 在当前节点下生成一个子节点，并返回子节点的引用。子节点的key利用服务端的当前时间生成，可作为排序使用。
+
+### 使用setValue()写入数
+wilddog通常使用`setValue()`方法来写入数据，该方法用来覆盖指定路径上的所有数据。为了更好地理解该方法，我们建立一个blogging APP来说明。APP的数据保存在下面引用对应的路径中：
 ```Java
-Wilddog client = new Wilddog('https://<appId>.wilddogio.com/test/data');
+Wilddog ref = new Wilddog("https://docs-examples.wilddogio.com/android/saving-data/fireblog");
 ```
-该引用的 `URI` 为 `/test/data`，也是数据节点的 `path` 
-因此，每个数据都有统一资源定位，通过浏览器访问地址 `https://<appId>.wilddogio.com/test/data.json`，可以获取该节点JSON数据；如果在登录状态可以在浏览器中直接输入URL地址 `https://<appId>.wilddogio.com/test/data`，进入该节点的数据预览页面。
+我们需要向数据库添加一些用户，为每个用户保存独一无二的用户名，同时保存用户全名和出生日期。由于每个用户的用户名都是独一无二的，所以最好使用setValue()方法，而不建议使用push()方法，因为我们已经有了独一无二的用户名作为key值，不需要在添加的时候重新生成唯一标识。
 
-## 2 建立连接
-
-使用App的域名，建立一个Wilddog client连接。
+首先，我们编写User类代码，将User对象以用户名作为key值添加到Map中。然后，为用户数据所在路径创建引用，调用setValue()方法将Map中的每个用户添加到数据库中。
 ```Java
-try{
-	Wilddog client = new Wilddog("https://demo-z.wilddogio.com/test/data");
-} catch(Exception e) {
-	e.printStackTrace();
+public class User {
+    private int birthYear;
+    private String fullName;
+
+    public User() {}
+
+    public User(String fullName, int birthYear) {
+        this.fullName = fullName;
+        this.birthYear = birthYear;
+    }
+
+    public long getBirthYear() {
+        return birthYear;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+}
+
+User alanisawesome = new User("Alan Turing", 1912);
+User gracehop = new User("Grace Hopper", 1906);
+
+Map<String, User> users = new HashMap<String, User>();
+users.put("alanisawesome", alanisawesome);
+users.put("gracehop", gracehop);
+
+Wilddog usersRef = ref.child("users");
+
+usersRef.setValue(users);
+```
+我们传入setValue()方法中的对象，需要满足如下条件：
+1. 需要对象所属的类中存在默认的构造函数; 
+2. 类中所有的属性都定义了getter方法。
+
+我们使用Map将数据保存到数据库中，因为Map中的元素会自动映射成为JSON对象，并保存到指定路径。现在，我们访问 `https://docs-examples.wilddogio.com/android/saving-data/fireblog/users/alanisawesome/fullName`，将会看到返回值"Alan Turing"。我们也可以直接将数据保存到数据库的指定路径：
+```Java
+//Referencing the child node using a .child() on it's parent node
+usersRef.child("alanisawesome").child("fullName").setValue("Alan Turing");
+usersRef.child("alanisawesome").child("birthYear").setValue(1912);
+
+//Using the / in the .child() call to specify a child and a grandchild node also works!
+usersRef.child("gracehop/name").setValue("Grace Hopper");
+usersRef.child("gracehop/birthYear").setValue(1906);
+```
+上面介绍的两种保存数据的方式，一种是使用Map将所有数据一次性保存到数据库，另一种是将数据分别保存到数据库的指定路径，最终的效果都是一样的：
+```JSON
+{
+  "users": {
+    "alanisawesome": {
+      "birthYear": "1912",
+      "fullName": "Alan Turing"
+    },
+    "gracehop": {
+      "birthYear": "1906",
+      "fullName": "Grace Hopper"
+    }
+  }
 }
 ```
-`new Wilddog()` 需要使用`try catch` ，当出现异常时，建立连接失败。成功后返回的client定位到`/test/data` 这个数据节点上。此时并没有开始同步数据。
-多次调用`new Wilddog()`，可以给于不同的URI来定位不同的数据的节点，但是对于同一个AppId，本地仅会建立一个连接；也可以通过`child()` 与 `getParent()` 方法来定位数据节点。
-定位完节点，获得节点的引用，可以对该节点进行读写操作。
+使用`setValue()`方法将会覆盖指定路径的所有数据，包括子节点的数据。
+我们向`setValue()`方法传递的参数类型需要与JSON中能用的类型对应，如`String`, `Long`, `Double`, `Boolean`, `Map<String, Object>` 和 `List<Object>`。使用这些数据类型，我们可以构造任意复杂的数据结构，例如Map中嵌套另一个Map。我们可以不使用User对象，而使用Map来实现与上面相同的功能：
+```Java
+Wilddog usersRef = ref.child("users");
 
+Map<String, String> alanisawesomeMap = new HashMap<String, String>();
+alanisawesomeMap.put("birthYear", "1912");
+alanisawesomeMap.put("fullName", "Alan Turing");
 
-## 3 获取数据
+Map<String, String> gracehopMap = new HashMap<String, String>();
+gracehopMap.put("birthYear", "1906");
+gracehopMap.put("fullName", "Grace Hopper");
+
+Map<String, Map<String, String>> users = new HashMap<String, Map<String, String>>();
+users.put("alanisawesome", alanisawesomeMap);
+users.put("gracehop", gracehopMap);
+
+usersRef.setValue(users);
+```
+注意：如果向`setValue()`方法传递null作为参数，将会删除指定路径的数据。
+
+### 更新已保存的数据
+如果想不覆盖路径下的所有数据，只更新部分数据，则可以使用`updateChildren()`方法，例如：
+```Java
+Wilddog hopperRef = usersRef.child("gracehop");
+Map<String, Object> nickname = new HashMap<String, Object>();
+nickname.put("nickname", "Amazing Grace");
+hopperRef.updateChildren(nickname);
+```
+以上的代码将会为用户新增nickname属性。如果我们此处使用`setValue()`方法，则用户的fullName和birthYear属性将会被删除，只保留nickname属性。
+*注意*: 将null作为参数传给`updateChildren()`，会将指定位置的数据删除。
+
+### 增加回调函数
+如果你想知道数据是否已经成功保存，可以增加一个回调函数。`setValue()`和`updateChildren()`方法都支持回调函数，当数据保存失败时，将会返回错误信息：
+```Java
+ref.setValue("I'm writing data", new Wilddog.CompletionListener() {
+    @Override
+    public void onComplete(WilddogError wilddogError, Wilddog wilddog) {
+        if (firebaseError != null) {
+            System.out.println("Data could not be saved. " + wilddogError.getMessage());
+        } else {
+            System.out.println("Data saved successfully.");
+        }
+    }
+});
+```
+`updateChildren()`方法只能更新同一层级节点的数据，如果节点不属于同一个层级，则`updateChildren()`方法会被当做setValue()方法执行。
+
+### 向列表中添加数据
+当需要向数据库列表中添加数据时，我们需要注意应用通常都是多用户的，应根据实际情况调整列表结构。扩展我们上面的实例，假如我们要向blog APP中新增posts属性。可能你首先想到的是使用`setValue()`方法保存数据，使用自增的序列来作为元素的key值，结构如下：
+```Java
+// NOT RECOMMENDED - use push()!
+{
+  "posts": {
+    "0": {
+      "author": "gracehop",
+      "title": "Announcing COBOL, a New Programming Language"
+    },
+    "1": {
+      "author": "alanisawesome",
+      "title": "The Turing Machine"
+	}
+  }
+}
+```
+如果用户要在/posts/2节点处增加一个posts，当只有一个用户操作时是没有问题的，但是实际情况是可能会有多个用户同时添加，当有两个用户同时向/posts/2节点添加数据时，其中一个posts会被另一个覆盖。
+
+为了解决这个问题，wilddog提供了`push()`方法，使用该方法每次新加元素时，都会为元素生成一个唯一标识，通过这种方式，多个客户端可以同时向同一个位置添加元素。`push()`生成的唯一标识是基于时间戳计算得来的，所以列表元素是按照时间顺序排列的。
+我们可以通过下面的方式来向blog APP添加posts：
+```Java
+Wilddog postRef = ref.child("posts");
+
+Map<String, String> post1 = new HashMap<String, String>();
+post1.put("author", "gracehop");
+post1.put("title", "Announcing COBOL, a New Programming Language");
+postRef.push().setValue(post1);
+
+Map<String, String> post2 = new HashMap<String, String>();
+post2.put("author", "alanisawesome");
+post2.put("title", "The Turing Machine");
+postRef.push().setValue(post2);
+```
+由于使用了`push()`方法为每个blog post生成了基于时间戳的唯一标识，即使多个用户同时添加post也不会产生冲突。Wilddog数据库中的数据结构如下：
+```Java
+{
+  "posts": {
+    "-JRHTHaIs-jNPLXOQivY": {
+      "author": "gracehop",
+      "title": "Announcing COBOL, a New Programming Language"
+    },
+    "-JRHTHaKuITFIhnj02kE": {
+      "author": "alanisawesome",
+      "title": "The Turing Machine"
+    }
+  }
+}
+```
+获取`push()`方法生成的唯一标识：
+调用`push()`方法将会返回一个指向新路径的引用，我们可以通过这个引用来获取唯一标识，或者在新路径中添加数据。下面的代码可以实现上面实例的功能，同时我们可以获取`push()`方法生成的唯一标识：
+
+```Java
+// Generate a reference to a new location and add some data using push()
+Wilddog postRef = ref.child("posts");
+v newPostRef = postRef.push();
+
+// Add some data to the new location
+Map<String, String> post1 = new HashMap<String, String>();
+post1.put("author", "gracehop");
+post1.put("title", "Announcing COBOL, a New Programming Language");
+newPostRef.setValue(post1);
+
+// Get the unique ID generated by push()
+String postId = newPostRef.getKey();
+```
+通过getKey()方法就可以获取生成的唯一标识。
+
+### 离线操作
+如果客户端断开了网络连接，你的应用依然可以正确工作。
+
+## 4 获取数据
 
 Wilddog 通过为client附加一个异步EventListener监听器来获得数据。监听器将触发一次数据的初始化和同步后续数据变化。
 使用 `addValueEventListener()` 监听一个数据节点的变化。
@@ -157,185 +360,6 @@ Wilddog 通过为client附加一个异步EventListener监听器来获得数据�
 *  child removed 触发时， `snapshot` 代表被删除的子节点，包含被删除的子节点的value或者它的整个子树。
 *  child changed 触发时， `snapshot` 代表发生变化的子节点，包含子节点的alue或者子节点的整个子树。
 注意以上获得的snapshot，不只包含有变化的数据。如果使用`onChildRemoved()` 则为删除前该节点的数据快照；如果使用`onDataChanged()`    `onChildAdded()`  `onChildChanged()`则为操作后的该节点的数据快照。
-
-
-## 4 修改数据
-
-### 修改数据的方式
-
-接口 | 描述
----- | ----
-`setValue()` | 在当前Path进行覆盖操作，设置成最新的数据。将会取代已有的整个子树。
-`push()` | 在当前Path进行新添加操作，将在本地为新数据生成一个唯一ID，该ID将作为当前path的子节点，且作为新数据的父节点。例如当前Path为 `/a/b`，push()，操作后变为 `/a/b/<id>`。
-`updateChildren()` | 更新当前Path节点的数据，不会取代已存在的子节点。
-`removeValue()` | 删除当前Path节点的数据
-
-### setValue()
-Wilddog通过 `setValue()` 保存新的数据到App中，将替换当前Path节点的所有数据。我们将构建一个简单的Blog App，来理解这些API的使用。把我们的blog程序的数据保存到下面这个wilddog引用中：
-
-```Java
-Wilddog ref = new Wilddog("https://demo-blog.wilddogio.com/wildblog");
-```
-开始，我们需要在wildblog app中创建一些用户，使用用户名作为节点的key，并包含用户的属性，昵称、出生年份、blog等级和访问量。因为每个用户有一个独一无二的用户名，最好使用`setValue()` ，而不是使用`push()`，`push()` 将动态创建一个唯一key作为节点名，但是这样没有什么意义。
-
-创建一个blog的User类，并创建一些用户对象存储到wildblog中。这个User类需要符合JavaBean规范，只需要一个初始化属性的构造器和属性的getter方法。
-
-```Java
-public class User {
-    private String nickName;
-    private int birthYear;
-    private int grade;
-    private int pv;
-
-    public User() {}
-
-    public User(String nickName, int birthYear) {
-        this.nickName = nickName;
-        this.birthYear = birthYear;
-        this.grade = 1;
-        this.pv = 0;
-    }
-
-    public int getGrade() {
-        return grade;
-    }
-
-	public int getPv() {
-        return pv;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-    
-    public long getBirthYear() {
-        return birthYear;
-    }
-}
-
-User jackson = new User("binxu", 1985);
-User jason = new User("jibo", 1988);
-
-Wilddog usersRef = ref.child("users");
-
-Map<String, User> users = new HashMap<String, User>();
-users.put("Jackson", jackson);
-users.put("Jason", jason);
-
-usersRef.setValue(users);
-
-```
-
-我们使用一个`Map` 对象保存数据。调用`setValue()`，会将Map和User类都映射成Json对象，最终将递归嵌套生成子树和子节点。现在，在浏览器输入 https://demo-blog.wilddogio.com/wildblog/users/Jason， 将会看到wildblog的用户“Jason”的value，User类的属性形成了Jason节点的子节点。可以通过`setValue()` 重新设置用户的属性：
-
-```Java
-//使用 child() 选择子节点
-usersRef.child("Jason").child("nickName").setValue("wangjibo");
-usersRef.child("Jason").child("grade").setValue(2);
-
-//在child()中使用'/'选择孙子节点
-usersRef.child("Jackson/nickName").setValue("liaobinxu");
-usersRef.child("Jackson/birthYear").setValue(1986);
-
-// 新加一个用户，不使用User类
-usersRef.child("Tim/nickName").setValue("beibei");
-usersRef.child("Tim/birthYear").setValue(1983);
-usersRef.child("Tim/grade").setValue(1);
-usersRef.child("Tim/pv").setValue(0);
-```
-上面的例子，也可以作为添加新的用户，调用`child()` 可以接受不存在的Path，将会动态创建这些不存在的节点，所以可以用于新建操作。
-目前，wildblog app经过操作后，Path `/wildblog/users/` 的 JSON Tree 如下：
-```JSON
-{
-  "users": {
-    "Jackson": {
-      "birthYear": "1986",
-      "nickName": "liaobinxu",
-      "grade": 1,
-      "pv": 0
- 	},
-    "Jason": {
-      "birthYear": "1988",
-      "nickName": "wangjibo",
-      "grade": 2,
-      "pv": 0
- 	},
- 	"Tim": {
-      "birthYear": "1983",
-      "nickName": "beibei",
-      "grade": 1,
-      "pv": 0
- 	}
-  }
-}
-```
-
-**注意： 使用setValue()将覆盖当前位置的数据，包括下级所有子节点 。**
-
-可以通过`setValue()` 设置数据的类型可以是：`String` `Long` `Integer` `Double` `Boolean` `Map<String, Object>`。支持这些类型可以构建任意数据结构， 例如 `Map` 可能包含另外一个 `Map`，使用 `Map` 替代User类：
-
-```Java
-Wilddog usersRef = ref.child("users");
-
-Map<String, Object> jason = new HashMap<String, Object>();
-Jason.put("birthYear", 1988);
-Jason.put("nickName", "wangjibo");
-Jason.put("grade", 1);
-Jason.put("pv", 0);
-
-Map<String, Map<String, Object>> users = new HashMap<String, Map<String, Object>>();
-users.put("Jason", jason);
-
-usersRef.setValue(users);
-```
-
-### updateChildren()
-如果你想修改或新建，一个或多个子节点时，又不想覆盖其他子节点，可以使用`updateChildren()` 方法。
-
-```Java
-Wilddog jasonRef = usersRef.child("Jason");
-Map<String, String> nickname = new HashMap<String, String>();
-nickname.put("nickName", "Axe");
-jasonRef.updateChildren(nickname);
-```
-
-上面代码更新用户Jason的nickName。如果我们使用 `setValue()` 而不是 `updateChildren()`，它将删除 `birthYear` `grade` `pv` 。
-
-### push()
-现在已经有了用户，需要增加一个发布blog的功能。你会想到使用`setValue`方法，这样是可以的。但是blog不像用户，用户可以使用唯一的用户名做key，blog的话要自己准备唯一key，不免有些麻烦。Wilddog提供一个`push()` 接口，这个接口将会为新建的数据创建一个唯一ID，这个唯一ID按照Wilddog的默认排序规则设计的，Wilddog默认的排序是按照字符串升序序列排序的，ID本身是按照时间戳转义的字符串。
-我们可以将Blog以时间顺序添加到wildblog中，使用`push()`生成ID，并按照这个ID排序：
-
-```Java
-Wilddog blogsRef = ref.child("blogs");
-
-Map<String, String> blog = new HashMap<String, String>();
-blog.put("author", "Jason");
-blog.put("title", "Wilddog学习笔记1");
-blog.put("content", "hello world");
-
-Wilddog newRef = blogsRef.push();
-newRef.setValue(blog);
-System.out.println("create new key is : " + newRef.getKey());
-```
-
-`push()` 成功后返回新的ID的Ref，可以使用`newRef.getKey()` 显示新的ID值。
-
-### removeValue()
-
-错误发布了一篇Blog，需要为用户提供一个删除的途径，那么在wildblog App中可以使用`removeValue()`。
-
-```Java
-Wilddog blogsRef = ref.child("blogs");
-
-Map<String, String> blog = new HashMap<String, String>();
-blog.put("author", "Jason");
-blog.put("title", "Wilddog学习笔记2");
-blog.put("content", "he he he");
-
-Wilddog newRef = blogsRef.push();
-newRef.setValue(blog);
-newRef.removeValue();
-```
 
 ## 5 查询数据
 很多情况下，我们需要按条件查询部分数据。Wilddog提供Query功能，可以先对数据进行排序，如`orderByChild()`，`orderByKey()`， `orderByValue()` ，`orderByPriority()` ；再通过条件函数来筛选数据，如`limitToFirst()`，`limitToLast()`， `startAt()`， `endAt()`， `equalTo()` 。
