@@ -76,11 +76,11 @@ Wiced平台下，SDK嵌入了Wiced编译框架，条件编译选项在SDK目录�
 
 ----
 
-## 3.了解数据格式
+## 3 了解数据格式
 
 ### 3.1 云端数据格式
 
-#### 更像一个 JSON Tree
+#### 数据时JSON树
 
 Wilddog云存储使用树形数据结构[<font style="color:#c7254e">JSON</font>](http://json.org/json-zh.html)，替代古老的数据table的方式。每一个数据节点，都可以用一个 `path` 来表示，如下：
 

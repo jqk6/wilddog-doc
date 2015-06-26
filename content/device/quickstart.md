@@ -5,18 +5,16 @@ Tmpl : page-quickstart
 */
 
 
-## 第一步 创建账户和应用
+## 第一步 创建账号和应用
 首先注册并登陆Wilddog账号，进入[<font style="color:#c7254e">控制面板</font>](https://www.wilddog.com/dashboard)。在控制面板中，添加一个新的应用。你会获得一个独一无二的应用URL `https://<appId>.wilddogio.com/`，在同步和存取数据的时候，我们将使用这个URL。
 
 ----
 
-## 第二步 下载Wilddog C/嵌入式SDK
+## 第二步 引入Wilddog C/嵌入式SDK
 
-我们的SDK已经在Linux平台和Wiced平台上成功移植，在此仅以Linux为例，Wiced平台请查看[<font style="color:#c7254e">开发向导</font>](https://z.wilddog.com/device/guide)中的移植SDK。
-
-
-> 你可以在这里下载 [<font style="color:#c7254e">Wilddog C/嵌入式 SDK</font>](https://cdn.wilddog.com/c/client/0.4.2/wilddog.0.4.2.tar.gz)
-
+###下载SDK
+[<font style="color:#c7254e">Wilddog C/嵌入式 SDK</font>](https://cdn.wilddog.com/c/client/0.4.2/wilddog.0.4.2.tar.gz)
+(我们的SDK已经在Linux平台和Wiced平台上成功移植，在此仅以Linux为例，Wiced平台请查看[<font style="color:#c7254e">开发向导</font>](https://z.wilddog.com/device/guide)中的移植SDK)
 
 
 ----
