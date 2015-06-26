@@ -137,6 +137,7 @@ curl -X PUT -d '{ "first": "Jack", "last": "Sparrow" }' \
 
 ###### 说明
 Wilddog的REST API将在以下情况返回错误码：
+
 HTTP状态码		|	描述
 ----     |      -----
 404 Not Found		|	通过HTTP请求而不是HTTPS请求
