@@ -1,6 +1,7 @@
 /*
 Title : Examples
 Sort : 5
+Tmpl : page-guide
 */
 
 

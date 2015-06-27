@@ -145,7 +145,7 @@ ref.authWithPassword({email:"Loki@asgard.com",password:"examplepassword"},
 ```
 ----
 
-## authWithOAuthPopup();
+## authWithOAuthPopup()
 
 ###### 定义
 
