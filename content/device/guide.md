@@ -1,6 +1,7 @@
 /*
 Title : 开发向导
 Sort : 2
+Tmpl : page-guide
 */
 
 

@@ -1,6 +1,7 @@
 /*
  Title: CoAP API文档
  Sort : 4
+ Tmpl : page-guide
 */
 ## 新增一个节点
  在当前节点下新增数据,数据的id由服务端生成,通过payload(data)返回
