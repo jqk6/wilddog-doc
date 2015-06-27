@@ -352,9 +352,9 @@ void* arg)
 ###### 参数 
 
 * wilddog `Wilddog_T` 当前节点的ID。
-* *p_node `Wilddog_Node_T` 新增`node`的ID。
+* p_node `Wilddog_Node_T*` 新增`node`的ID。
 * callback `onPushFunc` 服务端回应或者回应超时触发的回调函数 ,类型是`(*onPushFunc)(Wilddog_Str_T * p_newPath, void* arg, Wilddog_Return_T err)`,其中 `p_newPath` 是新增节点的完整路径,`arg` 为用户传递的值,`err`为状态码。 
-* *arg `void` 用户给回调函数传入的参数。
+* arg `void*` 用户给回调函数传入的参数。
 
   
 ###### 返回值
@@ -419,7 +419,7 @@ void* arg)
 
 * wilddog `Wilddog_T`当前节点的ID
 * callback `onRemoveFunc`服务器回应或者回应超时触发的回调函数，类型是`void (*onRemoveFunc)(void* arg, Wilddog_Return_T err)`,其中`arg` 为用户传递的值,`err`为状态码。
-* *arg `void` 用户传给回调函数的参数。
+* arg `void*` 用户传给回调函数的参数。
 
 ###### 返回值
 `Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
@@ -479,7 +479,7 @@ void* dataChangeArg)
 * wilddog `Wilddog_T` 当前节点ID 。
 * event `Wilddog\_EventType\_T ` 关注的事件类型，见`Wilddog_EventType_T`定义。
 * onDataChange `onQueryFunc` 数据变化所触发的回调函数，类型是`(*onEventFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码。 
-* *dataChangeArg `void` 传给回调函数的`arg`。
+* dataChangeArg `void*` 传给回调函数的`arg`。
 
 ###### 返回值
 `Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
@@ -548,7 +548,7 @@ Wilddog\_EventType\_T event)
 
 ###### 参数
 
-* *p_wilddog `Wilddog_T` 当前节点ID。
+* p_wilddog `Wilddog_T*` 当前节点ID。
 * event `Wilddog_EventType_T` 取消的事件类型。
 
 ###### 返回值

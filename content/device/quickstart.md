@@ -51,6 +51,8 @@ Sort : 1
 		
 	"/":{"a":"1"}
 
+## 第五步 了解更多
 
-
+1. [开发向导](/device/guide)
+2. [C API文档](/device/api)
 
