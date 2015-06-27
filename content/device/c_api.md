@@ -3,164 +3,192 @@ Title: C API文档
 Sort: 3
 */
 
-###API分为两大类，交互API和节点操作API.
+# Wilddog
 
-# 交互API
-## init
- `void wilddog_init(void)`
+## wilddog\_init()
 
- 初始化wilddog SDK.
+###### 定义
 
-**参数**
+void wilddog\_init(void)
 
- 无
+###### 说明 
+ 初始化wilddog SDK。
 
-**返回值**
+###### 返回值
+void
 
- 无
+----
+## wilddog\_new()
 
-## new
- `Wilddog_T wilddog_new(Wilddog_Str_T *url)`
+###### 定义
+Wilddog\_T wilddog\_new(Wilddog\_Str\_T *url)
 
- 初始化一个wilddog客户端.
+###### 说明
+ 通过应用URL初始化 Wildog 客户端。
 
-**参数**
+###### 参数
 
-`url` : `coap[s]://<appid>.wilddogio.com/<path>`.
+* Wilddog\_Str\_T* `url` 应用URL。Wilddog 中任何数据都能够通过一个URL来进行访问，如`coap[s]://<appId>。wilddogio。com/<path>` 
+其中<appId>为开发者在 Wilddog 平台申请的应用id。
+<path>为客户端关心的路径。
 
-`<appid>` : 开发者在 wilddog 平台申请的应用id.
+###### 返回值
+ `Wilddog_T` 类型的客户端ID，如果创建失败，返回0。
 
-`<path>` : 客户端关心的路径.
-
-**返回值**
-
-返回`Wilddog_T`类型的client id，如果创建失败，返回0.
-###### sample
-
+###### 示例
 ```c
 int main()
 {
 	//init client
-	Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy/device/light/10abcde");
+	Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy/device/light/10abcde");
 	//do something
-	...
+	。。。
 	//recycle memeory
 	wilddog_destroy(&wilddog);
 }
 ```
+----
+## wilddog\_getParent()
 
-## get parent
-`Wilddog_T wilddog_getParent(Wilddog_T wilddog)`
+###### 定义
 
- 创建一个path为当前客户端path的父节点的客户端.
+Wilddog\_T wilddog\_getParent(Wilddog\_T wilddog)
 
-**参数**
+###### 说明
 
-`wilddog` : client id.
+获取父节点的ID。如果当前节点是root节点，函数执行后返回root节点本身的ID。
 
-**返回值**
+###### 参数
 
-返回父节点的id，如果创建失败，返回0.
+* wilddog `Wilddog_T` 当前节点的ID。
 
-###### sample
+###### 返回值
+
+返回父节点的id，如果创建失败，返回0。
+
+###### 示例
 ```c
 //定位到user/jackxy
-Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy");
 //定位到user
 Wilddog_T parent = wilddog_getParent(wilddog);
 ```
-## get root
-`Wilddog_T wilddog_getRoot(Wilddog_T wilddog)`
+----
+## wilddog\_getRoot()
 
- 创建一个path为当前客户端path的根节点的客户端.
+###### 定义
+Wilddog\_T wilddog\_getRoot(Wilddog\_T wilddog)
 
-**参数**
+###### 说明
 
-`wilddog` : client id.
+ 获取根节点ID。
 
-**返回值**
+###### 参数
 
-返回根节点的id，如果创建失败，返回0.
-###### sample
+* wilddog `Wilddog_T`  当前节点的ID。
+
+###### 返回值
+
+Wilddog\_T `root` 根节点的ID，如果失败，返回0。 
+
+###### 示例
 ```c
 //定位到user/jackxy
-Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy");
 //定位到root("/")
 Wilddog_T root = wilddog_getRoot(wilddog);
 ```
-## get child
-`Wilddog_T wilddog_getChild(Wilddog_T wilddog, Wilddog_Str_T * childName)`
+----
 
- 创建一个path为当前客户端path下`childName`子节点的客户端.
+## wilddog\_getChild()
 
-**参数**
+###### 定义
+Wilddog\_T wilddog\_getChild(Wilddog\_T wilddog, Wilddog\_Str\_T * childName)
 
-`wilddog` : client id.
+###### 说明
 
-`childName` : 子节点的相对路径，多级子节点需用'/'隔开，即使子节点不存在也能创建.
+ 查询当前节点下名字为childName的子节点ID。
 
-**返回值**
+###### 参数
 
-返回子节点的id，如果创建失败，返回0.
+* wilddog `Wilddog_T` 当前节点ID。
 
-###### sample
+* childName `Wilddog_Str_T*` 
+子节点的相对路径，多级子节点需用'/'隔开，即使子节点不存在也能创建。
+
+###### 返回值
+`Wilddog_T` 
+子节点的id，如果创建失败，返回0。
+
+
+###### 示例
 ```c
 //定位到user/jackxy
-Wilddog_T wilddog=wilddog_new("coaps://myapp.wilddogio.com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy");
 //定位到user/jackxy/aaa
 Wilddog_T child = wilddog_getChild(wilddog, "aaa");
 ```
+----
+## wilddog\_getKey()
 
-## get key
-`Wilddog_Str_T *wilddog_getKey(Wilddog_T wilddog)`
+###### 定义
 
- 获取当前客户端对应node的key.
+Wilddog\_Str\_T *wilddog\_getKey(Wilddog\_T wilddog)
 
-**参数**
+###### 说明
 
-`wilddog` : client id.
+ 获取当前节点的key。
 
-**返回值**
+###### 参数
+ wilddog `Wilddog_T`  当前节点ID。
 
-返回node的key，如果获取失败，返回NULL.
+###### 返回值
 
-## destroy
- `Wilddog_Return_T wilddog_destroy(Wilddog_T *p_wilddog);`
+ `Wilddog_Str_T` 如果获取失败，返回NULL。
 
- 销毁一个客户端 回收内存.
+----
+## wilddog\_destroy()
+
+###### 定义
+Wilddog\_Return\_T wilddog\_destroy(Wilddog\_T *p\_wilddog)
+
+###### 说明
+ 销毁一个客户端回收内存。
  
-**参数**
+###### 参数
 
-`p_wilddog` : 指向client id的地址.
+* p_wilddog `Wilddog_T* `
+ 客户端的ID。
 
-**返回值**
+###### 返回值
 
-返回 `0`:成功 `<0`:失败.
+ `Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
 
-## setAuth
+----
 
-	Wilddog_Return_T wilddog_setAuth(
-		Wilddog_Str_T *p_host, 
-		u8 *p_auth, 
-		int len, 
-		onAuthFunc onAuth,
-		void* args);
+## wilddog\_setAuth()
 
- 同服务器进行auth认证。注意，每个appid**共用**一个auth。
+###### 定义
+Wilddog\_Return\_T wilddog\_setAuth(Wilddog\_Str\_T *p\_host, u8 *p\_auth,int len,onAuthFunc onAuth,void* args)
 
-**参数**
+###### 说明
+ 发送auth数据到服务器进行认证。
 
-`p_host` : 想要进行auth认证的host字符串,如 `"<appid>.wilddogio.com"`。
+###### 参数
 
-`p_auth` : auth信息数据的指针。
+* *p_host `Wilddog_Str_T`进行auth认证的host字符串，如 `"<appId>。wilddogio.com"`。
 
-`len` : auth信息的长度。
+* p_auth `u8*` auth的数据指针。
 
-`onAuth` : 函数指针，类型是`void (*onAuthFunc)(void* arg, Wilddog_Return_T err)`，其中`arg`为用户传递的值，（即下面的`args`），`err`为状态码，具体见`Wilddog_Return_T`定义。
+* int `len` auth数据的长度。
 
-`args` : 用户参数接口，该值会传递到`onAuth`中。
+* onAuthFunc `onAuth`  服务端回应认证或者认证超时触发的回调函数，类型是`void (*onAuthFunc)(void* arg, Wilddog_Return_T err)`，其中`arg`为用户传递的值，（即下面的`args`），`err`为状态码，具体见`Wilddog_Return_T`定义。
 
-###### sample
+* args `void*` 用户给回调函数传入的参数。
+
+###### 返回值
+ `Wilddog_Str_T` 发送成功返回0，发送失败则返回负数。注意该返回值仅表明发送是否成功，认证是否成功需要在回调函数中判断。
+###### 示例
 ```c
 void myOnAuthFunc(void* arg, Wilddog_Return_T err)
 {
@@ -175,32 +203,31 @@ void myOnAuthFunc(void* arg, Wilddog_Return_T err)
 //aquired a new auth token
 char* newToken="ABCD1234567890"
 int args = 0;
-wilddog_setAuth("aaa.wilddogio.com",newToken, strlen(newToken), myOnAuthFunc, (void*)&args);
-...
+wilddog_setAuth("aaa。wilddogio。com",newToken, strlen(newToken), myOnAuthFunc, (void*)&args);
+。。。
 ```
+----
+## wilddog\_query()
 
-## query
+###### 定义
+Wilddog\_Return\_T wilddog\_query(Wilddog\_T wilddog,onQueryFunc callback,void* arg)
 
-	Wilddog_Return_T wilddog_query(
-		Wilddog_T wilddog,
-		onQueryFunc callback,
-		void* arg)
-
- 获取当前节点的数据,数据格式为`Wilddog_Node_T`(类似JSON).
+###### 说明
+ 获取当前节点的数据,数据格式为`Wilddog_Node_T`(类似JSON)。
  
- **参数**
+###### 参数
 
-`wilddog` : client id.
+* wilddog `Wilddog_T` 客户端ID。
 
-`callback` : 函数指针,类型是`void (*onQueryFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码.
+* callback `onQueryFunc` 服务端回应数据或者回应超时触发的回调函数,类型是`void (*onQueryFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码。
 
-`arg` : 即用户给回调函数的arg.
+* arg `void*` 用户给回调函数传入的参数。
 
-**返回值**
+###### 返回值
 
-返回 `0`:成功 `<0`:失败.
+ `Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
  
-###### sample
+###### 示例
 ```c
 STATIC void test_onQueryFunc(
 	const Wilddog_Node_T* p_snapshot, 
@@ -236,41 +263,40 @@ int main(void)
 		if(p_node)
 		{
 			_wilddog_debug_printnode(p_node);
-			...
+			。。。
 			wilddog_node_delete(p_node);
 		}
 		wilddog_trySync();
 	}
-	...
+	。。。
 	wilddog_destroy(&wilddog);
 }
 
 ```
+----
+## wilddog\_set()
 
-## set
-	Wilddog_Return_T wilddog_set(
-		Wilddog_T wilddog,
-		Wilddog_Node_T *p_node,
-		onSetFunc callback,
-		void* arg)
+###### 定义
+Wilddog\_Return\_T wilddog\_set(
+Wilddog\_T wilddog,
+Wilddog\_Node\_T *p\_node,
+onSetFunc callback,
+void* arg)
 
- 设置当前节点的数据,数据格式为`Wilddog_Node_T`.
+###### 说明
+ 设置当前节点的数据,数据格式为`Wilddog_Node_T`。
  
- **参数**
+###### 参数
+* wilddog `Wilddog_T` 当前节点的ID。
+* *p_node `Wilddog_Node_T` 节点存储格式。
+* callback `onSetFunc` 服务端回应或者回应超时触发的回调函数 ,类型是`void (*onSetFunc)(void* arg, Wilddog_Return_T err)`,其中`arg`为用户传递的值,`err`为状态码。
+* arg `void*` 用户给回调函数传入的参数。
 
-`wilddog` : client id.
+###### 返回值
 
-`p_node` : `Wilddog_Node_T` 类型的指针, `Wilddog_Node_T` 为wilddog 客户端存储格式.
+`Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
 
-`callback` : 函数指针 ,类型是`void (*onSetFunc)(void* arg, Wilddog_Return_T err)`,其中`arg`为用户传递的值,`err`为状态码.
-
-`arg` : 即用户给回调函数的arg.
-
-**返回值**
-
-返回 `0`:成功 `<0`:失败.
-
-###### sample
+###### 示例
 ```c
 STATIC void test_onSetFunc(void* arg, Wilddog_Return_T err)
 {
@@ -304,38 +330,37 @@ int main(void)
 		if(TRUE == isFinish)
 		{
 			wilddog_debug("set success!");
-			...
+			。。。
 		}
 		wilddog_trySync();
 	}
 	wilddog_destroy(&wilddog);
 }
 ```
+----
+## wilddog\_push()
 
-## push
-	Wilddog_Return_T wilddog_push(
-		Wilddog_T wilddog, 
-		Wilddog_Node_T *p_node, 
-		onPushFunc callback, 
-		void* arg)
+###### 定义
+Wilddog\_Return\_T wilddog\_push(
+Wilddog\_T wilddog, 
+Wilddog\_Node\_T *p\_node, 
+onPushFunc callback, 
+void* arg)
+###### 说明
+ 在当前节点下生成一个子节点，并返回子节点的引用。子节点的key利用服务端的当前时间生成。
 
- 在当前节点之下新增一条数据,数据的key在服务端生成.
- 
-  **参数**
+###### 参数 
 
-`wilddog` :  client id.
+* wilddog `Wilddog_T` 当前节点的ID。
+* p_node `Wilddog_Node_T*` 新增`node`的ID。
+* callback `onPushFunc` 服务端回应或者回应超时触发的回调函数 ,类型是`(*onPushFunc)(Wilddog_Str_T * p_newPath, void* arg, Wilddog_Return_T err)`,其中 `p_newPath` 是新增节点的完整路径,`arg` 为用户传递的值,`err`为状态码。 
+* arg `void*` 用户给回调函数传入的参数。
 
-`p_node` : `Wilddog_Node_T`类型的指针(node 库的使用API 请参见后面的节点操作API).
-
-`callback` : 函数指针 ,类型是`(*onPushFunc)(Wilddog_Str_T * p_newPath, void* arg, Wilddog_Return_T err)`,其中 `p_newPath` 是新增数据的完整path,`arg` 为用户传递的值,`err`为状态码.
-
-`arg` : 即用户给回调函数的arg.
   
- **返回值**
+###### 返回值
+`Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
 
-返回 `0`:成功 `<0`:失败.
-
-###### sample
+###### 示例
 ```c
 STATIC void test_onPushFunc(u8 *p_path,void* arg, Wilddog_Return_T err)
 {
@@ -377,30 +402,29 @@ int main(void)
 }
 
 ```
+----
 
+## wilddog\_remove()
 
-## remove
+###### 定义
+Wilddog\_Return\_T wilddog\_remove(
+Wilddog\_T wilddog, 
+onRemoveFunc callback, 
+void* arg)
 
-	Wilddog_Return_T wilddog_remove(
-		Wilddog_T wilddog, 
-		onRemoveFunc callback, 
-		void* arg)`
+###### 说明
+ 删除当前节点及节点下所有数据。
 
- 删除当前节点下所有数据
+###### 参数
 
-**参数**
+* wilddog `Wilddog_T`当前节点的ID
+* callback `onRemoveFunc`服务器回应或者回应超时触发的回调函数，类型是`void (*onRemoveFunc)(void* arg, Wilddog_Return_T err)`,其中`arg` 为用户传递的值,`err`为状态码。
+* arg `void*` 用户传给回调函数的参数。
 
-`wilddog` :  client id.
+###### 返回值
+`Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
 
-`callback` : 函数指针 ,类型是`void (*onRemoveFunc)(void* arg, Wilddog_Return_T err)`,其中`arg` 为用户传递的值,`err`为状态码.
-
-`arg` : 即用户给回调函数的arg.
-
-**返回值**
-
-返回 `0`:成功 `<0`:失败.
-
-###### sample
+###### 示例
 ```c
 STATIC void test_onDeleteFunc(void* arg, Wilddog_Return_T err)
 {
@@ -435,32 +459,32 @@ int main(void)
 	wilddog_destroy(&wilddog);
 }
 ```
+----
+
+## wilddog\_on()
+###### 定义
+Wilddog\_Return\_T wilddog_on(
+Wilddog\_T wilddog, 
+Wilddog\_EventType\_T event, 
+onQueryFunc onDataChange, 
+void* dataChangeArg)
+
+###### 说明
+
+ 监听某节点的数据变化。一旦该数据发生改变, `onDataChange`函数将被调用。
+
+###### 参数
 
 
-## on
-	Wilddog_Return_T wilddog_on(
-		Wilddog_T wilddog, 
-		Wilddog_EventType_T event, 
-		onQueryFunc onDataChange, 
-		void* dataChangeArg)
+* wilddog `Wilddog_T` 当前节点ID 。
+* event `Wilddog\_EventType\_T ` 关注的事件类型，见`Wilddog_EventType_T`定义。
+* onDataChange `onQueryFunc` 数据变化所触发的回调函数，类型是`(*onEventFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码。 
+* dataChangeArg `void*` 传给回调函数的`arg`。
 
- 观察当前数据的变化,一旦数据改变, `onDataChange`函数将被调用.
+###### 返回值
+`Wilddog_Return_T` 返回 `0`:成功 `<0`:失败。
 
-**参数**
-
-`wilddog` :  client id.
-
-`event` : 关注的事件类型，见`Wilddog_EventType_T`定义.
-
-`onDataChange` : 函数指针,类型是`(*onEventFunc)(const Wilddog_Node_T* p_snapshot, void* arg, Wilddog_Return_T err)`,其中`p_snapshot`是取回的数据镜像（err为200时）或者NULL，**退出函数后即被销毁**, `arg`为用户传递的值, `err`为状态码.
-
-`dataChangeArg` : 即用户给回调函数的arg.
- 
-**返回值**
-
-返回 `0`:成功 `<0`:失败.
-
-###### sample
+###### 示例
 ```c
 STATIC void test_onObserveFunc(
 	const Wilddog_Node_T* p_snapshot, 
@@ -510,321 +534,371 @@ int main(void)
 	
 }
 ```
+----
 
-## off
-	Wilddog_Return_T wilddog_off(
-		Wilddog_T *p_wilddog, 
-		Wilddog_EventType_T event)
+## wilddog\_off()
+###### 定义
+Wilddog\_Return\_T wilddog\_off(
+Wilddog\_T *p\_wilddog, 
+Wilddog\_EventType\_T event)
 
- 取消关注一个事件(对应于on)
+###### 说明
 
-**参数**
+ 取消对某节点的监听(对应于on)。
 
-`wilddog` :  client id.
-`event` : 取消的事件类型.
+###### 参数
 
-**返回值**
+* p_wilddog `Wilddog_T*` 当前节点ID。
+* event `Wilddog_EventType_T` 取消的事件类型。
 
-返回 `0`:成功 `<0`:失败.
+###### 返回值
 
-## try sync
- `void wilddog_trySync(void)`
+`Wilddog_Return_T`返回 `0`:成功 `<0`:失败。
 
- wilddog同步生效依赖 `wilddog_trySync` 必须以一定的频率被调用.调用的频率取决于硬件和应用场景,每调用一次程序尝试接收来自云端的推送和其他消息.所有的事件触发和回调函数被调用都发生在`wilddog_trySync` 过程中.
+----
+## wilddog\_trySync()
 
-**参数**
+###### 定义
+ void wilddog\_trySync(void)
 
- 无
+###### 说明
+ 通过调用`wilddog_trySync`来向Wilddog云端同步数据。每次调用都会处理来自云端的推送和请求超时的重发、长连接的维持 ，以及触发用户注册的回调函数。
+###### 返回值
+void
 
-**返回值**
+----
 
- 无
+## wilddog_timeIncrease()
 
-## time increase
-`void wilddog_timeIncrease(u32 ms)`
+###### 定义
+void wilddog\_timeIncrease(u32 ms)。
 
- 为了实现更精确的时间定位，向用户提供的时间接口，用户可自行调用该函数定位时间(如置于定时器中).
+###### 说明
+ 用于校准Wilddog的时钟(可以在定时器中调用)。一般情况下Wilddog会根据自己推算的时间执行业务操作，这个时间的推算会有偏差，我们可以通过传入一个时间增量来校准Wilddog时钟。
 
-**参数**
+###### 参数
 
-`ms` : 增加的时间,按毫秒计时.
+* ms `u32 ` 增加的时间(单位为毫秒)。
 
-**返回值**
+###### 返回值
+void
 
- 无
-
-###### sample
+###### 示例
 ```c
 void timer_isr()
 {
-	//this isr is been called per ms.
+	//this isr is been called per ms。
 	wilddog_timeIncrease(1);
 }
 ```
-#节点操作API
+----
 
-节点总共有8种类型，如下：
+#Node
 
-	#define WILDDOG_NODE_TYPE_FALSE  0 //false类型
-	#define WILDDOG_NODE_TYPE_TRUE   1 //true类型
-	#define WILDDOG_NODE_TYPE_NULL   2 //null类型
-	#define WILDDOG_NODE_TYPE_NUM    3 //整数类型(32 bits 有符号数)
-	#define WILDDOG_NODE_TYPE_FLOAT  4 //浮点类型
-	#define WILDDOG_NODE_TYPE_BYTESTRING 5 //二进制数组类型
-	#define WILDDOG_NODE_TYPE_UTF8STRING 6 //字符串类型
-	#define WILDDOG_NODE_TYPE_OBJECT 7 //对象类型(所有非叶节点均为此类型)
+##wilddog\_node\_createObject()
 
-## 节点创建
+###### 定义
 
-######创建一个Object类型节点
+Wilddog\_Node\_T * wilddog\_node\_createObject(Wilddog_Str\_T* key)
 
-	Wilddog_Node_T * wilddog_node_createObject(Wilddog_Str_T* key)
+###### 说明
+创建一个Object类型的节点。
 
-**参数**
+###### 参数
 
- `key` : 节点的key值.
+* key `Wilddog_Str_T* `节点的key值。
 
-**返回值**
+###### 返回值
 
- 创建成功则返回节点的指针，失败返回NULL.
+ 创建成功则返回该节点的指针，失败返回NULL。
 
-######创建一个字符串类型节点
+----
 
-	Wilddog_Node_T * wilddog_node_createUString(Wilddog_Str_T* key, Wilddog_Str_T *value)
+## wilddog\_node\_createUString()
 
-**参数**
+###### 定义
+Wilddog_Node\_T * wilddog_node\_createUString(Wilddog\_Str\_T* key, Wilddog\_Str\_T *value)
 
- `key` : 节点的key值.
+###### 说明
+创建一个字符串类型节点
 
- `value` : utf-8字符串的指针.
+###### 参数
 
-**返回值**
+* key `Wilddog_Str_T*` 节点的key值。
+* value `Wilddog_Str_T*` 指向utf-8字符串的指针。
 
- 创建成功则返回节点的指针，失败返回NULL.
+###### 返回值
+`Wilddog_Node_T` 创建成功则返回节点的指针，失败返回NULL。
 
-######创建一个二进制数组类型节点
+----
 
-	Wilddog_Node_T * wilddog_node_createBString(Wilddog_Str_T* key, u8 *value, int len)
+##wilddog\_node\_createBString()
 
-**参数**
+###### 定义 
+Wilddog\_Node\_T * wilddog\_node\_createBString(Wilddog\_Str\_T* key, u8 *value, int len)
 
- `key` : 节点的key值.
+###### 说明
+创建一个二进制数组类型节点。
 
- `value` : 二进制数组的指针.
+###### 参数
+* key `Wilddog_Str_T*` 节点的key值。
+* value `u8*` 二进制数组的指针。
+* len `int` 数据的长度(字节)。
 
- `len` : 数据的长度(字节).
+###### 返回值
+`Wilddog_Node_T*`  创建成功则返回节点的指针，失败返回NULL。
 
-**返回值**
+----
 
- 创建成功则返回节点的指针，失败返回NULL.
+## wilddog\_node\_createFloat()
 
-######创建一个浮点类型节点
+###### 定义
+Wilddog\_Node\_T * wilddog\_node\_createFloat(Wilddog\_Str\_T* key, wFloat num)
 
-	Wilddog_Node_T * wilddog_node_createFloat(Wilddog_Str_T* key, wFloat num)
+###### 说明
+创建一个浮点类型节点。
 
-**参数**
+###### 参数
+* key `Wilddog_Str_T *` 节点的key值。
+* num `wFloat` 浮点数据(8位机器为32bits, 其他为64bits)。
 
- `key` : 节点的key值.
+###### 返回值
+ `Wilddog_Node_T *`创建成功则返回节点的指针，失败返回NULL。
 
- `num` : 浮点数据(8位机器为32bits, 其他为64bits).
+----
+## wilddog\_node\_createNum()
 
-**返回值**
+###### 定义
+Wilddog\_Node\_T * wilddog\_node\_createNum(Wilddog\_Str\_T* key, s32 num)
+###### 说明
+创建一个整数类型节点。
 
- 创建成功则返回节点的指针，失败返回NULL.
+###### 参数
+* key `Wilddog_Str_T*` 节点的key值。
+* num `s32` 32位有符号整数。
 
-######创建一个整数类型节点
+###### 返回值
+ `Wilddog_Node_T `  创建成功则返回节点的指针，失败返回NULL。
 
-	Wilddog_Node_T * wilddog_node_createNum(Wilddog_Str_T* key, s32 num)
+----
+## wilddog\_node\_createNull()
 
-**参数**
+###### 定义
 
- `key` : 节点的key值.
+Wilddog\_Node\_T * wilddog\_node\_createNull(Wilddog\_Str\_T* key)。
 
- `num` : 32位有符号整数.
+###### 说明
+创建一个null类型节点。
 
-**返回值**
+###### 参数
+* key `Wilddog_Str_T*` 节点的key值。
 
- 创建成功则返回节点的指针，失败返回NULL.
+###### 返回值
+ `Wilddog_Node_T ` 创建成功则返回节点的指针，失败返回NULL。
 
-######创建一个null类型节点
+----
 
-	Wilddog_Node_T * wilddog_node_createNull(Wilddog_Str_T* key)
+## wilddog\_node\_createTrue()
 
-**参数**
+###### 定义
 
- `key` : 节点的key值.
+Wilddog\_Node\_T * wilddog\_node\_createTrue(Wilddog\_Str\_T* key)。
 
-**返回值**
+###### 说明
+创建一个TRUE类型节点。
 
- 创建成功则返回节点的指针，失败返回NULL.
+###### 参数
+* key ` Wilddog_Str_T*` 节点的key值。
 
-######创建一个TRUE类型节点
+###### 返回值
+`Wilddog_Node_T ` 创建成功则返回节点的指针，失败返回NULL。
 
-	Wilddog_Node_T * wilddog_node_createTrue(Wilddog_Str_T* key)
+----
 
-**参数**
+## wilddog\_node\_createFalse()
 
- `key` : 节点的key值.
+###### 定义
+Wilddog\_Node\_T * wilddog\_node\_createFalse(Wilddog\_Str\_T* key)。
 
-**返回值**
 
- 创建成功则返回节点的指针，失败返回NULL.
 
-######创建一个FALSE类型节点
+###### 说明
+创建一个FALSE类型节点。
 
-	Wilddog_Node_T * wilddog_node_createFalse(Wilddog_Str_T* key)
+###### 参数
 
-**参数**
+* key `Wilddog_Str_T*` 节点的key值。
 
- `key` : 节点的key值.
+###### 返回值
+`Wilddog_Node_T ` 创建成功则返回节点的指针，失败返回NULL。
 
-**返回值**
+----
 
- 创建成功则返回节点的指针，失败返回NULL.
+## wilddog\_node\_add()
 
-## 节点之间操作
+###### 定义
 
-###### 增加
+Wilddog\_Return\_T wilddog\_node\_add(Wilddog\_Node\_T *parent, Wilddog\_Node\_T *child)。
 
-	Wilddog_Return_T wilddog_node_add(Wilddog_Node_T *parent, Wilddog_Node_T *child)
+###### 说明
 
-向某个节点中添加子节点.
+向一个节点添加子节点。
 
-**参数**
+###### 参数
 
- `parent` : 指向父节点的指针.
+* parent `Wilddog_Node_T*` 指向父节点的指针。
+* child `Wilddog_Node_T*` 指向要添加的子节点的指针。
 
- `child` : 指向要添加的子节点的指针.
+###### 返回值
+ `Wilddog_Return_T` 成功返回 `0`, 失败返回 `<0`的值。
 
-**返回值**
+----
 
- 成功返回 `0`, 失败返回 `<0`的值.
+## wilddog\_node\_delete()
 
-###### 删除
+###### 定义 
+Wilddog\_Return\_T wilddog\_node\_delete( Wilddog\_Node\_T *head)
 
-	Wilddog_Return_T wilddog_node_delete( Wilddog_Node_T *head)
+###### 说明
+删除节点及其所有子节点。
 
-删除节点及其所有子节点.
+###### 参数
+* head `Wilddog_Node_T*` 要删除节点的指针。
 
-**参数**
+###### 返回值
+ `Wilddog_Return_T` 成功返回 `0`, 失败返回 `<0`的值。
 
- `head` : 指向节点的指针.
+----
 
-**返回值**
+## wilddog\_node\_clone()
 
- 成功返回 `0`, 失败返回 `<0`的值.
+###### 定义
+Wilddog\_Node\_T * wilddog\_node\_clone( Wilddog\_Node\_T *head)
 
-###### 拷贝
+###### 说明
+拷贝当前节点及其下所有子节点。
 
-	Wilddog_Node_T * wilddog_node_clone( Wilddog_Node_T *head)
+###### 参数
+* head `Wilddog_Node_T*` 指向节点的指针。
 
-将节点及其所有子节点拷贝.
+###### 返回值
+`Wilddog_Node_T` 成功返回当前节点副本的指针, 失败返回NULL。
 
-**参数**
+----
 
- `head` : 指向节点的指针.
 
-**返回值**
+## wilddog\_node\_find()
 
- 成功返回拷贝后新的头节点指针, 失败返回NULL.
+###### 定义
+Wilddog\_Node\_T *wilddog\_node\_find( Wilddog_Node\_T *root, char *path)
 
-###### 查找
+###### 说明
+root中查找相对路径下的节点。
 
-	Wilddog_Node_T *wilddog_node_find( Wilddog_Node_T *root, char *path)
+###### 参数
+* root `Wilddog_Node_T*` 指向根节点的指针。
+* path `char*` 指向相对路径的指针。
 
-在root中查找该path(相对路径)下的节点是否存在.
+###### 返回值
+`Wilddog_Node_T` 成功返回节点指针, 失败返回NULL。
 
-**参数**
+----
 
- `root` : 指向头节点的指针.
+## wilddog\_node\_getKey()
 
- `path` : 指向相对路径的指针.
+###### 定义
+Wilddog\_Str\_T *wilddog\_node\_getKey(Wilddog\_Node\_T *node)
 
-**返回值**
+###### 说明
+获取当前节点的key值。
 
- 成功返回节点指针, 失败返回NULL.
+###### 参数
+* node `Wilddog_Node_T*` 指向节点的指针。
 
+###### 返回值
+ `Wilddog_Str_T` 成功返回指向节点key的指针，失败返回NULL。
 
-##节点内部的操作
+----
 
-######获取当前节点的key值
+## wilddog\_node\_setKey()
 
-	Wilddog_Str_T *wilddog_node_getKey(Wilddog_Node_T *node)
+###### 定义 
+Wilddog\_Return\_T wilddog\_node\_setKey(Wilddog\_Node\_T *node, Wilddog\_Str\_T *key)
 
-**参数**
+###### 说明
+设置当前节点的key值。
 
- `node` : 指向节点的指针.
+###### 参数
+* node `Wilddog_Node_T*` 指向节点的指针。
+* key `Wilddog_Str_T*` 指向新key值的指针。
 
-**返回值**
+###### 返回值
+ `Wilddog_Return_T` 成功返回指向节点key的指针，失败返回NULL。
 
- 成功返回指向节点key的指针，失败返回NULL.
+----
 
-######设置当前节点的key值
+## wilddog\_node\_getType()
 
-	Wilddog_Return_T wilddog_node_setKey(Wilddog_Node_T *node, Wilddog_Str_T *key)
+###### 定义
+u8 wilddog\_node\_getType(Wilddog\_Node\_T *node)
 
-**参数**
+###### 说明
+获取当前节点的类型
 
- `node` : 指向节点的指针.
+###### 参数
+* node `Wilddog_Node_T*` 指向节点的指针。
 
- `key` : 指向新key值的指针.
+###### 返回值
+ `u8` 返回节点类型 。
 
-**返回值**
+----
 
- 成功返回指向节点key的指针，失败返回NULL.
+## wilddog\_node\_setType()
 
-######获取当前节点的类型
+###### 定义
+void wilddog\_node\_setType(Wilddog\_Node\_T *node, u8 type)
 
-	u8 wilddog_node_getType(Wilddog_Node_T *node)
+###### 说明
+设置当前节点的类型。
 
-**参数**
+###### 参数
+* node `Wilddog_Node_T*` 指向节点的指针。
+* type `u8` 新的类型值。
 
- `node` : 指向节点的指针.
+----
+## wilddog\_node\_getValue()
 
-**返回值**
+###### 定义
+Wilddog\_Str\_T* wilddog\_node\_getValue(Wilddog\_Node\_T *node, int * len)
 
- 返回节点类型.
+###### 说明
+获取当前节点的value值。
 
-######设置当前节点的类型
+###### 参数
+* node `Wilddog_Node_T*` 指向节点的指针。
+* len `int*` 输出参数，将存储value值的长度(字节)。
 
-	void wilddog_node_setType(Wilddog_Node_T *node, u8 type)
+###### 返回值
+ `Wilddog_Node_T` 成功返回指向节点value的指针(可根据type和传出的len来转化)，失败返回NULL。
 
-**参数**
+----
 
- `node` : 指向节点的指针.
 
- `type` : 新的类型值.
+## wilddog\_node\_setValue()
 
-**返回值**
+###### 定义
+Wilddog\_Return\_T (Wilddog\_Node\_T *node, u8 *value, int len)
 
- 无
+###### 说明
+设置当前节点的value值。
 
-######获取当前节点的value值
+###### 参数
+* node `Wilddog_Node_T*` 指向节点的指针。
+* value `u8*` 指向新value值的指针。
+* len `int` 新value的长度。
 
-	Wilddog_Str_T* wilddog_node_getValue(Wilddog_Node_T *node, int * len)
+###### 返回值
+ `Wilddog_Return_T` 成功返回 `0`, 失败返回 `<0` 的数。
 
-**参数**
+----
 
- `node` : 指向节点的指针.
-
- `len` : 输出参数，将存储value值的长度(字节).
-
-**返回值**
-
- 成功返回指向节点value的指针(可根据type和传出的len来转化)，失败返回NULL.
-
-######设置当前节点的value值
-
-	Wilddog_Return_T wilddog_node_setValue(Wilddog_Node_T *node, u8 *value, int len)
-
-**参数**
-
- `node` : 指向节点的指针.
-
- `value` : 指向新value值的指针.
-
- `len` : 新value的长度.
-
-**返回值**
-
- 成功返回 `0`, 失败返回 `<0` 的数.

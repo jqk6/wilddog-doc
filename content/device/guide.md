@@ -1,7 +1,6 @@
 /*
 Title : 开发向导
 Sort : 2
-Tmpl : page-guide
 */
 
 
@@ -18,15 +17,15 @@ Tmpl : page-guide
 	├── README.md
 	└── src
 
-`app` : 用户代码目录，目前存放应用示例；
+`app` : 存放Wilddog应用文件夹，目前存放应用示例；
 
 `client.config` : Linux平台下Makefile的条件编译选项，参见**配置SDK**；
 
-`env.mk/Makefile` : Linux平台下的Makefile，用于编译SDK；
+`env.mk``Makefile` : Linux平台下的Makefile，用于编译SDK；
 
 `include` : 包含以下四个文件：
 
-	wilddog.h : 提供了常用宏定义、结构体、别名的定义；
+	wilddog.h : 提供了常用宏、结构体、别名的定义；
 
 	wilddog_api.h : API接口的声明；
 
@@ -52,9 +51,9 @@ Linux平台下，条件编译选项在SDK目录下的client.config文件中，�
 
 	`APP_SEC_TYPE` : 加密方式，目前支持`dtls`和无加密`nosec`；
 
-	`PORT_TYPE` : 目前支持`posix`；
+	`PORT_TYPE` : 运行的平台，目前支持`posix`；
 
-Wiced平台下，SDK嵌入了Wiced编译框架，条件编译选项在SDK目录下的app/wiced/wiced.mk中，配置项和Linux平台中相似，`PORT_TYPE`则支持`wiced`。
+Wiced平台下，Wilddog SDK是嵌入Wiced编译框架，其条件编译选项在SDK目录下的app/wiced/wiced.mk中，配置项和Linux平台中相似，`PORT_TYPE`则改为`wiced`。
 
 ----
 
@@ -66,11 +65,11 @@ Wiced平台下，SDK嵌入了Wiced编译框架，条件编译选项在SDK目录�
 
 `WILDDOG_MACHINE_BITS` : 目标机位数，一般为8/16/32/64；
 
-`WILDDOG_PROTO_MAXSIZE` : 应用层协议数据包最大长度；
+`WILDDOG_PROTO_MAXSIZE` : 应用层协议数据包最大长度，其范围为560~1300；
 
 `WILDDOG_REQ_QUEUE_NUM` : 数据请求队列的元素个数；
 
-`WILDDOG_RETRANSMITE_TIME` : 单次请求超时时间，单位为ms；
+`WILDDOG_RETRANSMITE_TIME` : 单次请求超时时间，单位为ms，超过该值没有收到服务端回应则触发回调函数,并返回超时错误码参见`Wilddog_Return_T`；
 
 `WILDDOG_RECEIVE_TIMEOUT` : 接收数据最大等待时间。
 
@@ -80,9 +79,9 @@ Wiced平台下，SDK嵌入了Wiced编译框架，条件编译选项在SDK目录�
 
 ### 3.1 云端数据格式
 
-#### 更像一个 JSON Tree
+#### 数据是JSON 树
 
-Wilddog云存储使用树形数据结构[<font style="color:#c7254e">JSON</font>](http://json.org/json-zh.html)，替代古老的数据table的方式。每一个数据节点，都可以用一个 `path` 来表示，如下：
+Wilddog云存储使用树形数据结构[<font style="color:#c7254e">JSON</font>](http://json.org/json-zh.html)。每一个数据节点，都可以用一个 `path` 来表示，如下：
 
 ```JSON
 	{
@@ -133,21 +132,20 @@ Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 
 
 ----
 
-#### Path
-每个数据节点都有一个对应的 `path` 。读和写Wilddog的数据时，我们首先根据`URL`创建数据节点。其中， `URL` 包含一个 `URI` ，即使用数据节点的 `path`  作为 `URI`。
+#### Path  
+Path是用户访问节点的相对路径。
+例如你访问数据的URL为'coap://<appId>.wilddogio.com/test/data'时，
+/test/data为path，创建一个指向节点/test/data客户端如下:
 
 ```c
 Wilddog_T client = wilddog_new('coap://<appId>.wilddogio.com/test/data');
 ```
 
-该引用的 `URI` 为 `/test/data`，也是数据节点的 `path`。 
-因此，每个数据都有统一资源定位，通过浏览器访问地址 `coaps://<appId>.wilddogio.com/test/data.json`，可以获取该节点JSON数据；如果在登录状态可以在浏览器中直接输入URL地址 `coaps://<appId>.wilddogio.com/test/data`，进入该节点的数据预览页面。
-
 ----
 
 ### 3.2 SDK数据格式
 
-我们的SDK使用类JSON格式，能够和云端数据互相转化。例如，我们在云端建立一个树：
+我们的SDK使用类JSON格式，能够和云端数据互相转化。例如，我们在云端建立一课树：
 
 ![](https://cdn.wilddog.com/z/iot/images/guide_2_1.png)
 
@@ -174,10 +172,9 @@ Wilddog_T client = wilddog_new('coap://<appId>.wilddogio.com/test/data');
 	Wilddog_T client = wilddog_new("coap://demo-z.wilddogio.com/test/data");
 ```
 
-当出现异常时，建立连接失败，返回 0。成功后返回建立的节点id，定位到`/test/data`上。此时并没有开始同步数据。
+当出现异常时，建立连接失败，返回 0。成功后返回建立的节点Id，定位到`/test/data`上，通过Id可以对节点进行读写操作。注意，此时并没有开始和云端同步数据。
 多次调用`wilddog_new()`，可以通过给予不同的URI来定位不同的数据节点，但是对于同一个AppId，本地仅会建立一个连接；也可以通过`wilddog_getChild()` 与 `wilddog_getParent()` 方法来定位数据节点。
 
-定位完节点，获得节点的id，可以对该节点进行读写操作。
 
 ## 5. 获取数据
 
@@ -187,7 +184,7 @@ Wilddog_T client = wilddog_new('coap://<appId>.wilddogio.com/test/data');
 ----| ----
 `wilddog_query()` | 获取当前节点的数据
 `wilddog_on()` | 关注当前节点，数据有变化时会收到新的数据
-`wilddo_off()` | 取消关注当前节点
+`wilddo_off()` | 取消对当前节点的关注
 
 SDK采用异步方式获取数据，因此需要用户提供回调函数，回调函数的声明为：
 
@@ -261,7 +258,8 @@ int main()
 
 ### 5.2 wilddog_on()
 
-SDK通过增加监听事件来获得数据，监听事件将触发一次数据的初始化和同步后续数据变化。`wilddog_on()`函数声明如下：
+监听某节点的数据变化。调用时会获取一次数据云端数据，其后一旦该数据发生改变, 用户注册的回调函数都会被调用。
+`wilddog_on()`函数声明如下：
 
 ```c
 Wilddog_Return_T wilddog_on
@@ -273,7 +271,7 @@ Wilddog_Return_T wilddog_on
 	);
 ```
 
-使用`wilddog_on()`监听一个数据节点的变化：
+使用`wilddog_on()`监听某数据节点的变化：
 
 ```c
 wilddog_on(client, WD_ET_VALUECHANGE, callback, args);
@@ -329,13 +327,13 @@ int main()
 
 接口 | 用途
 ----| ----
-`wilddog_set()` | 设置当前节点的数据
-`wilddog_push()` | 在当前节点之下新增一条数据
-`wilddo_remove()` | 删除当前节点下所有数据
+`wilddog_set()` | 设置当前节点的数据；
+`wilddog_push()` | 在当前节点之下新增一个节点；
+`wilddog_remove()` | 删除当前节点及节点下所有数据。
 
 ### 6.1 wilddog_set()
 
-SDK通过 `wilddog_set()` 保存新的数据到App中，它将替换当前path节点的所有数据。我们将构建一个简单的wildblog App，来理解这些API的使用。把我们的wildblog程序的数据保存到下面这个`URL`中：
+SDK通过 `wilddog_set()` 保存新的数据到云端。我们将构建一个简单的wildblog App，来理解这些API的使用。把我们的wildblog程序的数据保存到`URL`中：
 
 ```c
 Wilddog_T client = wilddog_new("coap://demo-blog.wilddogio.com/wildblog");
@@ -443,7 +441,7 @@ while(1)
 }
 ```
 
-**注意：使用setValue()将覆盖当前位置的数据，包括下级所有子节点 。**
+**注意：使用setValue()将覆盖当前位置的数据，包括其下所有的子节点 。**
 
 ----
 
@@ -502,7 +500,7 @@ Wilddog_Return_T wilddog_setAuth
     )
 ```
 
-每个host，即`<appId>.wilddogio.com`共用一个Auth Key，通过调用`wilddog_setAuth()`接口，能够实现鉴权。Auth Key的获取方式正在开发中，敬请期待。
+每个host，即`<appId>.wilddogio.com`共用一个Auth Key，通过调用`wilddog_setAuth()`接口，能够实现权限认证。Auth Key的获取方式正在开发中，敬请期待。
 
 ## 8. 移植SDK
 
@@ -522,7 +520,7 @@ Wiced平台采用WICED IDE，打开WICED IDE，能够在工程下的`apps`目录
 
 ### 移植条件编译选项
 
-Wiced平台需要用户完成Makefile，格式有严格要求，Makefile文件名称的前缀必须与目录名相同，以我们的例子为例，如下图：
+Wiced平台需要用户为自己的APP编写Makefile，格式有严格要求，Makefile文件名称的前缀必须与目录名相同，以我们的例子为例，如下图：
 
 ![](https://cdn.wilddog.com/z/iot/images/wiced-make.png)
 
@@ -577,7 +575,7 @@ int wilddog_receive
 	#define CLIENT_AP_SSID       "your ssid"
 	#define CLIENT_AP_PASSPHRASE "your ap password"
 
-配置URL：
+配置URL，用户在Wilddog云端申请的URL：
 
 	#define TEST_URL "coaps://<appId>.wilddogio.com/"
 
@@ -587,7 +585,7 @@ int wilddog_receive
 
 `wilddog.app.wiced-<yourboard> download run`
 
-其中`<yourboard>`为你的开发板型号，SDK所用的wiced开发板是BCM943362WCD4，因而Target name 是 
+其中`<yourboard>`为你的开发板型号，我们测试使用的wiced开发板是BCM943362WCD4，因而Target name 是 
 
 `wilddog.app.wiced-BCM943362WCD4 download run`
 
