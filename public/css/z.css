@@ -851,7 +851,7 @@ h4>code{
 }
 
 /*增加点击显示剩余目录效果*/
-.api-content .toc,#quickstart .toc{
+.api-content .toc,#quickstart .toc,.guide-content .toc{
     position: relative;
     padding-bottom:30px;
     height:230px;
