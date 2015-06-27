@@ -675,7 +675,7 @@ footer {
     font-size:14px;
 }
 .content h3{
-    padding-bottom:32px;
+    padding-bottom:24px;
 }
 .toc>ul{
     overflow:hidden;
@@ -765,10 +765,10 @@ blockquote{
 blockquote table td{
     width:50%;
 }
-.content p a,#quickstart>ol a{
+.content p a,#quickstart>ol a,#guide-content>ul li a{
     color:#e84d1e;
 }
-.content p a:hover, #quickstart>ol a:hover{
+.content p a:hover, #quickstart>ol a:hover,#guide-content>ul li a:hover{
     text-decoration:none;
     border-bottom:1px solid #e84d1e;
 }
@@ -788,6 +788,7 @@ blockquote table td{
 .guide-content h2,#quickstart h2{
     font-size:18px;
     font-weight:bold;
+    padding-bottom:24px;
 }
 .api-content h2{
     padding-bottom:14px;
@@ -892,6 +893,7 @@ h4>code{
     font-size:22px;
     cursor:pointer;
     border-radius:50%;
+    display:none;
 }
 .content h1:nth-child(2){
     padding-bottom:35px;
@@ -917,6 +919,6 @@ h4>code{
     border-left:4px solid #e5e5e5;
     margin-bottom:24px;
 }
-.content>p{
-    padding-left:20px;
+.guide-content p{
+    padding-left:38px;
 }
