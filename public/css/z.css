@@ -353,11 +353,6 @@ h1 {
     padding-top:35px;
 }
 
-p {
-    margin-top: 16px;
-    margin-left: 20px;
-}
-
 h2 {
     font-size: 16px;
     margin: 0;
@@ -680,7 +675,7 @@ footer {
     font-size:14px;
 }
 .content h3{
-    padding-bottom:32px;
+    padding-bottom:24px;
 }
 .toc>ul{
     overflow:hidden;
@@ -699,13 +694,14 @@ footer {
     display:block;
     font-size:18px;
     color:#333;
+    line-height:30px;
 }
 .toc ul{
     overflow:hidden;
     padding-left:0;
     line-height:24px;
 }
-.content p{
+.content>p{
     margin:0;
     font-size:14px;
 }
@@ -725,11 +721,7 @@ footer {
     top:18px;
 }
 .hljs{
-    color:#333;
-    background-color:#fff;
-}
-.hljs>span{
-    color:#333;
+    padding:0;
 }
 .content hr{
     display:none;
@@ -773,8 +765,19 @@ blockquote{
 blockquote table td{
     width:50%;
 }
-.content p a,#quickstart>ol a{
+.content p a,#quickstart>ol a,#guide-content>ul li a{
     color:#e84d1e;
+}
+.content p a:hover, #quickstart>ol a:hover,#guide-content>ul li a:hover{
+    text-decoration:none;
+    border-bottom:1px solid #e84d1e;
+}
+.toc>ul>li{
+    padding-bottom:35px;
+}
+.toc>ul>li li a:hover{
+    text-decoration:none;
+    border-bottom:1px solid #666;
 }
 .content p>code,.content ul code,.content table code,.content ol code,.content h3 code{
     background:none;
@@ -785,6 +788,7 @@ blockquote table td{
 .guide-content h2,#quickstart h2{
     font-size:18px;
     font-weight:bold;
+    padding-bottom:24px;
 }
 .api-content h2{
     padding-bottom:14px;
@@ -811,7 +815,7 @@ blockquote table td{
 .guide-content h4,#quickstart h4{
     font-size:16px;
     margin-top:32px;
-    margin-bottom:14px;
+    margin-bottom:24px;
 }
 h4>code{
     background:none;
@@ -826,6 +830,8 @@ h4>code{
 .guide-content .table,#quickstart .table{
     width:665px;
     margin-left:38px;
+    margin-top:14px;
+    margin-bottom:24px;
 }
 .guide-content pre,#quickstart pre{
     margin-left:38px;
@@ -848,7 +854,7 @@ h4>code{
 .api-content .toc,#quickstart .toc{
     position: relative;
     padding-bottom:30px;
-    height:220px;
+    height:230px;
     overflow:hidden;
     display:none;
 }
@@ -887,8 +893,9 @@ h4>code{
     font-size:22px;
     cursor:pointer;
     border-radius:50%;
+    display:none;
 }
-.content h1:nth-child(1){
+.content h1:nth-child(2){
     padding-bottom:35px;
     border-bottom:1px solid #e5e5e5;
 }
@@ -901,6 +908,17 @@ h4>code{
 #quickstart h2:first-child,#guide-content h2:first-child{
     padding-top:35px;
 }
+.content .top-heading{
+    font-size:22px;
+    font-weight:bold;
+    padding-bottom:35px;
+    border-bottom:1px solid #e5e5e5;
 }
-
-
+.content blockquote>p{
+    font-size:14px;
+    border-left:4px solid #e5e5e5;
+    margin-bottom:24px;
+}
+.guide-content p{
+    padding-left:38px;
+}
