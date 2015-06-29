@@ -14,8 +14,6 @@
   ],
   "main": "./app",
   "scripts": {
-    "start": "forever start -l forever.log -a -o out.log -e err.log  ./bin/www",
-    "stop": "forever stop ./bin/www"
   },
   "engines": {
     "node": "~0.10.0"
