@@ -35,8 +35,10 @@ app.use("/bower_components",express.static(path.join(__dirname, 'bower_component
 
 app.all('*', function(req, res, next){
     if(req.query.search){
-        var searchResults = raneto.search(req.query.search);
-        searchResults.forEach(function(result){
+        var searchResults =[];
+
+        raneto.search(req.query.search).forEach(function(result){
+            console.log(result);
             searchResults.push(raneto.getPage(__dirname +'/content/'+ result.ref, config));
         });
 
@@ -89,7 +91,7 @@ app.all('*', function(req, res, next){
                 var stat = fs.lstatSync(filePath);
                 // Meta
                 var meta = raneto.processMeta(content);
-		console.log(meta)
+
                 content = raneto.stripMeta(content);
                 // Content
                 content = raneto.processVars(content, config);
