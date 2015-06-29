@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import pexpect
 import sys
 import os
@@ -12,8 +14,8 @@ remotePath = '/data/www'
 remoteDir = 'z.wilddog.com'
 tgz = localDir+".tar.gz"
 pexpect.run('tar -cvf %s %s '%(tgz,localDir),cwd='..')
-child = pexpect.spawn('scp %s %s:%s'%(tgz,remote,remotePath),cwd="..")
-child.expect(['#','$'])
+pexpect.run('scp %s %s:%s'%(tgz,remote,remotePath),cwd="..")
+
 
 #ssh
 ssh = pexpect.spawn('ssh',[remote])
@@ -24,7 +26,6 @@ ssh.expect('#')
 # cd to /data/www
 ssh.sendline("cd %s"%(remotePath))
 ssh.expect('#')
-
 #backupfile
 ssh.sendline("mv %s %s"%(remoteDir,remoteDir+"."+time))
 ssh.expect('#')
