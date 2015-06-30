@@ -39,6 +39,7 @@ app.all('*', function(req, res, next){
 
         raneto.search(req.query.search).forEach(function(result){
             console.log(result);
+            
             searchResults.push(raneto.getPage(__dirname +'/content/'+ result.ref, config));
         });
 

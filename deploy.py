@@ -19,22 +19,26 @@ pexpect.run('scp %s %s:%s'%(tgz,remote,remotePath),cwd="..")
 
 #ssh
 ssh = pexpect.spawn('ssh',[remote])
-fout = file('deploy.log','w')
-ssh.logfile = fout
+ssh.logfile = sys.stdout
 ssh.expect('#')
 
 # cd to /data/www
 ssh.sendline("cd %s"%(remotePath))
 ssh.expect('#')
+
 #backupfile
-ssh.sendline("mv %s %s"%(remoteDir,remoteDir+"."+time))
+ssh.sendline("mv %s %s"%(remoteDir,"backup/"+remoteDir+"."+time))
 ssh.expect('#')
 
 #unzip file
 ssh.sendline('tar -xvf %s'%(tgz))
 ssh.expect('#')
 
-#replect z.wilddog.com
+#cleanup
+ssh.sendline('rm -f %s'%(tgz))
+ssh.expect('#')
+
+#replece z.wilddog.com
 ssh.sendline('mv %s %s'%(localDir,remoteDir))
 ssh.expect('#')
 
@@ -49,3 +53,7 @@ ssh.expect('#')
 # start
 ssh.sendline('forever start ./bin/www')
 ssh.expect('#')
+
+# cleanup
+pexpect.run('rm -f %s'%(tgz),cwd='..')
+
