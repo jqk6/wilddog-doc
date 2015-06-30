@@ -110,7 +110,7 @@
 </style>
 -->
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
             wd.tutorial.init();
             wd.tutorial.setEditorValue(html1);
             wd.tutorial.editor.gotoLine(1);
@@ -120,8 +120,10 @@
             $("#search").click(function () {
                 window.open("http://www.baidu.com/s?wd=site:z.wilddog.com " + $("#search-input").val());
             });
-
-        });
+    });
+</script>
+<script>
+    window.onload=function(){
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
@@ -136,12 +138,12 @@
         ga('require', 'linker');
         ga('linker:autoLink', ['www.wilddog.com', 'wilddog.life'] );
         ga('send', 'pageview');
-    </script>
-<script>
+        
         var _hmt = _hmt || [];
         (function()
         { var hm = document.createElement("script"); hm.src = "//hm.baidu.com/hm.js?b94d83d48fe0e3d8f6ce5b1e8023787a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); }
         )();
+    }
 </script>
 
 </body>
