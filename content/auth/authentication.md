@@ -104,13 +104,13 @@ ref.unauth();
 ```
 
 
-# 携带自定数据
+# 携带自定义数据
 
 Wilddog 生成JSON Web Tokens(JWTs)通过调用Wilddog.authWithCustomToken()可以携带他们自己的token。每个用户分配一个UID（唯一的ID），保证在同一个provider是唯一的， 无需为特别用户做任何修改。
 
 它不存储你的用户配置文件或用户状态信息。需要存储用户数据，你必须将token保存到你的Wilddog里。回调函数将返回一个包含验证用户的对象。
 
-下面的代码示例中，我们对用户进行身份验证，然后存储用户数据路径中的 https://YOUR-wilddog.wilddog.com/users/<uid>。
+下面的代码示例中，我们对用户进行身份验证，然后存储用户数据路径中的 `https://<appId>.wilddog.com/users/<uid>`。
 
 下面的代码用于保存用户的认证信息，使用用户的uid作为存储的key。
 
