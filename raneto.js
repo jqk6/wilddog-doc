@@ -5,7 +5,7 @@ var path = require('path'),
 	_s = require('underscore.string'),
 	marked = require('./marked'),
 	lunr = require('lunr');
-
+var idx=null;
 var raneto = {
 
 	metaRegex: /^\/\*([\s\S]*?)\*\//i,
@@ -167,10 +167,10 @@ var raneto = {
 		return filesProcessed;
 	},
 
-
 	search: function(query) {
+		if(idx == null){
 		var files = glob.sync(__dirname +'/content/**/*.md');
-		var idx = lunr(function(){
+		idx = lunr(function(){
 			this.field('title', { boost: 10 });
 			this.field('body');
 		});
@@ -189,7 +189,7 @@ var raneto = {
 			}
 			catch(e){}
 		});
-
+		}
 		return idx.search(query);
 	}
 

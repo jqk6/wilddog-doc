@@ -97,17 +97,16 @@
 <script src="/scripts/raneto.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $(".link-icon-weixin").hover(function () {
-            $("#weixin-code").show();
-        }, function () {
-            $("#weixin-code").hide();
-        });
+        $(document).ready(function () {
+            $(".link-icon-weixin").hover(function () {
+                $("#weixin-code").show();
+            }, function () {
+                $("#weixin-code").hide();
+            });
 
-        $("#search").click(function () {
-            window.open("http://www.baidu.com/s?wd=site:z.wilddog.com " + $("#search-input").val());
-        });
-
+            $("#search").click(function () {
+                window.open("?search=" + $("#search-input").val());
+            });
     });
 </script>
 <script>
