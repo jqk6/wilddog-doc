@@ -162,7 +162,11 @@ ul,ol,li{
 }
 .header-logo .z-wd-font{
     color:#fff;
-    line-height:26px;
+    line-height:0;
+    float:left;
+    padding-top:54px;
+    padding-left:10px;
+    margin-top:0;
 }
 @media only screen and (max-width: 767px) {
     .home-search .form-group {
@@ -184,9 +188,7 @@ body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     /*width: 980px;*/
-    
     margin: 0 auto;
-    min-width:980px;
 }
 
 i {
