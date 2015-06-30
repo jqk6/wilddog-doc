@@ -186,6 +186,7 @@ body {
     /*width: 980px;*/
     
     margin: 0 auto;
+    min-width:980px;
 }
 
 i {
@@ -315,7 +316,7 @@ a:hover {
 }
 
 h5 {
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .menu li {
@@ -334,7 +335,7 @@ h5 {
 
 .content-title {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
     margin-top: 47px;
     border-bottom: 1px solid rgb(229, 229, 229);
     padding-bottom: 8px;
@@ -352,7 +353,7 @@ pre {
 h1 {
     margin: 0;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 500;
     padding-top:35px;
 }
 
@@ -789,7 +790,7 @@ blockquote table td{
 /*更改开发向导所有页面样式*/
 .guide-content h2,#quickstart h2{
     font-size:18px;
-    font-weight:bold;
+    font-weight:500;
     padding-bottom:24px;
 }
 .api-content h2{
@@ -912,8 +913,8 @@ h4>code{
 }
 .content .top-heading{
     font-size:22px;
-    font-weight:bold;
-    padding-bottom:35px;
+    font-weight:500;
+    padding-bottom:10px;
     border-bottom:1px solid #e5e5e5;
 }
 .content blockquote>p{
@@ -923,4 +924,7 @@ h4>code{
 }
 .guide-content p{
     padding-left:38px;
+}
+.guide-content .pull-right{
+    font-size:12px;
 }
