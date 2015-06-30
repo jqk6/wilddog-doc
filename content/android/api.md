@@ -19,7 +19,7 @@ Wilddog getParent()
 
 ###### 示例
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test/a");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test/a");
 // 获得'/test' 路径的引用
 Wilddog ref2 = ref.getParent();
 // 到达root
@@ -45,7 +45,7 @@ path为相对路径，多层级间需要使用"/"分隔，例如“a/b”。如�
 
 ###### 示例
 ```java
-Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
 // 定位到 '/test/a'
 Wilddog ref2 = ref.child("a");
 // 定位到 '/test/a/b'
@@ -67,7 +67,7 @@ String getKey()
 
 ###### 示例
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 // 返回 “test”
 String name = ref.getKey();
 // 返回 “a”
@@ -98,7 +98,7 @@ void
 ###### 示例
 
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 // 等价 update(100);
 ref.child("a/b").setValue(100);
 // 等价 remove();
@@ -153,7 +153,7 @@ public class MyHandler implements CompletionListener {
 ```
 
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 CompletionListener listener = new MyHandler();
 // 等价 update(100);
 ref.child("a/b").setValue(100, listener);
@@ -194,7 +194,7 @@ Wilddog push()
 ###### 示例
 
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 // 添加增加一个数值，将生成一个新ID，操作结果为{"-JmpzI81egafHZo5":100}， 返回的path为“/test/a/b/-JmpzI81egafHZo5”
 Wilddog  newRef = ref.child("a/b").push();
 newRef.setValue(100);
@@ -228,7 +228,7 @@ void
 ###### 示例
 
 ```java
-Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
 // 更新子树
 Map<String, String> children = new HashMap<String, String>();
 children.put("c", "cval");
@@ -267,7 +267,7 @@ public class MyHandler implements CompletionListener {
 }
 ```
 ```java
-Wilddog ref = new  Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new  Wilddog("https://<appId>.wilddogio.com/test");
 CompletionListener handler = new MyHandler();
 // 更新子树
 Map<String, String> children = new HashMap<String, String>();
@@ -291,7 +291,7 @@ void
 ###### 示例
 
 ```java
-Wilddog ref = new  Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new  Wilddog("https://<appId>.wilddogio.com/test");
 ref.child("a/b").removeValue();
 ```
 ----
@@ -315,7 +315,7 @@ void
 ###### 示例
 
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 ResultHandler handler = new MyHandler();
 ref.child("a/b").removeValue(handler);
 ```
@@ -349,7 +349,7 @@ void
 ###### 示例
 
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 AuthResultHandler handler = new MyAuthResultHandler();
 ref.authWithPassword("demo@wilddog.com", "demo1234", handler);
 ```
@@ -376,7 +376,7 @@ void
 Map<String, String> options = new HashMap<String, String>();
 options.put("access_token", "<Weixin Access Token>");
 options.put("openId", "<Weixin Open Id>");
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 ref.authWithOAuthToken("weixin", options, new MyAuthResultHandler());
 ```
 ----
@@ -400,7 +400,7 @@ void
 ###### 示例
 
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 
 // 1.使用secret登录
 ref.authWithCustomToken("<The Secrets Of Your Wilddog App>", new MyAuthResultHandler());
@@ -447,7 +447,7 @@ public class MyResultHandler implements Wilddog.ResultHandler {
 }
 ```
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 ref.createUser("<email>", "<password>", new MyResultHandler());
 ```
 ----
@@ -471,7 +471,7 @@ void
 
 ###### 示例
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 ref.changeEmail("<old-email>", "<password>", "<new-email>" , new MyResultHandler());
 ```
 ----
@@ -495,7 +495,7 @@ void
 ###### 示例
 
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 ref.changePassword("<email>", "<password>", "<new-password>", new MyResultHandler());
 ```
 ----
@@ -517,7 +517,7 @@ void
 
 ###### 示例
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 ref.removeUser("<email>", "<password>", new MyResultHandler());
 
 ```
@@ -540,7 +540,7 @@ void
 
 ###### 示例
 ```java
-Wilddog ref = new Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 ref.resetPassword("<email>", new MyResultHandler());
 ```
 
@@ -690,7 +690,7 @@ listener将监听Change事件。
 ###### 示例
 
 ```java
-Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
 ValueEventListener listener = ref.addValueEventListener(new ValueEventListener(){
 	 onDataChange(DataSnapshot snapshot) {
 		 System.out.println(snapshot.getValue());
@@ -727,7 +727,7 @@ void addChildEventListener(ChildEventListener listener)
 
 ###### 示例
 ```java
-Wilddog ref = Wilddog("https://demo-z.wilddogio.com/test");
+Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
 ChildEventListener listener = ref.addChildEventListener(new ChildEventListener(){
 	onChildAdded(DataSnapshot snapshot){
 		System.out.println(snapshot.getValue());

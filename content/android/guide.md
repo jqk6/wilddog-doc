@@ -10,11 +10,11 @@ Tmpl : page-guide
 
 ### 引入 Wilddog Java SDK
 
-下载SDK。
-[Download Wilddog Java SDK](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
-（目前只提供jvm版SDK，android版的SDK即将推出）
+获得 SDK
+[下载地址](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
+（目前只提供java版SDK，android版的SDK即将推出）
 
-导入SDK。
+导入 SDK
 将wilddog-client-jvm-xxx.jar拷贝到Android应用的libs目录中，然后在IDE中将jar文件添加到应用的classpath。
 
 
@@ -43,17 +43,17 @@ Tmpl : page-guide
 ##创建引用
 为了读写数据，你需要创建对Wilddog数据库的引用。这里会用到之前获得的应用URL `https://<appId>.wilddogio.com/`。
 ```Java
-Wilddog rootRef = new Wilddog("https://docs-examples.wilddogio.com/web/data");
+Wilddog rootRef = new Wilddog("https://<appId>.wilddogio.com/web/data");
 ```
 当创建一个引用不意味就马上创建一个连接。当执行读写操作时，才从云端取数据。 
 
 你可以直接访问path。例如：使用`/web/data/users/mchen/name`直接访问Mary Chen的`name`。
 ```Java
-Wilddog rootRef = new Wilddog("https://docs-examples.wilddogio.com/web/data/users/mchen/name");
+Wilddog rootRef = new Wilddog("https://<appId>.wilddogio.com/web/data/users/mchen/name");
 ```
 也可以使用`/web/data`的相对path`users/mchen/name`访问Mary Chen的`name`。
 ```Java
-Wilddog rootRef = new Wilddog("https://docs-examples.wilddogio.com/web/data");
+Wilddog rootRef = new Wilddog("https://<appId>.wilddogio.com/web/data");
 rootRef.child("users/mchen/name");
 ```
 
@@ -115,7 +115,7 @@ Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 
 ### 使用setValue()写入数
 wilddog通常使用`setValue()`方法来写入数据，该方法用来覆盖指定路径上的所有数据。为了更好地理解该方法，我们建立一个blogging APP来说明。APP的数据保存在下面引用对应的路径中：
 ```Java
-Wilddog ref = new Wilddog("https://docs-examples.wilddogio.com/android/saving-data/fireblog");
+Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/android/saving-data/fireblog");
 ```
 我们需要向数据库添加一些用户，为每个用户保存独一无二的用户名，同时保存用户全名和出生日期。由于每个用户的用户名都是独一无二的，所以最好使用setValue()方法，而不建议使用push()方法，因为我们已经有了独一无二的用户名作为key值，不需要在添加的时候重新生成唯一标识。
 
@@ -156,7 +156,7 @@ usersRef.setValue(users);
 1. 需要对象所属的类中存在默认的构造函数; 
 2. 类中所有的属性都定义了getter方法。
 
-我们使用Map将数据保存到数据库中，因为Map中的元素会自动映射成为JSON对象，并保存到指定路径。现在，我们访问 `https://docs-examples.wilddogio.com/android/saving-data/fireblog/users/alanisawesome/fullName`，将会看到返回值"Alan Turing"。我们也可以直接将数据保存到数据库的指定路径：
+我们使用Map将数据保存到数据库中，因为Map中的元素会自动映射成为JSON对象，并保存到指定路径。现在，我们访问 `https://<appId>.wilddogio.com/android/saving-data/fireblog/users/alanisawesome/fullName`，将会看到返回值"Alan Turing"。我们也可以直接将数据保存到数据库的指定路径：
 ```Java
 //Referencing the child node using a .child() on it's parent node
 usersRef.child("alanisawesome").child("fullName").setValue("Alan Turing");
@@ -284,7 +284,7 @@ postRef.push().setValue(post2);
 ```Java
 // Generate a reference to a new location and add some data using push()
 Wilddog postRef = ref.child("posts");
-v newPostRef = postRef.push();
+Wilddog newPostRef = postRef.push();
 
 // Add some data to the new location
 Map<String, String> post1 = new HashMap<String, String>();

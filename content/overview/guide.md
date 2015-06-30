@@ -45,7 +45,7 @@ Tmpl : page-guide
 野狗还提供了一套强大的，基于规则的数据安全机制。使你可以控制所有数据的读取和写入的权限，以及数据完整性校验。这些规则表达式在应用的控制面板中集中配置，这样既能保障数据读写权限的控制，又不会侵入到业务处理逻辑之中。
 
 ## 如何开始
-* 如果你是web开发者，请参考我们的[5分钟快速入门](https://z.wilddog.com/5m)，或者[Javascript SDK快速入门](https://z.wilddog.com/web/quickstart)。
-* 如果是你Android开发者，请参考我们的[Android SDK快速入门](https://z.wilddog.com/android/quickstart)
-* 如果你是iOS开发者，请参考我们的[iOS SDK快速入门](https://z.wilddog.com/ios/quickstart)
-* 关于终端用户认证和规则表达式，请参考[规则表达式快速入门](https://z.wilddog.com/rule/quickstart)
+* 如果你是web开发者，请参考我们的 [5分钟快速入门](https://z.wilddog.com/5m)，或者 [Javascript SDK 快速入门](https://z.wilddog.com/web/quickstart)。
+* 如果是你Android开发者，请参考我们的 [Android SDK 快速入门](https://z.wilddog.com/android/quickstart)
+* 如果你是iOS开发者，请参考我们的 [iOS SDK 快速入门](https://z.wilddog.com/ios/quickstart)
+* 关于终端用户认证和规则表达式，请参考 [规则表达式快速入门](https://z.wilddog.com/rule/quickstart)

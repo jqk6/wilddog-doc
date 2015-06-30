@@ -26,17 +26,29 @@ Tmpl : page-guide
 
 所有的数据都存储在各异 JSON 对象中,没有任何表的概念,当你把数据添加到这棵json 树中,这些数据就变成这棵树的子树.比如,我们在`users/mchen` 下增加 `widget` 下,我们的数据是这样的:
 ``` json
+
 {
+
   "users": {
+
     "mchen": {
+
       "friends": { "brinchen": true },
+
       "name": "Mary Chen",
+
       // our child node appears in the existing JSON tree
+
       "widgets": { "one": true, "three": true }
+
     },
+
     "brinchen": { ... },
+
     "hmadi": { ... }
+
   }
+
 }
 
 ```
@@ -47,7 +59,7 @@ Tmpl : page-guide
 
 在html中读写wilddog数据,需要创建一个Wilddog对象引用, 要操作和同步哪些数据取决于创建 Wilddog对象引用时传入的URL
 ```js
-new Wilddog('https://demoblog.wilddogio.com/web/data');
+new Wilddog('https://<appId>.wilddogio.com/web/data');
 ```
 创建一个Wilddog引用并不是直接访问这个URL,或创建一个连接.数据直到需要的时候才会传输.一旦这个数据被查询,这个数据会一直与服务端保持一致.
 
@@ -56,7 +68,9 @@ new Wilddog('https://demoblog.wilddogio.com/web/data');
 
 你可以直接访问一个子节点:
 ```js
-new Wilddog("https://demoblog.wilddogio.com/web/data/users/mchen/name");
+
+new Wilddog('https://<appId>.wilddogio.com/web/data/users/mchen/name');
+
 ```
 
 
@@ -64,7 +78,9 @@ new Wilddog("https://demoblog.wilddogio.com/web/data/users/mchen/name");
 
 
 ```js
-var rootRef = new Wilddog('https://demoblog.wilddogio.com/web/data');
+
+var rootRef = new Wilddog('https://<appId>.wilddogio.com/web/data');
+
 rootRef.child('users/mchen/name');
 
 ```
@@ -73,10 +89,14 @@ rootRef.child('users/mchen/name');
 
 Wilddog并不天然支持数组,当我们想存数组时,我们把数组变成对象:
 
-``` js
+```json
+
 //原始数据
+
 ['hello', 'world']
+
 // 我们存储的数据
+
 {0: 'hello', 1: 'world'}
 
 ```
@@ -90,7 +110,7 @@ Wilddog并不天然支持数组,当我们想存数组时,我们把数组变成�
 | 一个叶子节点的数据大小 | 10mb | UTF-8 编码 |
 | 通过SDK写入的数据大小限制 | 16mb | UTF-8 编码 |
 | 通过 REST 写入数据大小限制 |256mb |  |
-| 一次能读取的节点 |1亿 | &nbsp; |     
+| 一次能读取的节点 |1亿 | &nbsp; |
 
 
 ## 3.保存数据
@@ -105,21 +125,34 @@ Wilddog并不天然支持数组,当我们想存数组时,我们把数组变成�
 #### 用 set() 写数据
 set 是 Wilddog 最基本的写数据操作.set() 设置当前节点的值,如果当前节点已经存在值,set 会将旧值替换成新值.为了理解set的工作原理,我们创建一个简单博客app,这个博客的app储存在这里
 ```js
-var ref =new Wilddog("https://demoblog.wilddogio.com/web/saving-data/fireblog");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/web/saving-data/fireblog");
+
 ```
 我们储存一些数据到Wilddog,我们用一个唯一的username 保存用户.我们同时储存他们的全称和生日.因为每一个用户都有一个唯一的 username,所以我们使用set 而不是push
 首先,我们创建一个引用,然后我们用set储存数据,set可以传入 `string,number,boolean,object` 类型:
 ```js
+
 var usersRef = ref.child("users");
+
 usersRef.set({
+
   alanisawesome: {
+
     date_of_birth: "June 23, 1912",
+
     full_name: "Alan Turing"
+
   },
+
   gracehop: {
+
     date_of_birth: "December 9, 1906",
+
     full_name: "Grace Hopper"
+
   }
+
 });
 
 ```
@@ -128,13 +161,21 @@ usersRef.set({
 完成上面的过程,你还可以直接这样做:
 
 ```js
+
 usersRef.child("alanisawesome").set({
+
   date_of_birth: "June 23, 1912",
+
   full_name: "Alan Turing"
+
 });
+
 usersRef.child("gracehop").set({
+
   date_of_birth: "December 9, 1906",
+
   full_name: "Grace Hopper"
+
 });
 
 ```
@@ -148,10 +189,15 @@ usersRef.child("gracehop").set({
 
 
 ```js
+
 var hopperRef = usersRef.child("gracehop");
+
 hopperRef.update({
+
   "nickname": "Amazing Grace"
+
 });
+
 ```
 
 这样会更新 Grace的数据,更新她的 `nickname` .如果我们用 `set` 而不是 `update` ,`date_of_birth` 和 `full_name` 都会被删除
@@ -168,28 +214,46 @@ hopperRef.update({
 ```js
 
 var postsRef = ref.child("posts");
+
   postsRef.push({
+
     author: "gracehop",
+
     title: "Announcing COBOL, a New Programming Language"
+
   });
+
   postsRef.push({
+
     author: "alanisawesome",
+
     title: "The Turing Machine"
+
   });
 
 ```
 
 产生的数据有一个唯一ID:
-```js
+```json
+
 {
+
   "posts": {
+
     "-JRHTHaIs-jNPLXO": {
+
       "author": "gracehop",
+
       "title": "Announcing COBOL, a New Programming Language"
+
     },
+
     "-JRHTHaKuITFIhnj": {
+
       "author": "alanisawesome",
+
       "title": "The Turing Machine"
+
     }
   }
 }
@@ -200,14 +264,21 @@ var postsRef = ref.child("posts");
 >调用push 会返回一个引用,这个引用指向新增数据所在的节点.你可以通过调用 `key()` 来获取这个唯一ID
 >
 > ```js
+
 > // Generate a reference to a new location and add some data using push()
+
 >var newPostRef = postsRef.push({
+
 >  author: "gracehop",
+
 >  title: "Announcing COBOL, a New Programming Language"
+
 >});
 >
 >// Get the unique ID generated by push()
+
 >var postID = newPostRef.key();
+
 > ```
 
 
@@ -223,13 +294,19 @@ var postsRef = ref.child("posts");
 > ```js
 >
 > // Get a reference to our posts
-> var ref = new Wilddog("https://demo-blog.wilddogio.com/web/saving-data/fireblog/posts");
+
+> var ref = new Wilddog("https://<appId>.wilddogio.com/web/saving-data/fireblog/posts");
 >
 > // Attach an asynchronous callback to read the data at our posts reference
+
 > ref.on("value", function(snapshot) {
+
 >   console.log(snapshot.val());
+
 > }, function (errorObject) {
+
 >   console.log("The read failed: " + errorObject.code);
+
 > });
 >
 > ```
@@ -248,15 +325,23 @@ var postsRef = ref.child("posts");
 >如果我们仅仅关心新增节点,我们可以 使用 `child_added`:
 
 ```js
+
 // Get a reference to our posts
-var ref = new Wilddog("https://demoblog.wilddogio.com/web/saving-data/fireblog/posts");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/web/saving-data/fireblog/posts");
 
 // Retrieve new posts as they are added to Wilddog
+
 ref.on("child_added", function(snapshot) {
+
   var newPost = snapshot.val();
+
   console.log("Author: " + newPost.author);
+
   console.log("Title: " + newPost.title);
+
 });
+
 ```
 
 > **子节点被改变事件**
@@ -279,66 +364,112 @@ ref.off("value", originalCallback);
 尽管Json可以任意的组织数据,但不同的方式对读取性能的影响是很大的,Wilddog的工作方式是当你查询某个节点,Wilddog会查询这个节点下的所有子节点,所以,如果数据过于集中嵌套,读取一个父级节点可能读取非常多的子节点,造成流量和cpu的浪费.
 
 <div class="alert"> 我们不推荐这种实践 </div>
-```js
+```json
+
 {
     // a poorly nested data architecture, because
+
     // iterating "rooms" to get a list of names requires
+
     // potentially downloading hundreds of megabytes of messages
+
     "rooms": {
+
       "one": {
+
         "name": "room alpha",
+
         "type": "private",
+
         "messages": {
+
           "m1": { "sender": "mchen", "message": "foo" },
+
           "m2": { ... },
+
           // a very long list of messages
+
         }
+
       }
+
     }
+
   }
+
 ```
 
 #### 使数据扁平化
 
 如果数据分布到不同的path,会大大提高查询性能:
 
-```js
+```json
 
 {
     // rooms contains only meta info about each room
+
     // stored under the room's unique ID
+
     "rooms": {
+
       "one": {
+
         "name": "room alpha",
+
         "type": "private"
+
       },
+
       "two": { ... },
+
       "three": { ... }
+
     },
 
     // room members are easily accessible (or restricted)
+
     // we also store these by room ID
+
     "members": {
+
       // we'll talk about indices like this below
+
       "one": {
+
         "mchen": true,
+
         "hmadi": true
+
       },
+
       "two": { ... },
+
       "three": { ... }
+
     },
 
     // messages are separate from data we may want to iterate quickly
+
     // but still easily paginated and queried, and organized by room ID
+
     "messages": {
+
       "one": {
+
         "m1": { "sender": "mchen", "message": "foo" },
+
         "m2": { ... },
+
         "m3": { ... }
+
       },
+
       "two": { ... },
+
       "three": { ... }
+
     }
+
   }
   
 ```
@@ -346,39 +477,66 @@ ref.off("value", originalCallback);
 #### 使数据可扩展化
 
 如果我们只关注单向的关系,并且关系非常稳定,我们可以把数据简单的嵌套起来:
-``` js
+```json
 {
+
     "users": {
+
       "john": {
+
          "todoList": {
+
             "rec1": "Walk the dog",
+
             "rec2": "Buy milk",
+
             "rec3": "Win a gold medal in the Olympics"
+
          }
+
       }
+
     }
+
   }
+
 ```
 
 但是如果关系变成双向,就像下面的例子,用户可以属于某些组,组也属于某些用户,无论使用用户来嵌套组还是使用组来嵌套用户都是不可行的.
 需求通常要求通过用户来查询组,并且可以通过组来查询用户,我们可以用一个数据索引来解决这个问题
 
-```js
+```json
+
 // An index to track Mary's memberships
+
   {
+
     "users": {
+
       "mchen": {
+
         "name": "Mary Chen",
+
         // index Mary's groups in her profile
+
         "groups": {
+
            // the value here doesn't matter, just that the key exists
+
            "alpha": true,
+
            "charlie": true
+
         }
+
       },
+
       ...
+
     },
+
     "groups": { ... }
+
   }
 
 ```
@@ -408,14 +566,22 @@ Wilddog 提供了以下用户认证的方式
 Wilddog提供了一种描述语言,你能在控制面板里的规则表达式 tab 编辑.
 这些规则表达式让你可以控制管理数据的访问规则.规则级联应用到其子节点
 
-``` js
+```json
+
 {
+
   "rules": {
+
     "foo": {
+
       ".read": true,
+
       ".write": false
+
     }
+
   }
+
 }
 
 ```
@@ -426,16 +592,26 @@ Wilddog提供了一种描述语言,你能在控制面板里的规则表达式 ta
 
 auth 变量是很多规则表达式的基础
 
-``` js
+``` json
+
 {
+
   "rules": {
+
     "users": {
+
       "$user_id": {
+
         ".write": "$user_id === auth.uid"
+
       }
+
     }
+
   }
+
 }
+
 ```
 
 

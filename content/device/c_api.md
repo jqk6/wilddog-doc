@@ -28,7 +28,7 @@ Wilddog\_T wilddog\_new(Wilddog\_Str\_T *url)
 
 ###### 参数
 
-* Wilddog\_Str\_T* `url` 应用URL。Wilddog 中任何数据都能够通过一个URL来进行访问，如`coap[s]://<appId>。wilddogio。com/<path>` 
+* Wilddog\_Str\_T* `url` 应用URL。Wilddog 中任何数据都能够通过一个URL来进行访问，如`coap[s]://<appId>.wilddogio.com/<path>` 
 其中<appId>为开发者在 Wilddog 平台申请的应用id。
 <path>为客户端关心的路径。
 
@@ -40,7 +40,7 @@ Wilddog\_T wilddog\_new(Wilddog\_Str\_T *url)
 int main()
 {
 	//init client
-	Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy/device/light/10abcde");
+	Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy/device/light/10abcde");
 	//do something
 	。。。
 	//recycle memeory
@@ -69,7 +69,7 @@ Wilddog\_T wilddog\_getParent(Wilddog\_T wilddog)
 ###### 示例
 ```c
 //定位到user/jackxy
-Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy");
 //定位到user
 Wilddog_T parent = wilddog_getParent(wilddog);
 ```
@@ -94,7 +94,7 @@ Wilddog\_T `root` 根节点的ID，如果失败，返回0。
 ###### 示例
 ```c
 //定位到user/jackxy
-Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy");
 //定位到root("/")
 Wilddog_T root = wilddog_getRoot(wilddog);
 ```
@@ -124,7 +124,7 @@ Wilddog\_T wilddog\_getChild(Wilddog\_T wilddog, Wilddog\_Str\_T * childName)
 ###### 示例
 ```c
 //定位到user/jackxy
-Wilddog_T wilddog=wilddog_new("coaps://myapp。wilddogio。com/user/jackxy");
+Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy");
 //定位到user/jackxy/aaa
 Wilddog_T child = wilddog_getChild(wilddog, "aaa");
 ```

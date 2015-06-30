@@ -12,11 +12,11 @@ Tmpl : page-quickstart
 
 ## 第二步 引入 Wilddog Java SDK
 
-###下载SDK。
-[Download Wilddog Java SDK](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
-（目前只提供jvm版SDK，android版的SDK即将推出）
+###获得 SDK
+[下载地址](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
+（目前只提供java版SDK，android版的SDK即将推出）
 
-###导入SDK。
+###导入 SDK
 将wilddog-client-jvm-xxx.jar拷贝到Android应用的libs目录中，然后在IDE中将jar文件添加到应用的classpath。
 
 ----
@@ -24,15 +24,17 @@ Tmpl : page-quickstart
 ## 第三步 读写数据
 ###创建引用
 为了读写数据，你需要创建对Wilddog数据库的引用。这里会用到之前获得的应用URL `https://<appId>.wilddogio.com/`。
-```Java
+```java
+
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/");
+
 ```
 
 
 ### 写数据
 创建引用后，你可以使用`setValue()`方法写入数据，我们支持以下类型:
 `String` `Boolean` `Number` `Map<String, Object>`等。
-```Java
+```java
 ref.setValue("hello world!!!");
 ```
 
@@ -40,16 +42,27 @@ ref.setValue("hello world!!!");
 你需要添加`addValueEventListener()`方法来监听URL路径下的数据变化，回调方法`onDataChange()`用于处理接收到的变化数据。
 
 ```Java
+
 ref.addValueEventListener(new ValueEventListener(){
+
 	 public void onDataChange(DataSnapshot snapshot){
+
 		 System.out.println(snapshot.getValue()); //打印结果 "hello world!!!"
+
 	 }
+
 	 public void onCancelled(WilddogError error){
+
 		 if(error != null){
+
 			 System.out.println(error.getCode());
+
 		 }
+
 	 }
+
 });
+
 ```
 上面的例子中，回调方法onDataChange()会在第一次数据库初始化时被调用一次，接下来会在每次数据发生改变时再次被调用。
 
@@ -63,30 +76,43 @@ ref.addValueEventListener(new ValueEventListener(){
 
 现在你就可以通过代码来创建新用户了
 ```Java
+
 		ref.createUser("bobtony@wilddog.com", "correcthorsebatterystaple", new Wilddog.ValueResultHandler<Map<String, Object>>() {
+
 		    @Override
 		    public void onSuccess(Map<String, Object> result) {
+
 		        System.out.println("Successfully created user account with uid: " + result.get("uid"));
+
 		    }
+
 			@Override
 			public void onError(WilddogError erro) {
 				
 			}
+
 		});
+
 ```
 当你创建完用户后，就可以使用`authWithPassword`方法来登录了。
-想了解更多的终端用户认证功能，请参考[终端用户认证](/auth/authentication)
+想了解更多的终端用户认证功能，请参考 [终端用户认证](/auth/authentication)
 
 ## 第五步 数据保护 
 你可以使用强大的”规则表达式”来控制数据的访问权限，并且可以实现输入数据的有效性校验。
  
 不论你是否需要，野狗都强烈建议你使用”规则表达式”来限制你的数据访问权限。” 规则表达式”的语法非常强大和灵活，你可以通过它来实现数据访问的细粒度控制。
-```Rule
+```json
+
 {
+
   ".read": true,
+
   ".write": "auth.uid === 'admin'",
+
   ".validate": "newData.isString() && newData.val().length < 500"
+
 }
+
 ```
 ## 第六步 了解更多
 

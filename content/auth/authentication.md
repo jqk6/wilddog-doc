@@ -53,25 +53,39 @@ Weibo	     | 使用weibo账户认证，只需要添加客户端代码。
 
 
 // Create a callback to handle the result of the authentication
+
 function authHandler(error, authData) {
+
   if (error) {
+
     console.log("Login Failed!", error);
+
   } else {
+
     console.log("Authenticated successfully with payload:", authData);
+
   }
+
 }
 
 // Authenticate users with a custom Wilddog token
+
 ref.authWithCustomToken("<token>", authHandler);
 
 // Or with an email/password combination
+
 ref.authWithPassword({
+
   email    : 'Loki@asgard.com',
-  password : 'asshole'
+
+  password : 'dwadwadc'
+
 }, authHandler);
 
 // Or via popular OAuth providers ("weibo")
+
 ref.authWithOAuthPopup("<provider>", authHandler);
+
 ref.authWithOAuthRedirect("<provider>", authHandler);
 
 ```
@@ -101,29 +115,49 @@ Wilddog 生成JSON Web Tokens(JWTs)通过调用Wilddog.authWithCustomToken()可�
 下面的代码用于保存用户的认证信息，使用用户的uid作为存储的key。
 
 ``` js
+
 // we would probably save a profile when we register new users on our site
+
 // we could also read the profile to see if it's null
+
 // here we will just simulate this with an isNewUser boolean
+
 var isNewUser = true;
 
-var ref = new Wilddog("https://<your-wilddog>.wilddogio.com");
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.onAuth(function(authData) {
+
   if (authData && isNewUser) {
+
     // save the user's profile into Wilddog we can list users,
+
     // use them in Security and Wilddog Rules, and show profiles
+
     ref.child("users").child(authData.uid).set({
+
       provider: authData.provider,
+
       name: getName(authData)
+
     });
+
   }
+
 });
 
 // find a suitable name based on the meta info given by each provider
+
 function getName(authData) {
+
   switch(authData.provider) {
+
      case 'password':
+
        return authData.password.email.replace(/@.*/, '');
+
   }
+
 }
 
 ```
@@ -156,18 +190,30 @@ Redirects在PhoneGap / Cordova, or local, file:// URLs不支持。
 
 ```js
 
-var ref = new Wilddog("https://<your-wilddog>.wilddogio.com");
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 // prefer pop-ups, so we don't navigate away from the page
+
 ref.authWithOAuthPopup("weibo", function(error, authData) {
+
   if (error) {
+
     if (error.code === "TRANSPORT_UNAVAILABLE") {
+
       // fall-back to browser redirects, and pick up the session
+
       // automatically when we come back to the origin page
+
       ref.authWithOAuthRedirect("weibo", function(error) { /* ... */ });
+
     }
+
   } else if (authData) {
+
     // user authenticated with wilddog
+
   }
+
 });
 
 
@@ -192,19 +238,32 @@ ref.authWithOAuthPopup("weibo", function(error, authData) {
 
 ```
 
-var ref = new Wilddog("https://<your-wilddog>.wilddogio.com");
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.authWithPassword({
+
   email    : 'Loki@asgard.com',
-  password : 'asshole'
+
+  password : 'dwadwa'
+
 }, function(error, authData) {
+
   if (error) {
+
     switch (error.code) {
+
         console.log("Error logging user in:", error);
+
     }
+
   } else {
+
     console.log("Authenticated successfully with payload:", authData);
+
   }
+
 });
+
 ```
 
 --------

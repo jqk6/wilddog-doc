@@ -10,7 +10,7 @@
 ```
  CON 
  POST
- coap://{appid}.wilddogio.com/{path}
+ coap://<appId>.wilddogio.com/{path}
  Payload:<payload>
  Token:<token>
 ```
@@ -38,12 +38,12 @@ payload
 
 ```
  //request
- post:   "coap://myapp.wilddogio.com/devices"
+ post:   "coap://<appId>.wilddogio.com/devices"
  data:   {"deviceName":"timemachine","deviceType":"universe destroyer"}
  //response
  code:   2.01
  data:   {"id":"123eabd7654"}
- // now we can aquire the data with request coap://myapp.wilddogio.com/devices/123eabd7654
+ // now we can aquire the data with request coap://<appId>.wilddogio.com/devices/123eabd7654
 
 ```
 
@@ -54,7 +54,7 @@ payload
  
 ```
 CON PUT 
-coap://{appid}.wilddogio.com/{path}
+coap://<appId>.wilddogio.com/{path}
 Payload:<payload>
 Token: <token>
 ```
@@ -85,7 +85,7 @@ token
 
 ```
 //request
- put:   "coap://myapp.wilddogio.com/devices/123eabd7654" 
+ put:   "coap://<appId>.wilddogio.com/devices/123eabd7654" 
  data:  {"deviceName":"timemachine","deviceType":"universe destroyer"}
  //response
  code:  2.04
@@ -105,7 +105,7 @@ token
 ```
 CON
 DELETE
-coap://{appid}.wilddogio.com/{path}
+coap://<appId>.wilddogio.com/{path}
 Token:<token>
 
 ```
@@ -129,7 +129,7 @@ Token:<token>
 #### SAMPLE
 ```
  //request
- delete: "coap://myapp.wilddogio.com/devices/123eabd7654"
+ delete: "coap://<appId>.wilddogio.com/devices/123eabd7654"
  //response
  code:   2.02
  
@@ -142,7 +142,7 @@ Token:<token>
 
 ```
  CON
- GET coap://{appid}.wilddogio.com/{path}
+ GET coap://<appId>.wilddogio.com/{path}
  Token:<token>
 ```
 
@@ -165,7 +165,7 @@ Token:<token>
 #### SAMPLE
 ```
  //request
- get:    "coap://myapp.wilddogio.com/devices/123eabd7654"
+ get:    "coap://<appId>.wilddogio.com/devices/123eabd7654"
  //response
  code:   2.05
  data:   {"deviceName":"timemachine","deviceType":"universe destroyer"}
@@ -227,7 +227,7 @@ Token:<token>
  
 #### sample
  ```
- put:   "coap://myapp.wilddogio.com/devices/123eabd7654?token=322E32E32" 
+ put:   "coap://<appId>.wilddogio.com/devices/123eabd7654?token=322E32E32" 
  data:  {"deviceName":"timemachine","deviceType":"universe destroyer"}
  
  ```

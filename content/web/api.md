@@ -10,7 +10,7 @@ Sort: 3
 
 ###### 定义
 
-new Wilddog(wilddogUrl)
+new Wilddog ( wilddogUrl )
 
 ###### 说明
 
@@ -29,8 +29,11 @@ new Wilddog(wilddogUrl)
 ###### 示例
 
 ```js
-ref = new Wilddog("http://weather-control.wilddogio.com/city/Beijing");
+
+ref = new Wilddog("http://<appId>.wilddogio.com/city/Beijing");
+
 //Good, 我们已经创建了一个野狗客户端。
+
 ```
 
 ----
@@ -39,7 +42,7 @@ ref = new Wilddog("http://weather-control.wilddogio.com/city/Beijing");
  
 ###### 定义
 
-authWithCustomToken(token,oncomplete)
+authWithCustomToken ( token , oncomplete )
 
 ###### 说明
 
@@ -56,13 +59,21 @@ token 可以是一个Wilddog 超级密钥，或由密钥生成的token。
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.authWithCustomToken("AUTH_TOKEN", function(error, authData) {
+
   if (error) {
+
     console.log("Login Failed!", error);
+
   } else {
+
     console.log("Authenticated successfully with payload:", authData);
+
   }
+
 });
 
 ```
@@ -74,7 +85,7 @@ ref.authWithCustomToken("AUTH_TOKEN", function(error, authData) {
 
 ###### 定义
 
-authAnonymously(oncomplete)
+authAnonymously ( oncomplete )
 
 ###### 说明
 
@@ -88,13 +99,21 @@ authAnonymously(oncomplete)
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.authWithAnonymously(
+
   function(err,data){
-    if(err==null){
-      console.log("auth success!")
-    }else{
-       console.log("auth failed,msg:",err)
+
+    if(err == null){
+
+      console.log("auth success!");
+
+    } else {
+
+       console.log("auth failed,msg:",err);
+
     }
 
   }
@@ -110,7 +129,7 @@ ref.authWithAnonymously(
 
 ###### 定义
 
-authWithPassword(credentials,oncomplete)
+authWithPassword ( credentials , oncomplete )
 
 ###### 说明
 
@@ -131,17 +150,26 @@ authWithPassword(credentials,oncomplete)
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.authWithPassword({email:"Loki@asgard.com",password:"examplepassword"},
+
   function(err,data){
-    if(err==null){
-      console.log("auth success!")
-    }else{
-      console.log("auth failed,msg:",err)
+
+    if(err == null){
+
+      console.log("auth success!");
+
+    } else {
+
+      console.log("auth failed,msg:",err);
+
     }
 
   }
 });
+
 ```
 ----
 
@@ -149,7 +177,7 @@ ref.authWithPassword({email:"Loki@asgard.com",password:"examplepassword"},
 
 ###### 定义
 
-authWithOAuthPopup(provider,oncomplete);
+authWithOAuthPopup ( provider , oncomplete )
 
 ###### 说明
 
@@ -174,13 +202,21 @@ authWithOAuthPopup(provider,oncomplete);
 
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.authWithOAuthPopup("weixin",function(err,auth){
+
   function(err,data){
-    if(err==null){
-      console.log("auth success!")
-    }else{
-      console.log("auth failed,msg:",err)
+
+    if(err == null){
+
+      console.log("auth success!");
+
+    } else {
+
+      console.log("auth failed,msg:",err);
+
     }
 
   }	
@@ -194,7 +230,7 @@ ref.authWithOAuthPopup("weixin",function(err,auth){
 
 ###### 定义
 
-authWithOAuthRedirect(provider,oncomplete)
+authWithOAuthRedirect ( provider , oncomplete )
 
 ###### 说明
 
@@ -219,13 +255,21 @@ authWithOAuthRedirect(provider,oncomplete)
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.authWithOAuthPopup("weixin",function(err,auth){
+
   function(err,data){
-    if(err==null){
+
+    if(err == null){
+
       //will never be here,as the page redirect
-    }else{
+
+    } else {
+
       console.log("auth failed,msg:",err)
+
     }
 
   }	
@@ -239,7 +283,7 @@ ref.authWithOAuthPopup("weixin",function(err,auth){
 
 ###### 定义
 
-authWithOAuthToken(provider,accessToken,oncomplete)
+authWithOAuthToken ( provider , accessToken , oncomplete )
 
 ###### 说明
 
@@ -269,13 +313,21 @@ authWithOAuthToken(provider,accessToken,oncomplete)
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 ref.authWithOAuthToken("weixin", "<ACCESS-TOKEN>", function(error, authData) {
+
   if (error) {
+
     console.log("Login Failed!", error);
+
   } else {
+
     console.log("Authenticated successfully with payload:", authData);
+
   }
+
 });
 
 
@@ -308,10 +360,15 @@ getAuth()
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 var authData = ref.getAuth();
+
 if (authData) {
+
   console.log("Authenticated user with uid:", authData.uid);
+
 }
 
 ```
@@ -320,7 +377,7 @@ if (authData) {
 
 ###### 定义
 
-onAuth(onComplete,[context])
+onAuth ( onComplete , [context] ) 
 
 ###### 说明
 
@@ -347,13 +404,19 @@ onAuth(onComplete,[context])
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
 
 ref.onAuth(function(authData) {
+
   if (authData) {
+
     console.log("Authenticated with uid:", authData.uid);
+
   } else {
-    console.log("Client unauthenticated.")
+
+    console.log("Client unauthenticated.");
+
   }
 });
 
@@ -363,7 +426,7 @@ ref.onAuth(function(authData) {
 
 ###### 定义
 
-offAuth(onComplete,[context])
+offAuth ( onComplete , [context] )
 
 ###### 说明
 
@@ -380,17 +443,28 @@ offAuth(onComplete,[context])
 ###### 示例
 
 ```js
+
 var onAuthCallback = function(authData) {
+
   if (authData) {
+
     console.log("Authenticated with uid:", authData.uid);
+
   } else {
-    console.log("Client unauthenticated.")
+
+    console.log("Client unauthenticated.");
+
   }
 };
+
 // Attach the callback
+
 ref.onAuth(onAuthCallback);
+
 // Sometime later...
+
 // Detach the callback
+
 ref.offAuth(onAuthCallback);
 
 
@@ -413,9 +487,13 @@ unauth()
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com");
+
 // Sometime later...
+
 // Unauthenticate the client
+
 ref.unauth();
 
 ```
@@ -426,7 +504,7 @@ ref.unauth();
 
 ###### 定义
 
-child(path)
+child ( path )
 
 ###### 说明
 
@@ -446,10 +524,15 @@ path为相对路径，多层级间需要使用"/"分隔，例如“a/b”。如�
 
 
 ```js
-var ref = new Wilddog("https://weather-control.wilddogio.com/city");
-//ref refer to node weather-control.wilddogio.com/city
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/city");
+
+//ref refer to node <appId>.wilddogio.com/city
+
 child_ref = ref.child('Beijing');
-//now child_ref refer to "weather-control.wilddogio.com/city/Beijing"
+
+//now child_ref refer to "<appId>.wilddogio.com/city/Beijing"
+
 ```
 
 ----
@@ -473,8 +556,11 @@ parent()
 ###### 示例
 
 ```js
+
 var parent_ref = ref.parent();
+
 //返回值 the refer to the father node of current
+
 ```
 
 ----
@@ -496,10 +582,15 @@ root()
 ###### 示例
 
 ```js
-var ref = new Wilddog("https://weather-control.wilddogio.com/city");
-//ref refer to node weather-control.wilddogio.com/city
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/city");
+
+//ref refer to node <appId>.wilddogio.com/city
+
 root_ref = ref.root('Beijing');
-//now child_ref refer to "weather-control.wilddogio.com"
+
+//now child_ref refer to "<appId>.wilddogio.com"
+
 ```
 
 
@@ -525,9 +616,12 @@ key()
 
 ```js
 
-var ref = new Wilddog("https://weather-control.wilddog.com/city/Beijing");
+var ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 //返回值 the key to current node
+
 var key = ref.key();
+
 //key is 'Bejing'
 
 ```
@@ -552,10 +646,13 @@ toString()
 
 ```js
 
-var ref = new Wilddog("https://weather-control.wilddog.com/city/Beijing");
+var ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 //返回值 the key to current node
+
 var url = ref.toString();
-//url should be https://weather-control.wilddog.com/city/Beijing
+
+//url should be https://<appId>.wilddogio.com/city/Beijing
 
 ```
 ----
@@ -565,7 +662,7 @@ var url = ref.toString();
 
 ###### 定义
 
- set(value,[oncomplete])
+ set ( value , [oncomplete] )
 
 ###### 说明
 
@@ -583,11 +680,15 @@ var url = ref.toString();
 ###### 示例
 
 ```js
-var ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 //the initial value is {"temp":23,"humidity":30,"wind":2}
 
 ref.set({"temp":10,"pm2.5":500});
-//the expected value of https://weather-control.wilddogio.com/city/Beijing should be {"temp":10,"pm2.5":500}
+
+//the expected value of https://<appId>.wilddogio.com/city/Beijing should be {"temp":10,"pm2.5":500}
+
 ```
 
 ----
@@ -596,7 +697,7 @@ ref.set({"temp":10,"pm2.5":500});
 
 ###### 定义
 
-update(value,[onComplete])
+update ( value , [onComplete] )
 
 ###### 说明
 
@@ -615,11 +716,14 @@ e.g. update之前 `{"l1":"on","l3":"off"}` ,`value={"l1":"off","l2":"on"}` updat
 ###### 示例
 
 ```js
-var ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 //the initial value is {"temp":23,"humidity":30,"wind":2}
 
 ref.update({"temp":10,"pm2.5":500});
-//the expected value of https://weather-control.wilddogio.com/city/Beijing should be {"temp":10,"pm2.5":500,"humidity":30,"wind":2}
+
+//the expected value of https://<appId>.wilddogio.com/city/Beijing should be {"temp":10,"pm2.5":500,"humidity":30,"wind":2}
 
 ```
 
@@ -631,7 +735,7 @@ ref.update({"temp":10,"pm2.5":500});
 
 ###### 定义
 
-remove([onComplete])
+remove ( [onComplete] )
 
 ###### 说明
 
@@ -646,12 +750,16 @@ remove([onComplete])
 ###### 示例
 
 ```js
-//the initial value of https://weather-control.wilddogio.com is 
+
+//the initial value of https://<appId>.wilddogio.com is 
+
 //{"city":{"Beijing":{"temp":23,"humidity":30,"wind":2}}}
-var ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 ref.remove()
 
-// value of https://weather-control.wilddogio.com is {}
+// value of https://<appId>.wilddogio.com is {}
 
 ```
 ----
@@ -661,7 +769,7 @@ ref.remove()
 
 ###### 定义
 
-push(value,[oncomplete])
+push (value , [oncomplete] )
 
 ###### 说明
 
@@ -682,12 +790,19 @@ push(value,[oncomplete])
 ###### 示例
 
 ```js
-var ref = new Wilddog("https://weather-control.wilddogio.com/users")
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/users");
+
 var childref = ref.push({"name":"Thor","planet":"Asgard"});
+
 var newKey = childref.key();
+
 //newKey shoud look like a base64-like series eg -JmRhjbYk73IFRZ7
+
 var url = newKey.url()
-//url shoud be https://weather-control.wilddogio.com/users/-JmRhjbYk73IFRZ7
+
+//url shoud be https://<appId>.wilddogio.com/users/-JmRhjbYk73IFRZ7
+
 ```
 --------
 
@@ -696,7 +811,7 @@ var url = newKey.url()
 
 ###### 定义
 
-setWithPriority(value,priority,[oncomplete])
+setWithPriority ( value , priority , [oncomplete] )
 
 ###### 说明
 
@@ -720,15 +835,18 @@ setWithPriority(value,priority,[oncomplete])
 
 ```js
 
-var ref = new Wilddog("https://YOUR-APP.wilddogio.com/users/jack");
+var ref = new Wilddog("https://<appId>.wilddogio.com/users/jack");
 
 var user = {
+
   name: {
     first: 'jack',
     last: 'Lee'
   }
-}
-ref.setWithPriority(user,100)
+
+};
+
+ref.setWithPriority(user,100);
 
 ```
 
@@ -739,7 +857,7 @@ ref.setWithPriority(user,100)
 
 ###### 定义
 
-setPriority(priority,[onComplete])
+setPriority ( priority , [onComplete] )
 
 ###### 说明
 
@@ -770,7 +888,9 @@ setPriority(priority,[onComplete])
 ###### 示例
 
 ```js
+
 var ref = new Wilddog("https://<appId>.wilddogio.com/users/jack");
+
 ref.setPriority(1000);
 
 ```
@@ -781,7 +901,7 @@ ref.setPriority(1000);
 
 ###### 定义
 
-createUser(credentials,onComplete)
+createUser ( credentials , onComplete )
 
 ###### 说明
 
@@ -799,15 +919,23 @@ createUser(credentials,onComplete)
 ###### 示例
 
 ```js
+
 ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
+
   function(err,data){
+
   if(err!=null){
+
     //not success
-  }
-  else{
+
+  } else {
+
     //create user success
+
   }
+
 });
+
 ```
 
 ----
@@ -817,7 +945,7 @@ ref.createUser({email:"Loki@asgard.com",password:"examplepassword"},
 
 ###### 定义
 
-changePassword(credentials,[onComplete])
+changePassword ( credentials , [onComplete] )
 
 ###### 说明
 
@@ -839,7 +967,7 @@ Wilddog 平台托管的终端用户可以通过`changePassword`修改密码
 
 ###### 定义
 
-changeEmail(credentials,onComplete)
+changeEmail ( credentials , onComplete )
 
 ###### 说明
 
@@ -860,7 +988,7 @@ changeEmail(credentials,onComplete)
 
 ###### 定义
 
-removeUser(credentials,onComplete)
+removeUser ( credentials , onComplete )
 
 ###### 说明
 
@@ -882,7 +1010,7 @@ Wilddog平台托管的终端用户可以通过`removeUser` 删除帐号
 
 ###### 定义
 
-resetPassword(credentials,onComplete)
+resetPassword ( credentials , onComplete )
 
 ###### 说明
 
@@ -916,7 +1044,9 @@ Wilddog.goOnline()
 ```js
 
 var ref = new Wilddog("https://<appId>.wilddogio.com/users");
+
 Wilddog.goOffline(); // All local Wilddog instances are disconnected
+
 Wilddog.goOnline(); // All local Wildodg instances automatically reconnect
 
 ```
@@ -938,6 +1068,7 @@ Wilddog.goOffline()
 ```js
 
 var ref = new Wilddog("https://<appId>.wilddogio.com/users");
+
 Wilddog.goOffline(); // All local Wilddog instances are disconnected
 
 ```
@@ -951,7 +1082,7 @@ Wilddog.goOffline(); // All local Wilddog instances are disconnected
 ## on()
 ###### 定义
 
-on(type,callback,[cancelCallback]，[context])
+on ( type , callback , [cancelCallback] ， [context] )
 
 ###### 说明
 
@@ -982,9 +1113,13 @@ on(type,callback,[cancelCallback]，[context])
 ###### 示例
 
 ```js
+
 ref.on('child_added',function(snapshot){
+
   console.log(snapshot.val());
+
 });
+
 ```
 --------
 
@@ -992,7 +1127,7 @@ ref.on('child_added',function(snapshot){
 
 ###### 定义
 
-off([type],[callback],[context])
+off ( [type] , [callback] , [context] )
 
 ###### 说明
 
@@ -1016,15 +1151,22 @@ off([type],[callback],[context])
 ###### 示例
 
 ```js
+
 var onValueChange = function(dataSnapshot) { /* handle... */ };
+
 firebaseRef.on('value', onValueChange);
+
 // Sometime later...
+
 firebaseRef.off('value', onValueChange);
 
 ```
 ```js
+
 var onValueChange = firebaseRef.on('value', function(dataSnapshot) { /* handle... */ });
+
 // Sometime later...
+
 firebaseRef.off('value', onValueChange);
 
 ```
@@ -1035,7 +1177,7 @@ firebaseRef.off('value', onValueChange);
 
 ###### 定义
 
-once(type,callback,[cancelCallbak],[context])
+once ( type , callback , [cancelCallbak] , [context] )
 
 ###### 说明
 
@@ -1065,9 +1207,13 @@ once(type,callback,[cancelCallbak],[context])
 ###### 示例
 
 ```js
+
 ref.once('child_added',function(snapshot){
+
   console.log(snapshot.val());
+
 });
+
 ```
 
 ----
@@ -1077,7 +1223,7 @@ ref.once('child_added',function(snapshot){
 
 ###### 定义
 
-orderByChild(key)
+orderByChild ( key )
 
 ###### 说明
 
@@ -1096,9 +1242,13 @@ orderByChild(key)
 ###### 示例
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com/student");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByChild("height").on("child_added",function(snapshot){
+
   console.log(snapshot.key() + "is" + snapshot.val().height +"meters tall");
+
 });
 
 ```
@@ -1123,9 +1273,13 @@ orderByKey()
 
 
 ```js
-var ref=new Wilddog("https://<appId>.wilddogio.com/student");
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByKey().on("child_added",function(snapshot){
+
   console.log(snapshot.key());
+
 });
 
 ```
@@ -1151,10 +1305,15 @@ orderByValue()
 ```js
 
 var scoresRef = new Wilddog("https://<appId>.wilddogio.com/scores");
+
 scoresRef.orderByValue().limitToLast(3).on("value", function(snapshot) {
+
   snapshot.forEach(function(data) {
+
     console.log("The " + data.key() + " score is " + data.val());
+
   });
+
 }
 
 ```
@@ -1176,18 +1335,26 @@ orderByPriority()
 
 * 新生成的`Query` 对象的引用。
 
-var ref=new Wilddog("https://<appId>.wilddogio.com/student");
+###### 示例
+
+```js
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByPriority().on("child_added", function(snapshot) {
+
   console.log(snapshot.key());
+
 });
 
+```
 ----
 
 ## startAt()
 
 ###### 定义
 
-startAt(value,[key])
+startAt ( value , [key] )
 
 ###### 说明
 
@@ -1212,9 +1379,12 @@ startAt(value,[key])
 
 ```js
 
-var ref=new Wilddog("https://<appId>.wilddogio.com/student");
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByKey().startAt('jack').on("child_added",function(snapshot){
+
   console.log(snapshot.key());
+
 });
 
 
@@ -1226,7 +1396,7 @@ ref.orderByKey().startAt('jack').on("child_added",function(snapshot){
 
 ###### 定义
 
-endAt(value,[key])
+endAt ( value , [key] )
 
 ###### 说明
 
@@ -1251,9 +1421,12 @@ endAt(value,[key])
 
 ```js
 
-var ref=new Wilddog("https://<appId>.wilddogio.com/student");
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByKey().endAt('jack').on("child_added",function(snapshot){
+
   console.log(snapshot.key());
+
 });
 
 
@@ -1265,7 +1438,7 @@ ref.orderByKey().endAt('jack').on("child_added",function(snapshot){
 
 ###### 定义
 
-equalTo(value,[key])
+equalTo ( value , [key] )
 
 ###### 说明
 
@@ -1290,9 +1463,12 @@ equalTo(value,[key])
 
 ```js
 
-var ref=new Wilddog("https://<appId>.wilddogio.com/student");
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByKey().equalTo('jack').on("child_added",function(snapshot){
+
   console.log(snapshot.key());
+
 });
 
 
@@ -1304,7 +1480,7 @@ ref.orderByKey().equalTo('jack').on("child_added",function(snapshot){
 
 ###### 定义
 
-limitToFirst(limit)
+limitToFirst ( limit )
 
 ###### 说明
 
@@ -1324,9 +1500,12 @@ limitToFirst(limit)
 
 ```js
 
-var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByChild("height").limitToFirst(10).on("child_added",function(snapshot){
+
   console.log(snapshot.key());
+
 });
 
 
@@ -1339,7 +1518,7 @@ ref.orderByChild("height").limitToFirst(10).on("child_added",function(snapshot){
 
 ###### 定义
 
-limitToLast(limit)
+limitToLast ( limit )
 
 ###### 说明
 
@@ -1362,9 +1541,12 @@ limitToLast(limit)
 
 ```js
 
-var ref=new Wilddog("https://<appId>.wilddogio.com/student");
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 ref.orderByChild("height").limitToLast(10).on("child_added",function(snapshot){
+
   console.log(snapshot.key());
+
 });
 
 
@@ -1390,9 +1572,12 @@ ref()
 
 ```js
 
-var ref=new Wilddog("https://YOUR-APP.wilddogio.com/student");
+var ref = new Wilddog("https://<appId>.wilddogio.com/student");
+
 var query=ref.orderByChild("height").limitToLast(10).on("child_added",function(snapshot){
+
   console.log(snapshot.key());
+
 });
 
 var locationRef=query.ref();//ref===locationRef
@@ -1426,16 +1611,23 @@ val()
 
 
 ```js
-ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 ref.on('child_changed',function(snapshot){
+
 	console.log(snapshot.val());
+
 	//should output {"PM2.5":432}
+
 })
 
 ```
 
 ``` js
+
 ref.update({"PM2.5":432})
+
 ```
 ----------
 
@@ -1447,7 +1639,7 @@ ref.update({"PM2.5":432})
 
 ###### 定义
 
-child(path)
+child ( path )
 
 ###### 说明
 
@@ -1468,15 +1660,25 @@ path为相对路径，多层级间需要使用"/"分隔，例如“a/b”。
 ###### 示例
 
 ```js
-ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 ref.on('child_changed',function(snapshot){
+
 	if(snapshot.type()=='null'){
+
 		//has been deleted
+
 	}
+
 	else if(snapshot.type()=='object'){
+
 		var pm25=snapshot.child('PM2.5');
+
 		console.log("The pm2.5 of Bejing is",pm25.val())
+
 	}
+
 })
 
 
@@ -1491,7 +1693,7 @@ ref.update({"PM2.5":432})
 
 ###### 定义
 
-forEach(callback)
+forEach ( callback )
 
 ###### 说明
 
@@ -1507,16 +1709,24 @@ forEach(callback)
 
 
 ``` js
-ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 ref.on("value",function(snapshot){
+
 		snapshot.forEach(function(key,data){
+
 		console.log("the",k,"of Bejing is:",data);
+
      });
+
 });
 
 ```
 ``` js
+
 ref.update({"PM2.5":432})
+
 ```
 
 ----------------------------------------------------
@@ -1525,7 +1735,7 @@ ref.update({"PM2.5":432})
 
 ###### 定义
 
-hasChild(key)
+hasChild ( key )
 
 ###### 说明
 
@@ -1543,23 +1753,36 @@ hasChild(key)
 ###### 示例
 
 ```js
-ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 ref.on('child_changed',function(snapshot){
+
 	if(snapshot.type()=='null'){
+
 		//has been deleted
+
 	}
+
 	else if(snapshot.type()=='object'){
-		if(snap.hasChild('PM2.5')){
+
+		if(snapshot.hasChild('PM2.5')){
+
 			var pm25=snapshot.child('PM2.5');
-			console.log("The pm2.5 of Bejing is",pm25.val())
+
+			console.log("The pm2.5 of Bejing is",pm25.val());
+
 		}
 		
 	}
 })
+
 ```
 
 ``` js
+
 ref.update({"PM2.5":432})
+
 ```
 
 
@@ -1581,20 +1804,32 @@ ref.update({"PM2.5":432})
 ###### 示例
 
 ```js
-ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 ref.on('child_changed',function(snapshot){
+
 	if(snapshot.type()=='null'){
+
 		//has been deleted
+
 	}
+
 	else if(snapshot.type()=='object'){
-		if(snap.hasChild('PM2.5')){
+
+		if(snapshot.hasChild('PM2.5')){
+
 			var pm25=snapshot.child('PM2.5');
-			var key=snapshot.key()
-			console.log("The ",pm25.key() ," of Bejing is",pm25.val())
+
+			var key=snapshot.key();
+
+			console.log("The ",pm25.key() ," of Bejing is",pm25.val());
+
 		}
 		
 	}
 })
+
 ```
 
 --------------------------------------------------------------------------------------------
@@ -1629,23 +1864,37 @@ ref()
 ###### 示例
 
 ```js
-ref = new Wilddog("https://weather-control.wilddogio.com/city/Beijing");
+
+ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
+
 ref.on('child_changed',function(snapshot){
+
 	if(snapshot.type()=='null'){
+
 		//has been deleted
+
 	}
+
 	else if(snapshot.type()=='object'){
-		if(snap.hasChild('PM2.5')){
+
+		if(snapshot.hasChild('PM2.5')){
+
 			var pm25=snapshot.child('PM2.5');
+
 			var key=snapshot.key();
+
 			var _ref=pm25.ref();
+
 			if(pm25.val()>500){
+
 				_ref.set(500);
+
 			}
 			
 		}
 		
 	}
 })
+
 ```
 

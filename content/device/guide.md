@@ -20,9 +20,9 @@ Tmpl : page-guide
 
 `app` : 存放Wilddog应用文件夹，目前存放应用示例；
 
-`client.config` : Linux平台下Makefile的条件编译选项，参见**配置SDK**；
+`client.config` : Linux平台下Makefile的条件编译选项，参见<b>配置SDK</b>；
 
-`env.mk``Makefile` : Linux平台下的Makefile，用于编译SDK；
+`env.mk` `Makefile` : Linux平台下的Makefile，用于编译SDK；
 
 `include` : 包含以下四个文件：
 
@@ -82,7 +82,7 @@ Wiced平台下，Wilddog SDK是嵌入Wiced编译框架，其条件编译选项�
 
 #### 数据是JSON 树
 
-Wilddog云存储使用树形数据结构[<font style="color:#c7254e">JSON</font>](http://json.org/json-zh.html)。每一个数据节点，都可以用一个 `path` 来表示，如下：
+Wilddog云存储使用树形数据结构[JSON](http://json.org/json-zh.html)。每一个数据节点，都可以用一个 `path` 来表示，如下：
 
 ```JSON
 	{
@@ -170,7 +170,7 @@ Wilddog_T client = wilddog_new('coap://<appId>.wilddogio.com/test/data');
 使用App的`URL`，建立一个Wilddog client连接。
 
 ```c
-	Wilddog_T client = wilddog_new("coap://demo-z.wilddogio.com/test/data");
+	Wilddog_T client = wilddog_new("coap://<appId>.wilddogio.com/test/data");
 ```
 
 当出现异常时，建立连接失败，返回 0。成功后返回建立的节点Id，定位到`/test/data`上，通过Id可以对节点进行读写操作。注意，此时并没有开始和云端同步数据。
@@ -337,7 +337,7 @@ int main()
 SDK通过 `wilddog_set()` 保存新的数据到云端。我们将构建一个简单的wildblog App，来理解这些API的使用。把我们的wildblog程序的数据保存到`URL`中：
 
 ```c
-Wilddog_T client = wilddog_new("coap://demo-blog.wilddogio.com/wildblog");
+Wilddog_T client = wilddog_new("coap://<appId>.wilddogio.com/wildblog");
 ```
 
 开始，我们需要在wildblog app中创建一些用户，使用用户名作为节点的key，并包含用户的属性，如昵称、出生年份、blog等级和访问量。因为我们需要明确定义用户名，我们使用`wilddog_set()` ，而不是使用`wilddog_push()`。
