@@ -946,8 +946,12 @@ h4>code{
         width:100%;
         padding-left:0;
     }
+    .content .table tr th,.content .table tr td{
+        width:33.333%;
+    }
     .table > tbody > tr > td,.table > thead > tr > th{
-        padding:1px;
-        padding-left:2%;
+        padding-left:10px;
+        padding-top:10px;
+        word-break:break-word;
     }
 }
