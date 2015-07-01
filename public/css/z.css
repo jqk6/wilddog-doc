@@ -4,6 +4,11 @@ ul,ol,li{
 .header {
     background-color: transparent;
     color: #ccc;
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    -khtml-user-select: none; 
+    user-select: none;
 }
 
 .header .container-fluid {
@@ -412,7 +417,6 @@ hr {
 
 .footer {
     padding: 0;
-    width: 980px;
 }
 
 .copyright {
@@ -528,7 +532,6 @@ footer {
 
 #footer {
     bottom: 0;
-    width: 980px;
     margin-bottom: 15px;
     text-align: center;
     border-top: 1px solid rgb(232, 225, 224);
@@ -575,6 +578,11 @@ footer {
     position: absolute;
     right:0;
     top:60px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
 }
 .steps{
     position:relative;
@@ -618,66 +626,18 @@ footer {
     padding-left:0;
     padding-right:0;
 }
-@media screen and (min-width:1200px){
-    .container{
-        max-width:980px;
-        padding-left:0;
-        padding-right:0;
-    }
-    footer{
-        max-width:980px;
-    }
-}
-@media screen and (max-width:767px){
-    footer{
-        width:100%;
-    }
-    .wilddog-gov{
-        display:none;
-    }
-    .text-wilddog{
-        display:none;
-    }
-    .greeting .page-title{
-        font-size:20px;
-    }
-    .header .link-index{
-       font-size:16px;
-       margin-top:12px;
-       height:40px;
-       line-height:40px;
-    }
-    .header .logo{
-        margin-top: 0;
-    }
-    .knowledge{
-        height:40px;
-        line-height:64px;
-        font-size:14px;
-        margin-top:0;
-        margin-left:6px;
-    }
-    .header-logo{
-        margin-top:12px;
-        height:40px;
-        line-height:40px;
-    }
-    .footer-container a{
-        margin-left:5px;
-    }
-}
-@media screen and (max-width:479px){
-    .help-search-input-wrapper{
-        width:100%;
-        padding-left:0;
-    }
-}
 .content-block pre{
     margin-left:10px;
 }
 /*知识库api文档样式改版*/
 .content{
     font-size:14px;
+    word-break:break-all;
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    -khtml-user-select: none; 
+    user-select: none; 
 }
 .content h3{
     padding-bottom:24px;
@@ -747,13 +707,11 @@ blockquote{
     margin:0;
 }
 .content>.table{
-    padding:1px;
+    width:100%;
     margin-top:14px;
     margin-bottom:20px;
-    margin-left:20px;
 }
 .table > tbody > tr > td,.table > thead > tr > th{
-    padding-left:40px;
     border-top:0;
 }
 .table > thead > tr > th{
@@ -885,6 +843,11 @@ h4>code{
 /*返回顶部按钮*/
 .back-top-ab{
     float:right;
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    -khtml-user-select: none; 
+    user-select: none;
 }
 .back-top{
     position:fixed;
@@ -929,4 +892,62 @@ h4>code{
 }
 .content .pull-right{
     font-size:12px;
+}
+@media screen and (min-width:1200px){
+    .container{
+        max-width:980px;
+        padding-left:0;
+        padding-right:0;
+    }
+    footer{
+        max-width:980px;
+    }
+}
+@media screen and (max-width:767px){
+    footer{
+        width:100%;
+    }
+    .wilddog-gov{
+        display:none;
+    }
+    .text-wilddog{
+        display:none;
+    }
+    .greeting .page-title{
+        font-size:20px;
+    }
+    .header .link-index{
+       font-size:16px;
+       margin-top:12px;
+       height:40px;
+       line-height:40px;
+    }
+    .header .logo{
+        margin-top: 0;
+    }
+    .knowledge{
+        height:40px;
+        line-height:64px;
+        font-size:14px;
+        margin-top:0;
+        margin-left:6px;
+    }
+    .header-logo{
+        margin-top:12px;
+        height:40px;
+        line-height:40px;
+    }
+    .footer-container a{
+        margin-left:5px;
+    }
+}
+@media screen and (max-width:479px){
+    .help-search-input-wrapper{
+        width:100%;
+        padding-left:0;
+    }
+    .table > tbody > tr > td,.table > thead > tr > th{
+        padding:1px;
+        padding-left:2%;
+    }
 }

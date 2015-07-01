@@ -26,7 +26,7 @@
 
 })(jQuery, hljs);
 
-$(function(){
+(function(){
     $(".api-content .toc,.quickstart-content .toc").slideDown(300);
     var headingLi = $(".toc>ul>li");
 
@@ -57,10 +57,6 @@ $(function(){
 
     };
 
-
-
-
-
     var flag = true;
     var animateHeight;
     $(".toc .wd-font").click(function(event) {
@@ -90,6 +86,6 @@ $(function(){
     backTop.click(function(event) {
         $(window).scrollTop(0);
     });
-});
+})();
 
 

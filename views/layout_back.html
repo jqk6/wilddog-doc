@@ -44,7 +44,7 @@
                         <div class="header-logo">
                             <div class="logo" style="float:left"><i class="header-text z-wd-font">(</i></div>
 
-                            <div class="text-wilddog" style="float:left;margin-left: 10px;"><i style="color:white">(</i>
+                            <div class="text-wilddog" style="float:left; padding-left:10px; padding-top:40px;"><img src="/images/wilddog.png" alt="" height="26">
                             </div>
                             <div class="knowledge">知识库</div>W
                         </div>
@@ -54,7 +54,7 @@
                 <div class="col-sm-6 col-xs-6">
 
                     <div class="col-xs-12 col-sm-12 wilddog-gov">
-                        <div class="link-index" style="float:right;" target="_blank">野狗官网<i>4</i>
+                        <div class="link-index" style="float:right;" target="_blank">野狗官网<i style="float:right">4</i>
                         </div>
                         <div style="clear:both"></div>
                     </div>
@@ -192,7 +192,23 @@
             $("#weixin-code").show();
         }, function () {
             $("#weixin-code").hide();
-        });        
+        });
+
+        var searchStart = function (data) {
+            if(data){
+            window.open("?search=" + data);
+            };
+        };
+        $("#search").click(function(){
+            var searchContent = $("#search-input").val(); 
+            searchStart(searchContent);
+        });
+        $(window).keypress(function(event) {
+            if(event.keyCode==13){
+                var searchContent = $("#search-input").val(); 
+                searchStart(searchContent);
+            }
+        });
     });
 
         
