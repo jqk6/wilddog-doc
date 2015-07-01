@@ -7,7 +7,7 @@ Tmpl : page-quickstart
 
 
 ## 第一步 创建账户和应用
-首先注册并登陆Wilddog账号，进入[控制面板](https://www.wilddog.com/dashboard)。在控制面板中，可以创建应用(App)。每个App都拥有一个独一无二的以`wilddogio.com`结尾的URL。在同步和存取数据的时候，我们将使用这个URL。
+首先注册并登陆Wilddog账号，进入 [控制面板](https://www.wilddog.com/dashboard)。在控制面板中，可以创建应用(App)。每个App都拥有一个独一无二的以`wilddogio.com`结尾的URL。在同步和存取数据的时候，我们将使用这个URL。
 
 创建App成功后，Wilddog将为你初始化一个兼容JSON数据格式的树型数据库，之后你就可以操作这个数据库了。
 
@@ -25,15 +25,22 @@ curl -X PUT -d '{ "alanisawesome": { "name": "Alan Turing", "birthday": "June 23
 >必须是https。Wilddog只会响应加密的数据，所以你的数据是安全的。
 
 请求成功会返回http状态码200 OK，响应中会包含我们写入Wilddog的数据。
-```
+```json
+
 {
+
   "alanisawesome": {
+
     "birthday": "June 23, 1912",
+
     "name": "Alan Turing"
+
   }
+
 }
+
 ```
 ----
 
-现在你已经知道了REST API的基础知识，更多细节请参见[开发向导](https://z.wilddog.com/rest/guide)。
+现在你已经知道了REST API的基础知识，更多细节请参见 [开发向导](https://z.wilddog.com/rest/guide)。
 

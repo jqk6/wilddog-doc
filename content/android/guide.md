@@ -10,11 +10,11 @@ Tmpl : page-guide
 
 ### 引入 Wilddog Java SDK
 
-获得 SDK
+###获得 SDK
 [下载地址](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
 （目前只提供java版SDK，android版的SDK即将推出）
 
-导入 SDK
+###导入 SDK
 将wilddog-client-jvm-xxx.jar拷贝到Android应用的libs目录中，然后在IDE中将jar文件添加到应用的classpath。
 
 

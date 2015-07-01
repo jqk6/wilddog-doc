@@ -19,12 +19,19 @@ Rule 类型     | 描述
 
 创建应用时将系统将设置默认规则：
 ```javascript
+
 {
+
   "rules": {
+
     ".read": true,
+
     ".write": true
+
   }
+
 }
+
 ```
 上述的默认规则，表示数据从root节点开始所有读写请求都被允许。
 
@@ -43,16 +50,27 @@ auth| `Auth`类型对象，代表登录的用户对象。
 例子，下面的Rule规则确保，当前用户只能修改自己的nickname，且数据写入`/nickname`节点必须是少于100个字符的字符串：
 ```javascript
 {
+
   "rules": {
-	".read" : true,
+
+    ".read" : true,
+
     "users" : {
+
 		$userId : {
+
 			 ".write" : auth.uid === $userId,
-			 ".validate" : "newData.isString() && newData.val().length() < 100"	
+
+			 ".validate" : "newData.isString() && newData.val().length() < 100"
+
 		}
+
     }
+
   }
+
 }
+
 ```
 你设计自己的App树型数据时，使用结构化的数据来替代关系型数据，这样就可以使用`$` + 变量名来表示某一节点下的所有子节点，变量代表了子节点名称（key）。
 无论你使用哪种登录方式，在服务端都将生成`auth`对象，通常在App的数据节点中，使用userId作为数据节点来限制用户的读写权限。

@@ -164,15 +164,22 @@ function getName(authData) {
 
 当一个用户使用上面的示例代码被保存到Wilddog中， /users/  节点的值如下：
 ```
+
 {
+
   "users": {
+
     "simplelogin:213": {
+
       "provider": "password",
+
       "name": "bobtony"
+
     }
+
   }
+
 }
- 
 
 ```
 
@@ -227,11 +234,17 @@ ref.authWithOAuthPopup("weibo", function(error, authData) {
 所有错误消息，至少包含一个code 和消息属性。
 
 ```js
+
 {
+
   code: 1001,
+
   msg: "参数错误",
+
   data: {}
+
 }
+
 ```
 电子邮件和密码认证的代码例子：
 

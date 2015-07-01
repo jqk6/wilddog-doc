@@ -20,10 +20,15 @@ Wilddog getParent()
 ###### 示例
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test/a");
+
 // 获得'/test' 路径的引用
+
 Wilddog ref2 = ref.getParent();
+
 // 到达root
+
 Wilddog re3 = ref.getParent().getParent();
+
 ```
 ----
 
@@ -46,11 +51,17 @@ path为相对路径，多层级间需要使用"/"分隔，例如“a/b”。如�
 ###### 示例
 ```java
 Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
+
 // 定位到 '/test/a'
+
 Wilddog ref2 = ref.child("a");
+
 // 定位到 '/test/a/b'
+
 Wilddog re3 = ref.child("a/b");
+
 Wilddog re4 = ref.child("a").child("b");
+
 ```
 ----
 
@@ -68,10 +79,15 @@ String getKey()
 ###### 示例
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 // 返回 “test”
+
 String name = ref.getKey();
+
 // 返回 “a”
+
 name = ref.child("a").getKey();
+
 ```
 ----
 
@@ -99,20 +115,35 @@ void
 
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 // 等价 update(100);
+
 ref.child("a/b").setValue(100);
+
 // 等价 remove();
+
 ref.child("a/b").setValue(null);
+
 // 设置子树
+
 Map<String, String> children = new HashMap<String, String>();
+
 children.put("c", "cval");
+
 ref.child("a/b").setValue(children);
+
 // 自定义Entity
+
 DOTAHero hero = new DOTAHero();
+
 hero.setName("Nevermore");
+
 hero.setHp(435);
+
 hero.setMp(234);
+
 ref.child("dota/heros/SF").setValue(hero);
+
 ```
 ----
 
@@ -144,39 +175,70 @@ void
 自定义CompletionListener
 ```java
 public class MyHandler implements CompletionListener {
+
 	onComplete(WilddogError error, Wilddog ref){
+
 		if(error != null){
+
 			System.out.println(error.getCode());
+
 		}
+
 	}
+
 }
+
 ```
 
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 CompletionListener listener = new MyHandler();
+
 // 等价 update(100);
+
 ref.child("a/b").setValue(100, listener);
+
 // 等价 remove();
+
 ref.child("a/b").setValue(null, handler);
+
 // 设置子树
+
 Map<String, String> children = new HashMap<String, String>();
+
 children.put("c", "cval");
+
 ref.child("a/b").setValue(children, handler);
+
 // 自定义Entity
+
 DOTAHero hero = new DOTAHero();
+
 hero.setName("Nevermore");
+
 hero.setHp(435);
+
 hero.setMp(234);
+
 ref.child("dota/heros/SF").setValue(hero, new CompletionListener(){
+
 	onComplete(WilddogError error, Wilddog ref){
+
 		if(error != null){
+
 			System.out.println(error.getCode());
+
 			return;
+
 		}
+
 		System.out.println("Good!");
+
 	}
+
 });
+
 ```
 ----
 
@@ -195,15 +257,25 @@ Wilddog push()
 
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 // 添加增加一个数值，将生成一个新ID，操作结果为{"-JmpzI81egafHZo5":100}， 返回的path为“/test/a/b/-JmpzI81egafHZo5”
+
 Wilddog  newRef = ref.child("a/b").push();
+
 newRef.setValue(100);
+
 // 添加一个实体
+
 DOTAHero hero = new DOTAHero();
+
 hero.setName("Nevermore");
+
 hero.setHp(435);
+
 hero.setMp(234);
+
 ref.child("heros").push().setValue(hero);
+
 ```
 ----
 
@@ -228,11 +300,17 @@ void
 ###### 示例
 
 ```java
+
 Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
+
 // 更新子树
+
 Map<String, String> children = new HashMap<String, String>();
+
 children.put("c", "cval");
+
 ref.child("a/b").updateChildren(children);
+
 ```
 ----
 
@@ -259,20 +337,31 @@ void
 自定义CompletionListener
 ```java
 public class MyHandler implements CompletionListener {
+
 	onComplete(WilddogError error, Wilddog ref){
+
 		if(error != null){
+
 			System.out.println(error.getCode());
 		}
+
 	}
+
 }
 ```
 ```java
 Wilddog ref = new  Wilddog("https://<appId>.wilddogio.com/test");
+
 CompletionListener handler = new MyHandler();
+
 // 更新子树
+
 Map<String, String> children = new HashMap<String, String>();
+
 children.put("c", "cval");
+
 ref.child("a/b").updateChildren(children, handler);
+
 ```
 ----
 
@@ -292,7 +381,9 @@ void
 
 ```java
 Wilddog ref = new  Wilddog("https://<appId>.wilddogio.com/test");
+
 ref.child("a/b").removeValue();
+
 ```
 ----
 
@@ -316,8 +407,11 @@ void
 
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 ResultHandler handler = new MyHandler();
+
 ref.child("a/b").removeValue(handler);
+
 ```
 ----
 
@@ -350,8 +444,11 @@ void
 
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 AuthResultHandler handler = new MyAuthResultHandler();
+
 ref.authWithPassword("demo@wilddog.com", "demo1234", handler);
+
 ```
 ----
 
@@ -374,10 +471,15 @@ void
 ###### 示例
 ```java
 Map<String, String> options = new HashMap<String, String>();
+
 options.put("access_token", "<Weixin Access Token>");
+
 options.put("openId", "<Weixin Open Id>");
+
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 ref.authWithOAuthToken("weixin", options, new MyAuthResultHandler());
+
 ```
 ----
 
@@ -403,13 +505,19 @@ void
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
 
 // 1.使用secret登录
+
 ref.authWithCustomToken("<The Secrets Of Your Wilddog App>", new MyAuthResultHandler());
 
 // 2.集成自己帐号系统登录
+
 // 假如 "uid":"1"，"secret":"<The-First-Secret>",
+
 // 生成"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJpYXQiOjE0MzQ0NzMzMjgsImQiOnsidWlkIjoiMSIsInNvbWUiOiJhcmJpdHJhcnkiLCJkYXRhIjoiaGVyZSJ9fQ.fSmYzuOGPh7IApc7Jk_s17kk3KgS-ZB9Y9OCzczuMd0"
+
 // JWT 参见(http://jwt.io)
+
 ref.authWithCustomToken("<The JWT Token With Your First Secret Encoded>", new MyAuthResultHandler());
+
 
 ```
 ----
@@ -436,15 +544,23 @@ void
 public class MyResultHandler implements Wilddog.ResultHandler {
 
 	onSuccess() {
+
 		System.out.println("MyResultHandler [success]");
+
 	}
 
 	onError(WilddogError error) {
+
 		if(error != null){
+
 			System.out.println(error.getCode());
+
 		}
+
 	}
+
 }
+
 ```
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
@@ -472,7 +588,9 @@ void
 ###### 示例
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 ref.changeEmail("<old-email>", "<password>", "<new-email>" , new MyResultHandler());
+
 ```
 ----
 
@@ -496,7 +614,9 @@ void
 
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 ref.changePassword("<email>", "<password>", "<new-password>", new MyResultHandler());
+
 ```
 ----
 
@@ -518,6 +638,7 @@ void
 ###### 示例
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 ref.removeUser("<email>", "<password>", new MyResultHandler());
 
 ```
@@ -541,7 +662,9 @@ void
 ###### 示例
 ```java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/test");
+
 ref.resetPassword("<email>", new MyResultHandler());
+
 ```
 
 # DataSnapshot
@@ -690,18 +813,29 @@ listener将监听Change事件。
 ###### 示例
 
 ```java
+
 Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
+
 ValueEventListener listener = ref.addValueEventListener(new ValueEventListener(){
+
 	 onDataChange(DataSnapshot snapshot) {
+
 		 System.out.println(snapshot.getValue());
+
 	 }
 
      onCancelled(WilddogError error) {
+
 	     if(error != null){
+
 		     System.out.println(error.getCode());
+
 	     }
+
      }
+
 });
+
 
 ```
 
@@ -728,25 +862,39 @@ void addChildEventListener(ChildEventListener listener)
 ###### 示例
 ```java
 Wilddog ref = Wilddog("https://<appId>.wilddogio.com/test");
+
 ChildEventListener listener = ref.addChildEventListener(new ChildEventListener(){
+
 	onChildAdded(DataSnapshot snapshot){
+
 		System.out.println(snapshot.getValue());
+
 	}
 	
 	onChildChanged(DataSnapshot snapshot){
+
 		System.out.println(snapshot.getValue());
+
 	}
 
 	onChildRemoved(DataSnapshot snapshot){
+
 		System.out.println(snapshot.getValue());
+
 	}
 
 	onCancelled(WilddogError error){
+
 		if(error != null){
+
 		    System.out.println(error.getCode());
+
 	    }
+
 	}
+
 });
+
 ```
 
 ----

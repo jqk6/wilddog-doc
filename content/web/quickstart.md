@@ -11,7 +11,7 @@ Tmpl : page-quickstart
 
 ----
 
-## 第二步 引入Wilddog javascript SDK
+## 第二步 引入Wilddog Javascript SDK
 引入Wilddog SDK非常简单，只需在HTML文件中加入一个script标签。建议直接使用wilddog cdn中的库。
 
 ```html
@@ -32,7 +32,7 @@ var ref = new Wilddog("https://<appId>.wilddogio.com/");
 
 ```
 
-上面代码创建的引用将定位到数据的根节点。参数中的URL可以包含一个URI，用于定位到数据的指定节点上。如果URL为`http://<appId>.wilddogio.com/message`，那么这个引用将定位在数据的`/message`节点上。更多关于数据结构和创建引用的信息，请参见[了解数据](guide#2-liao-jie-shu-ju)。
+上面代码创建的引用将定位到数据的根节点。参数中的URL可以包含一个URI，用于定位到数据的指定节点上。如果URL为`http://<appId>.wilddogio.com/message`，那么这个引用将定位在数据的`/message`节点上。更多关于数据结构和创建引用的信息，请参见 [了解数据](guide#2-liao-jie-shu-ju)。
 
 Wilddog提供了数据读写API，通过`set()` `update()` `push()` `remove()` 修改对应节点的数据；通过`on()`立即读取数据，并监听该节点数据的变化。
 
@@ -41,13 +41,21 @@ Wilddog提供了数据读写API，通过`set()` `update()` `push()` `remove()` �
 ```js
 
 ref.set({
+
     "name" : "Hello World!",
+
     "author" : "Wilddog",
+
     "location" : {
+
         "city" : "beijing",
+
         "zip" : 100000
+
     } 
+
 });
+
 
 ```
 
@@ -62,5 +70,5 @@ ref.child("location/city").on("value", function(snapshot) {
 });
 
 ```
-回调函数的参数是一个DataSnapshot对象类型，调用它的`val()`函数得到一个JSON数据对象。上边这个实例中，value这个事件只会在获取到数据的时候被触发一次。关于更多的事件类型，请参见[开发向导](guide)。
+回调函数的参数是一个DataSnapshot对象类型，调用它的`val()`函数得到一个JSON数据对象。上边这个实例中，value这个事件只会在获取到数据的时候被触发一次。关于更多的事件类型，请参见 [开发向导](guide)。
 

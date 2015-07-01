@@ -8,13 +8,13 @@ Tmpl : page-guide
 
 #### 创建一个帐号
 
-首先,你需要[ 注册一个Wilddog帐号 ](https://www.wilddog.com/account/signup). 一个App会被创建.每一个App都有一个独立的域名 `<appid>.wilddogio.com`.你会使用这个url 进行存储和同步数据
+首先,你需要注册一个[Wilddog帐号 ](https://www.wilddog.com/account/signup). 一个App会被创建.每一个App都有一个独立的域名 `<appid>.wilddogio.com`.你会使用这个url 进行存储和同步数据
 
 在你的Wilddog 控制台里,你可以实时对数据进行创建,管理,删除等操作.同时你可以创建规则表达式,管理授权系统.查看统计数据
 
 #### 安装Wilddog
 
-下一步,你需要将Wilddog javascript 客户端引入你的页面,在HTML的`<head>` 中增加一个 `script` 标签.推荐直接通过我们的 CDN 引入:
+下一步,你需要将Wilddog Javascript 客户端引入你的页面,在HTML的`<head>` 中增加一个 `script` 标签.推荐直接通过我们的 CDN 引入:
 
 ```html
 <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></script>

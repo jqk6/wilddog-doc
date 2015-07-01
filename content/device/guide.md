@@ -84,27 +84,41 @@ Wiced平台下，Wilddog SDK是嵌入Wiced编译框架，其条件编译选项�
 
 Wilddog云存储使用树形数据结构[JSON](http://json.org/json-zh.html)。每一个数据节点，都可以用一个 `path` 来表示，如下：
 
-```JSON
+```json
 	{
+
 		"users" : {
+
 			"lich" : { "age" : 35, "Shape" : "thin" },
+
 			"Pudge" : {"age" : 60, "Shape" : "fat", "ability" : "gank" }
-		}		
+
+		}
+
 	}
+
 ```
 
 `lich` 节点的path为`/users/lich`，该节点还有两个子节点做为它的属性。而 `Pudge` 节点可以拥有三个属性。`lich` 与 `Pudge` 节点做为 `users` 的子节点，可以将 `users` 看作一个table，`lich` 与 `Pudge` 看作 `users` 的数据项。
 
 可以给 `users` 添加一个 `amount` 子节点，看作 `users` 的属性，如下：
 
-```JSON
+```json
+
 	{
+
 		"users" : {
+
 			"lich" : { "age" : 35, "Shape" : "thin" },
+
 			"Pudge" : {"age" : 60, "Shape" : "fat", "ability" : "gank" },
+
 			"amount" : 2
-		}		
+
+		}
+
 	}
+
 ```
 
 ----
@@ -124,11 +138,16 @@ Wilddog云存储使用树形数据结构[JSON](http://json.org/json-zh.html)。�
 #### List 与 Array
 Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 与 `Array`，有替代方案解决，例如对于`Array`，可以存储为一个对象节点，`Array`的下标作为`key`。如下：
 
-```JSON
+```json
+
 // you want this
+
 ['Jan', 'Feb', 'Mar']
+
 // replace
+
 {0: 'Jan', 1: 'Feb', 2: 'Mar'}
+
 ```  
 
 ----
@@ -157,13 +176,21 @@ Wilddog_T client = wilddog_new('coap://<appId>.wilddogio.com/test/data');
 节点支持的数据类型包括：字符串、二进制数组、整数、浮点型、布尔型、节点。支持这些类型可以构建任意数据结构， 例如节点可能包含子节点。
 
 	#define WILDDOG_NODE_TYPE_FALSE  0 //false
+
 	#define WILDDOG_NODE_TYPE_TRUE   1 //true
+
 	#define WILDDOG_NODE_TYPE_NULL   2 //null
+
 	#define WILDDOG_NODE_TYPE_NUM    3 //整数
+
 	#define WILDDOG_NODE_TYPE_FLOAT  4 //浮点数
+
 	#define WILDDOG_NODE_TYPE_BYTESTRING 5 //二进制数组
+
 	#define WILDDOG_NODE_TYPE_UTF8STRING 6 //字符串
+
 	#define WILDDOG_NODE_TYPE_OBJECT 7 //节点类型，即该节点包含子节点
+
 
 ## 4. 建立连接
 
@@ -190,12 +217,19 @@ Wilddog_T client = wilddog_new('coap://<appId>.wilddogio.com/test/data');
 SDK采用异步方式获取数据，因此需要用户提供回调函数，回调函数的声明为：
 
 ```c
+
 typedef void (*onQueryFunc)
+
     (
+
     const Wilddog_Node_T* p_snapshot, 
+
     void* arg, 
+
     Wilddog_Return_T err
+
     );
+
 ```
 
 回调函数中，`p_snapshot`为只读数据，退出回调函数后会被**自动销毁**，你可以直接在回调函数内根据该数据来执行动作，或通过节点操作API将该数据拷贝至用户空间。
@@ -206,54 +240,95 @@ typedef void (*onQueryFunc)
 `wilddog_query()`函数声明如下：
 
 ```c
+
 Wilddog_Return_T wilddog_query
+
     (
+
     Wilddog_T wilddog, 
+
     onQueryFunc callback, 
+
     void* arg
+
     );
+
 ```
 
 你可以通过调用wilddog_query()来获取数据。
 
 ```c
+
 STATIC void test_onQueryFunc
+
 	(
+
 	const Wilddog_Node_T* p_snapshot, 
+
 	void* arg, 
+
 	Wilddog_Return_T err
+
 	)
+
 {
-	//如果返回码不为200，说明请求出错	
+	//如果返回码不为200，说明请求出错
+	
 	if(err != WILDDOG_HTTP_OK)
+
 	{
+
 		wilddog_debug("query error!");
+
 		return;
+
 	}
+
 	wilddog_debug("query success!");
+
 	if(p_snapshot)
+
 	{
+
 		//将数据拷贝到用户空间，需要用户free
+
 		*(Wilddog_Node_T**)arg = wilddog_node_clone(p_snapshot);
+
 	}
+
 	return;
 }
 
 int main()
+
 {
+
 	Wilddog_T wilddog = 0;
+
 	Wilddog_Node_T * p_node = NULL;
+
 	//初始化SDK
+
 	wilddog_init();
+
 	//新建一个数据节点
+
 	wilddog = wilddog_new("<your URL>");
+
 	//从云端获取数据，回调函数为test_onQueryFunc，传入参数p_node，用来将获取的数据保存到用户空间
+
 	wilddog_query(wilddog, test_onQueryFunc, (void*)(&p_node));
+
 	while(1)
+
 	{
+
 		//收取数据
+
 		wilddog_trySync();
+
 	}
+
 }
 ```
 
@@ -263,13 +338,21 @@ int main()
 `wilddog_on()`函数声明如下：
 
 ```c
+
 Wilddog_Return_T wilddog_on
+
 	(
+
 	Wilddog_T wilddog, 
+
 	Wilddog_EventType_T event, 
+
 	onEventFunc onDataChange, 
+
 	void* dataChangeArg
+
 	);
+
 ```
 
 使用`wilddog_on()`监听某数据节点的变化：
@@ -281,45 +364,81 @@ wilddog_on(client, WD_ET_VALUECHANGE, callback, args);
 `Wilddog_EventType_T`代表事件类型，SDK目前只支持`WD_ET_VALUECHANGE`，即监听数据节点的所有数据变化。
 
 ```c
+
 //每次云端有新数据到来，该函数都会被调用
+
 STATIC void test_onObserveFunc
+
 	(
+
 	const Wilddog_Node_T* p_snapshot, 
+
 	void* arg, 
+
 	Wilddog_Return_T err
+
 	)
+
 {
+
 	//如果返回码不为200，说明请求出错	
+
 	if(err != WILDDOG_HTTP_OK)
+
 	{
+
 		wilddog_debug("query error!");
+
 		return;
+
 	}
+
 	wilddog_debug("query success!");
+
 	if(p_snapshot)
+
 	{
+
 		//将数据拷贝到用户空间，需要用户free
+
 		*(Wilddog_Node_T**)arg = wilddog_node_clone(p_snapshot);
+
 	}
+
 	return;
 }
 
 int main()
+
 {
+
 	Wilddog_T wilddog = 0;
+
 	Wilddog_Node_T * p_node = NULL;
+
 	//初始化SDK
+
 	wilddog_init();
+
 	//新建一个数据节点
+
 	wilddog = wilddog_new("<your URL>");
+
 	//从云端获取数据，回调函数为test_onObserveFunc，传入参数p_node，用来将获取的数据保存到用户空间
+
 	wilddog_on(wilddog, WD_ET_VALUECHANGE, test_onObserveFunc, (void*)(&p_node));
+
 	while(1)
 	{
+
 		//收取数据
+
 		wilddog_trySync();
+
 	}
+
 }
+
 ```
 
 ## 6. 修改数据
@@ -347,37 +466,58 @@ Wilddog_T client = wilddog_new("coap://<appId>.wilddogio.com/wildblog");
 首先我们需要实现一个函数，来创建用户，传入参数为用户名、用户的属性，昵称、出生年份、blog等级和访问量，返回值为创建的节点树。
 
 ```c
+
 Wilddog_Node_T *test_createUser
+
 	(
+
 	char * p_name, 
+
 	char* p_nick,
+
 	int birthYear,
+
 	int blogLevel,
+
 	int pv
+
 	)
+
 {
+
 	Wilddog_Node_T *p_head = NULL;
+
 	Wilddog_Node_T *p_attr, *p_nick, *p_year, *p_lvl, *p_pv;
+
 	
 	//创建用户节点，key为用户名
+
 	p_head = wilddog_node_createObject(p_name);
 	
 	//创建用户昵称
+
 	p_nick = wilddog_node_createUString("nick", p_nick);
 
 	//创建用户出生年份
+
 	p_year = wilddog_node_createNum("year", birthYear);
 
 	//创建blog等级
+
 	p_lvl = wilddog_node_createNum("level", blogLevel);
 
 	//创建访问量
+
 	p_pv = wilddog_node_createNum("PV", pv);
 	
 	//将创建的节点链接到用户节点，作为子节点
+
 	wilddog_node_add(p_head, p_nick);
+
 	wilddog_node_add(p_head, p_year);
+
 	wilddog_node_add(p_head, p_lvl);
+
 	wilddog_node_add(p_head, p_pv);
 
 	return p_head;
@@ -387,43 +527,72 @@ Wilddog_Node_T *test_createUser
 接着，我们创建几个用户，并添加到节点树中：
 
 ```c
+
 Wilddog_Node_T *p_node , *p_user1, *p_user2, *p_user3;
 
 //创建wildblog节点
+
 p_node = wilddog_node_createObject("wildblog");
+
 //创建几个用户
+
 p_user1 = test_createUser("Jackson", "binxu", 1986, 1, 123);
+
 p_user2 = test_createUser("Tim", "beibei", 1983, 0, 1234);
+
 p_user3 = test_createUser("Jason", "wangjibo", 1988, 2, 12345);
 
 //将创建的用户节点树链接到wildblog节点，作为子节点
+
 wilddog_node_add(p_node, p_user1);
+
 wilddog_node_add(p_node, p_user2);
+
 wilddog_node_add(p_node, p_user3);
 ```
 
 现在我们获取到一个`p_node`，即想要向服务器保存的数据，构造过后的树如下：
 
-```JSON
+```json
+
 "wildblog": {
+
 	"Jackson": {
+
 		"nick": "liaobinxu",
+
 		"year": "1986",
+
 		"level": 1,
+
 		"pv": 123
+
 		},
+
 	"Tim": {
+
 		"nick": "beibei",
+
 		"year": "1983",
+
 		"level": 0,
+
 		"pv": 1234
+
 	},
+
 	"Jason": {
+
 		"nick": "wangjibo",
+
 		"year": "1988",
+
 		"level": 2,
+
 		"pv": 12345
+
 	}
+
 }
 ```
 
@@ -434,12 +603,17 @@ wilddog_node_add(p_node, p_user3);
 接下来，我们通过`wilddog_set()`函数将这颗树保存到云端。
 
 ```c
+
 wilddog_set(client, p_node, callback, NULL);
 
 while(1)
+
 {
+
 	wilddog_trySync();
+
 }
+
 ```
 
 **注意：使用setValue()将覆盖当前位置的数据，包括其下所有的子节点 。**
@@ -451,29 +625,45 @@ while(1)
 现在已经有了用户，需要增加一个发布blog的功能。你会想到使用`wilddog_set()`，这样是可以的。但是blog不像用户，用户可以使用唯一的用户名做key，blog的话要自己准备唯一key，不免有些麻烦。SDK提供一个`wilddog_push()` 接口，这个接口将会为新建的数据创建一个唯一ID，ID本身是按照时间戳转义的字符串。
 
 ```c
+
 //新建"Jason"这个数据节点，它是client 节点的子节点，所以我们直接采用wilddog_getChild方法。
+
 Wilddog_T user_jason = wilddog_getChild(client, "Jason");
  
 //"Jason"创建一个blog，标题为text,内容为"hello world"
+
 Wilddog_Node_T *p_node = wilddog_node_createUString("text", "hello world");
 
 //将数据保存到云端
+
 wilddog_push(user_jason, p_node, test_onPushFunc, NULL);
+
 ```
 
 `wilddog_push()`成功后，回调函数中能够获取所push内容的`path`，回调函数如下：
 
 ```c
+
 STATIC void test_onPushFunc(u8 *p_path,void* arg, Wilddog_Return_T err)
+
 {
+
 	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
+
 	{
+
 		wilddog_debug("push failed");
+
 		return;
-	}		
+
+	}
+
 	wilddog_debug("new path is %s", p_path);
+
 	return;
+
 }
+
 ```
 
 ### 6.3 wilddog_remove()
@@ -481,25 +671,37 @@ STATIC void test_onPushFunc(u8 *p_path,void* arg, Wilddog_Return_T err)
 
 ```c
 //新建"12345678"这个数据节点，它是"Jason"的子节点，所以我们直接采用wilddog_getChild方法。
+
 Wilddog_T blog = wilddog_getChild(user_jason, "12345678");
 
 wilddog_remove(blog, callback, NULL);
+
 ```
 
 ## 7. 使用Auth登录
 
-上面的例子中使用的系统比较简陋，不能做ACL，比如获得用户自己的blog列表，用户只能删除自己的blog，等等。因此我们在云端提供了规则表达式功能，用户可以自定义ACL，请查看[<font style="color:#c7254e">规则表达式</font>](https://z.wilddog.com/rule/quickstart)。SDK也提供了`wilddog_setAuth()`接口配合完成用户规则，接口定义如下：
+上面的例子中使用的系统比较简陋，不能做ACL，比如获得用户自己的blog列表，用户只能删除自己的blog，等等。因此我们在云端提供了规则表达式功能，用户可以自定义ACL，请查看 [规则表达式](https://z.wilddog.com/rule/quickstart)。SDK也提供了`wilddog_setAuth()`接口配合完成用户规则，接口定义如下：
 
 ```c
+
 Wilddog_Return_T wilddog_setAuth
+
     (
+
     Wilddog_Str_T * p_host, 
+
     u8 *p_auth, 
+
     int len, 
+
     onAuthFunc onAuth, 
+
     void* args
+
     )
+
 ```
+
 
 每个host，即`<appId>.wilddogio.com`共用一个Auth Key，通过调用`wilddog_setAuth()`接口，能够实现权限认证。Auth Key的获取方式正在开发中，敬请期待。
 
@@ -542,24 +744,43 @@ Wiced平台需要用户为自己的APP编写Makefile，格式有严格要求，M
 需要实现的平台相关函数接口位于include/wilddog_port.h，如下：
 
 ```c
+
 int wilddog_gethostbyname(Wilddog_Address_T* addr,char* host);
+
 int wilddog_openSocket(int* socketId);
+
 int wilddog_closeSocket(int socketId);
+
 int wilddog_send
+
     (
+
     int socketId,
+
     Wilddog_Address_T*,
+
     void* tosend,
+
     s32 tosendLength
+
     );
+
 int wilddog_receive
+
     (
+
     int socketId,
+
     Wilddog_Address_T*,
+
     void* toreceive,
+
     s32 toreceiveLength, 
+
     s32 timeout
+
     );
+
 ```
 
 ----
@@ -573,8 +794,11 @@ int wilddog_receive
 打开`app/wiced/wifi_config_dct.h`填写热点名称和密码：
 
 	/* This is the default AP the device will connect to (as a client)*/
+
 	#define CLIENT_AP_SSID       "your ssid"
+
 	#define CLIENT_AP_PASSPHRASE "your ap password"
+
 
 配置URL，用户在Wilddog云端申请的URL：
 

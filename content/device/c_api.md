@@ -39,11 +39,17 @@ Wilddog\_T wilddog\_new(Wilddog\_Str\_T *url)
 ```c
 int main()
 {
+
 	//init client
+
 	Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy/device/light/10abcde");
+
 	//do something
-	。。。
+
+	...
+
 	//recycle memeory
+
 	wilddog_destroy(&wilddog);
 }
 ```
@@ -71,7 +77,9 @@ Wilddog\_T wilddog\_getParent(Wilddog\_T wilddog)
 //定位到user/jackxy
 Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy");
 //定位到user
+
 Wilddog_T parent = wilddog_getParent(wilddog);
+
 ```
 ----
 ## wilddog\_getRoot()
@@ -93,10 +101,15 @@ Wilddog\_T `root` 根节点的ID，如果失败，返回0。
 
 ###### 示例
 ```c
+
 //定位到user/jackxy
+
 Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy");
+
 //定位到root("/")
+
 Wilddog_T root = wilddog_getRoot(wilddog);
+
 ```
 ----
 
@@ -124,9 +137,13 @@ Wilddog\_T wilddog\_getChild(Wilddog\_T wilddog, Wilddog\_Str\_T * childName)
 ###### 示例
 ```c
 //定位到user/jackxy
+
 Wilddog_T wilddog=wilddog_new("coaps://<appId>.wilddogio.com/user/jackxy");
+
 //定位到user/jackxy/aaa
+
 Wilddog_T child = wilddog_getChild(wilddog, "aaa");
+
 ```
 ----
 ## wilddog\_getKey()
@@ -190,21 +207,37 @@ Wilddog\_Return\_T wilddog\_setAuth(Wilddog\_Str\_T *p\_host, u8 *p\_auth,int le
  `Wilddog_Str_T` 发送成功返回0，发送失败则返回负数。注意该返回值仅表明发送是否成功，认证是否成功需要在回调函数中判断。
 ###### 示例
 ```c
+
 void myOnAuthFunc(void* arg, Wilddog_Return_T err)
+
 {
+
 	if(err < WILDDOG_ERR_NOERR || err >= WILDDOG_HTTP_BAD_REQUEST)
+
 	{
+
 		printf("auth fail!\n");
+
 		return;
+
 	}
+
 	printf("hello world! %d\n", (int)arg);
+
 	return;
+
 }
+
 //aquired a new auth token
+
 char* newToken="ABCD1234567890"
+
 int args = 0;
+
 wilddog_setAuth("aaa。wilddogio。com",newToken, strlen(newToken), myOnAuthFunc, (void*)&args);
-。。。
+
+...
+
 ```
 ----
 ## wilddog\_query()
@@ -236,21 +269,35 @@ STATIC void test_onQueryFunc(
 {
 	
 	if(err != WILDDOG_HTTP_OK)
+
 	{
+
 		wilddog_debug("query error!");
+
 		return;
+
 	}
+
 	wilddog_debug("query success!");
+
 	if(p_snapshot)
+
 	{
+
 		*(Wilddog_Node_T**)arg = wilddog_node_clone(p_snapshot);
+
 	}
-	
+
 	return;
+
 }
+
 int main(void)
+
 {
+
 	Wilddog_T wilddog = 0;
+
 	Wilddog_Node_T * p_node = NULL;
 	
 	wilddog_init();
@@ -258,18 +305,31 @@ int main(void)
 	wilddog = wilddog_new(<url>);
 
 	wilddog_query(wilddog, test_onQueryFunc, (void*)(&p_node));
+
 	while(1)
+
 	{
+
 		if(p_node)
+
 		{
+
 			_wilddog_debug_printnode(p_node);
-			。。。
+
+			...
+
 			wilddog_node_delete(p_node);
+
 		}
+
 		wilddog_trySync();
+
 	}
-	。。。
+
+	...
+
 	wilddog_destroy(&wilddog);
+
 }
 
 ```
@@ -298,45 +358,76 @@ void* arg)
 
 ###### 示例
 ```c
+
 STATIC void test_onSetFunc(void* arg, Wilddog_Return_T err)
+
 {
 						
 	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
+
 	{
+
 		wilddog_debug("set error!");
+
 		return;
+
 	}
+
 	wilddog_debug("set success!");
+
 	*(BOOL*)arg = TRUE;
+
 	return;
+
 }
+
 int main(void)
+
 {
+
 	BOOL isFinish = FALSE;
+
 	Wilddog_T wilddog = 0;
+
 	Wilddog_Node_T * p_node = NULL;
 
 	wilddog_init();
 
 	/* create a node to "wilddog", value is "123456" */
+
 	p_node = wilddog_node_createUString(NULL,"123456");
+
 
 	wilddog = wilddog_new(<url>);
 
 	wilddog_set(wilddog,p_node,test_onSetFunc,(void*)&isFinish);
+
 	wilddog_node_delete(p_node);
+
 	while(1)
+
 	{
+
 		if(TRUE == isFinish)
+
 		{
+
 			wilddog_debug("set success!");
-			。。。
+
+			...
+
 		}
+
 		wilddog_trySync();
+
 	}
+
 	wilddog_destroy(&wilddog);
+
 }
+
 ```
+
 ----
 ## wilddog\_push()
 
@@ -362,43 +453,73 @@ void* arg)
 
 ###### 示例
 ```c
+
 STATIC void test_onPushFunc(u8 *p_path,void* arg, Wilddog_Return_T err)
+
 {
 						
 	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
+
 	{
+
 		wilddog_debug("push failed");
+
 		return;
-	}		
+
+	}
+
 	wilddog_debug("new path is %s", p_path);
+
 	*(BOOL*)arg = TRUE;
+
 	return;
+
 }
+
 int main(void)
+
 {
+
 	BOOL isFinish = FALSE;
+
 	Wilddog_T wilddog;
+
 	Wilddog_Node_T * p_node = NULL, *p_head = NULL;
+
 	wilddog_init();
 
 	p_head = wilddog_node_createObject(NULL);
+
 	p_node = wilddog_node_createNum("2",1234);
+
 	wilddog_node_add(p_head, p_node);
 	
 	wilddog = wilddog_new(<url>);
-	wilddog_push(wilddog, p_head, test_onPushFunc, (void *)&isFinish);	
+
+	wilddog_push(wilddog, p_head, test_onPushFunc, (void *)&isFinish);
+	
 	wilddog_node_delete(p_head);
 	
 	while(1)
+
 	{
+
 		if(isFinish)
+
 		{
+
 			wilddog_debug("push success!");
+
 			break;
+
 		}
+
 		wilddog_trySync();
+
 	}
+
 	wilddog_destroy(&wilddog);
+
 }
 
 ```
@@ -426,37 +547,63 @@ void* arg)
 
 ###### 示例
 ```c
+
 STATIC void test_onDeleteFunc(void* arg, Wilddog_Return_T err)
+
 {
+
 	if(err < WILDDOG_HTTP_OK || err >= WILDDOG_HTTP_NOT_MODIFIED)
+
 	{
+
 		wilddog_debug("delete failed!");
+
 		return;
+
 	}
+
 	wilddog_debug("delete success!");
+
 	*(BOOL*)arg = TRUE;
+
 	return;
+
 }
 
 int main(void)
+
 {
+
 	BOOL isFinished = FALSE;
+
 	Wilddog_T wilddog;
 
 	wilddog_init();
+
 	wilddog = wilddog_new(<url>);
 
 	wilddog_remove(wilddog, test_onDeleteFunc, (void*)&isFinished);
+
 	while(1)
+
 	{
+
 		if(TRUE == isFinished)
+
 		{
+
 			wilddog_debug("remove success!");
+
 			break;
+
 		}
+
 		wilddog_trySync();
+
 	}
+
 	wilddog_destroy(&wilddog);
+
 }
 ```
 ----
@@ -486,52 +633,87 @@ void* dataChangeArg)
 
 ###### 示例
 ```c
+
 STATIC void test_onObserveFunc(
 	const Wilddog_Node_T* p_snapshot, 
 	void* arg,
 	Wilddog_Return_T err)
 {
+
 	if(err != WILDDOG_HTTP_OK)
+
 	{
+
 		wilddog_debug("observe failed!");
+
 		return;
+
 	}
+
 	wilddog_debug("observe data!");
 	
 	return;
+
 }
 
 int main(void)
+
 {
+
 	BOOL isFinished = FALSE;
+
 	Wilddog_T wilddog;
+
 	STATIC int count = 0;	
+
 	wilddog_init();
 
+
 	wilddog = wilddog_new(TEST_ON_PATH);
+
 	if(0 == wilddog)
+
 	{
+
 		wilddog_debug("new wilddog failed!");
+
 		return 0;
+
 	}
 	wilddog_on(wilddog, WD_ET_VALUECHANGE, test_onObserveFunc, (void*)&isFinished);
+
 	while(1)
+
 	{
+
 		if(TRUE == isFinished)
+
 		{
+
 			wilddog_debug("get new data %d times!", count++);
+
 			isFinished = FALSE;
+
 			if(count > 10)
+
 			{
+
 				wilddog_debug("off the data!");
+
 				wilddog_off(wilddog, WD_ET_VALUECHANGE);
+
 				break;
+
 			}
+
 		}
+
 		wilddog_trySync();
+
 	}
+
 	wilddog_destroy(&wilddog);
-	
+
 }
 ```
 ----
@@ -586,9 +768,13 @@ void
 ###### 示例
 ```c
 void timer_isr()
+
 {
+
 	//this isr is been called per ms。
+
 	wilddog_timeIncrease(1);
+
 }
 ```
 ----
