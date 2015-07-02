@@ -7,7 +7,7 @@ Tmpl : page-quickstart
 
 ## 第一步 创建账号和应用
 
-首先注册并登陆Wilddog账号，进入[控制面板](https://www.wilddog.com/dashboard)。在控制面板中，添加一个新的应用。你会获得一个独一无二的应用URL `https://<appId>.wilddogio.com/`，在同步和存取数据的时候，将使用这个URL。
+首先注册并登录Wilddog账号，进入[控制面板](https://www.wilddog.com/dashboard)。在控制面板中，添加一个新的应用。你会获得一个独一无二的应用URL `https://<appId>.wilddogio.com/`，在同步和存取数据的时候，将使用这个URL。
 
 ----
 

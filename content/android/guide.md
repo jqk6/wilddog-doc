@@ -6,7 +6,7 @@ Tmpl : page-guide
 
 ## 1  安装与设置
 ### 创建账户和应用
-首先注册并登陆Wilddog账号，进入控制面板。在控制面板中，添加一个新的应用。你会获得一个独一无二的应用URL `https://<appId>.wilddogio.com/`，在同步和存取数据的时候，将使用这个URL。
+首先注册并登录Wilddog账号，进入控制面板。在控制面板中，添加一个新的应用。你会获得一个独一无二的应用URL `https://<appId>.wilddogio.com/`，在同步和存取数据的时候，将使用这个URL。
 
 ### 引入 Wilddog Java SDK
 
@@ -98,7 +98,7 @@ Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 
 | 一个叶子节点的数据大小 | 10mb | UTF-8 编码 |
 | 通过SDK写入的数据大小限制 | 16mb | UTF-8 编码 |
 | 通过 REST 写入数据大小限制 |256mb | |
-| 一次能读取的节点 |1亿 | |     
+| 一次能读取的节点 |1亿 | |
 
 
 ## 3 保存数据
@@ -112,7 +112,7 @@ Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 
 `updateChildren()` | 对子节点进行合并操作。不存在的子节点将会被新增，存在子节点将会被替换。
 `push()` | 在当前节点下生成一个子节点，并返回子节点的引用。子节点的key利用服务端的当前时间生成，可作为排序使用。
 
-### 使用setValue()写入数
+### 使用setValue()写入数剧
 wilddog通常使用`setValue()`方法来写入数据，该方法用来覆盖指定路径上的所有数据。为了更好地理解该方法，我们建立一个blogging APP来说明。APP的数据保存在下面引用对应的路径中：
 ```Java
 Wilddog ref = new Wilddog("https://<appId>.wilddogio.com/android/saving-data/fireblog");
@@ -182,7 +182,7 @@ usersRef.child("gracehop/birthYear").setValue(1906);
 }
 ```
 使用`setValue()`方法将会覆盖指定路径的所有数据，包括子节点的数据。
-我们向`setValue()`方法传递的参数类型需要与JSON中能用的类型对应，如`String`, `Long`, `Double`, `Boolean`, `Map<String, Object>` 和 `List<Object>`。使用这些数据类型，我们可以构造任意复杂的数据结构，例如Map中嵌套另一个Map。我们可以不使用User对象，而使用Map来实现与上面相同的功能：
+我们向`setValue()`方法传递的参数类型需要与JSON中能用的类型对应，如`String`， `Long`， `Double`， `Boolean`， `Map<String, Object>` 和 `List<Object>`。使用这些数据类型，我们可以构造任意复杂的数据结构，例如Map中嵌套另一个Map。我们可以不使用User对象，而使用Map来实现与上面相同的功能：
 ```Java
 Wilddog usersRef = ref.child("users");
 
