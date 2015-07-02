@@ -15,7 +15,7 @@ HTTPS是必须的，Wilddog只会响应加密数据，所以你的数据是保�
 
 ###### 示例
 ```
-curl 'https://samplechat.wilddogio-demo.com/users/jack/name.json'
+curl 'https://samplechat.wilddogio.com/users/jack/name.json'
 ```
 ###### 返回值
 ```
@@ -30,7 +30,7 @@ curl 'https://samplechat.wilddogio-demo.com/users/jack/name.json'
 ###### 示例
 ```
 curl -X PUT -d '{ "first": "Jack", "last": "Sparrow" }' \
-  'https://samplechat.wilddogio-demo.com/users/jack/name.json'
+  'https://samplechat.wilddogio.com/users/jack/name.json'
 ```
 ###### 返回值
 ```
@@ -46,7 +46,7 @@ curl -X PUT -d '{ "first": "Jack", "last": "Sparrow" }' \
 ###### 示例
 ```
 curl -X POST -d '{"user_id" : "jack", "text" : "Ahoy!"}' \
-  'https://samplechat.wilddogio-demo.com/message_list.json'
+  'https://samplechat.wilddogio.com/message_list.json'
 ```
 ###### 返回值
 ```
@@ -62,7 +62,7 @@ curl -X POST -d '{"user_id" : "jack", "text" : "Ahoy!"}' \
 ###### 示例
 ```
 curl -X PATCH -d '{"last":"Jones"}' \
- 'https://samplechat.wilddogio-demo.com/users/jack/name/.json'
+ 'https://samplechat.wilddogio.com/users/jack/name/.json'
 ```
 ###### 返回值
 ```
@@ -77,7 +77,7 @@ curl -X PATCH -d '{"last":"Jones"}' \
 ###### 示例
 ```
 curl -X DELETE \
-  'https://samplechat.wilddogio-demo.com/users/jack/name/last.json'
+  'https://samplechat.wilddogio.com/users/jack/name/last.json'
 ```
 ###### 返回值
 请求成功将会返回200 OK状态码。响应中会包含空的JSON
@@ -91,13 +91,13 @@ curl -X DELETE \
 ###### 示例
 ```
 curl -X POST -H "X-HTTP-Method-Override: DELETE" \
-  'https://samplechat.wilddogio-demo.com/users/jack/name/last.json'
+  'https://samplechat.wilddogio.com/users/jack/name/last.json'
 
 ```
 我们也可以使用`x-http-method-override`查询参数：
 ```
 curl -X POST \
-  'https://samplechat.wilddogio-demo.com/users/jack/name/last.json?x-http-method-override=DELETE'
+  'https://samplechat.wilddogio.com/users/jack/name/last.json?x-http-method-override=DELETE'
 ```
 ###### 返回值
 请求成功将会返回200 OK状态码。响应中会包含空的JSON
@@ -112,7 +112,7 @@ Wilddog的REST API接收以下的查询参数和值
 
 ###### 示例
 ```
-'https://samplechat.wilddogio-demo.com/users/jack/name.json?auth=CREDENTIAL'
+'https://samplechat.wilddogio.com/users/jack/name.json?auth=CREDENTIAL'
 ```
 如果`debug`标识位被设置打开，则会在响应的`X-Wilddog-Auth-Debug`头中看到调试信息。
 
@@ -128,9 +128,9 @@ silent	|	GET, PUT, POST, PATCH		|	写入数据的时候控制输出，响应返�
 
 ###### 示例
 ```
-curl 'https://samplechat.wilddogio-demo.com/users/jack/name.json?print=pretty'
+curl 'https://samplechat.wilddogio.com/users/jack/name.json?print=pretty'
 curl -X PUT -d '{ "first": "Jack", "last": "Sparrow" }' \
-  'https://samplechat.wilddogio-demo.com/users/jack/name.json?print=silent'
+  'https://samplechat.wilddogio.com/users/jack/name.json?print=silent'
 ```
 
 ## 错误条件

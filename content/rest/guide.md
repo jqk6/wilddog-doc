@@ -327,11 +327,11 @@ curl -X POST -d '{"Authenticated POST request"}' \
 
 指定`print=pretty`返回易读格式的数据。
 ```
-curl 'https://samplechat.wilddogio-demo.com/users/jack/name.json?print=pretty'
+curl 'https://samplechat.wilddogio.com/users/jack/name.json?print=pretty'
 ```
 指定`print=silent`返回204 No Content状态码
 ```
-curl 'https://samplechat.wilddogio-demo.com/users/jack/name.json?print=silent'
+curl 'https://samplechat.wilddogio.com/users/jack/name.json?print=silent'
 ```
 
 
