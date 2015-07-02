@@ -31,7 +31,7 @@ Platform	| 描述
 -------- | ---
 Custom	| 自己生成token的方式。使用这种方式，你能够集成到现有的用户认证系统。也能够在服务端使用。
 Email & Password| 让Wilddog管理为你管理用户的密码。使用email&password, 通过注册和认证用户。
-Anonymous	| 使用匿名认证的用户，无需分享自己的信息，系统会为每个用户生成唯一的标识，session会保持到回话结束。
+Anonymous	| 使用匿名认证的用户，无需分享自己的信息，系统会为每个用户生成唯一的标识，sessionl保持到会话结束。
 Weibo	     | 使用weibo账户认证，只需要添加客户端代码。
 
 
