@@ -706,7 +706,7 @@ blockquote{
     width:auto;
     margin-top:14px;
     margin-bottom:20px;
-    margin-left:40px;
+    margin-left:118px;
 }
 .table > tbody > tr > td,.table > thead > tr > th{
     border-top:0;
@@ -969,7 +969,7 @@ h4>code{
         padding-top:10px;
         word-break:break-word;
     }
-    .guide-content .table,#quickstart .table{
+    #guide-content .table,#quickstart .table,.api-content .table{
         margin-left:0;
         width:100%;
     }
