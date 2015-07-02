@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 
 <head>
     <meta charset="utf-8">
@@ -108,6 +108,12 @@
 -->
 <script>
         $(document).ready(function () {
+            wd.tutorial.init();
+            wd.tutorial.setEditorValue(html1);
+            wd.tutorial.editor.gotoLine(1);
+            wd.tutorial.editor.setOption("showPrintMargin", false);
+            wd.tutorial.setCodeLines(codeline1);
+
             $(".link-icon-weixin").hover(function () {
                 $("#weixin-code").show();
             }, function () {
