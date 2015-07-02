@@ -791,7 +791,6 @@ h4>code{
     margin-bottom:10px;
 }
 .guide-content .table,#quickstart .table{
-    width:665px;
     margin-left:38px;
     margin-top:14px;
     margin-bottom:24px;
@@ -953,5 +952,8 @@ h4>code{
         padding-left:10px;
         padding-top:10px;
         word-break:break-word;
+    }
+    .guide-content .table,#quickstart .table{
+        margin-left:0;
     }
 }
