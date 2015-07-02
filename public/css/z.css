@@ -939,6 +939,18 @@ h4>code{
     .footer-container a{
         margin-left:5px;
     }
+    .back-top{
+        background:none;
+    }
+    .back-top .wd-font{
+        display:block;
+        width:30px;
+        height:30px;
+        line-height:30px;
+        font-size:12px;
+        background-color:rgba(0,0,0,.6);
+        border-radius:50%;
+    }
 }
 @media screen and (max-width:479px){
     .help-search-input-wrapper{
