@@ -28,7 +28,10 @@
 
 function loadOver(){
     var init = function(){
-        $(".api-content .toc,.quickstart-content .toc").slideDown(300);
+        $(".toc").slideDown(300);
+        setTimeout(function(){
+            $(".toc").parent().siblings('.content').fadeIn(300);
+        },350)
         var headingLi = $(".toc>ul>li");
 
         if(!headingLi.find("ul").length){
@@ -47,17 +50,9 @@ function loadOver(){
 
                 smallLiArr.parent("ul").siblings('.wd-font').hide();
             };
-
-                // for(var j = 0; j<Math.ceil(smallLiArray.length/2); j++){
-
-                //      smallLiArray.eq(j).css({"float":"left"});
-
-                //      smallLiArray.eq(smallLiArray.length-j-1).css({"float":"right"});
-
-                //  }
         };
     }
-    setTimeout(init,500);
+    init();
 
     var flag = true;
     var animateHeight;

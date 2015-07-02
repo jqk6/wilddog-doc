@@ -632,12 +632,6 @@ footer {
 /*知识库api文档样式改版*/
 .content{
     font-size:14px;
-    word-break:break-all;
-    -moz-user-select: none; 
-    -webkit-user-select: none; 
-    -ms-user-select: none; 
-    -khtml-user-select: none; 
-    user-select: none; 
 }
 .content h3{
     padding-bottom:24px;
@@ -738,6 +732,9 @@ blockquote table td{
 .toc>ul>li{
     padding-bottom:35px;
 }
+.toc a{
+    font-size:14px;
+}
 .toc>ul>li li a:hover{
     text-decoration:none;
     border-bottom:1px solid #666;
@@ -756,6 +753,9 @@ blockquote table td{
 .api-content h2{
     padding-bottom:14px;
 }
+.api-content{
+    display:none;
+}
 .guide-content>h4,.guide-content>h3,#quickstart>h4,#quickstart>h3{
     padding-left:18px;
     position: static;
@@ -764,9 +764,6 @@ blockquote table td{
     color:#333;
     padding-bottom:0;
     margin-top:32px;
-}
-.guide-content .toc>ul>li>a,#quickstart .toc>ul>li>a{
-    font-size:14px;
 }
 .guide-content>p,#quickstart>p,#quickstart>ol{
     padding-top:14px;
@@ -813,7 +810,7 @@ h4>code{
 }
 
 /*增加点击显示剩余目录效果*/
-.api-content .toc,#quickstart .toc,.guide-content .toc{
+.toc{
     position: relative;
     padding-bottom:30px;
     height:230px;
@@ -891,6 +888,9 @@ h4>code{
 }
 .content .pull-right{
     font-size:12px;
+}
+.heading{
+    margin-top:32px;
 }
 @media screen and (min-width:1200px){
     .container{
