@@ -144,7 +144,15 @@ window.onload=function(){
     )();
 }
 </script>
-
+<script type="text/javascript">
+    var oldOnload = window.onload;
+    if (typeof window.onload == 'function') {
+        window.onload = function(){
+            oldOnload();
+            loadOver();
+        }
+    }
+</script>
 </body>
 
 </html>

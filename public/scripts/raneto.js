@@ -26,36 +26,38 @@
 
 })(jQuery, hljs);
 
-(function(){
-    $(".api-content .toc,.quickstart-content .toc").slideDown(300);
-    var headingLi = $(".toc>ul>li");
+function loadOver(){
+    var init = function(){
+        $(".api-content .toc,.quickstart-content .toc").slideDown(300);
+        var headingLi = $(".toc>ul>li");
 
-    if(!headingLi.find("ul").length){
-        headingLi.css({"padding-bottom":0});
-    }
+        if(!headingLi.find("ul").length){
+            headingLi.css({"padding-bottom":0});
+        }
 
-    var headingLiLength = headingLi.length;
+        var headingLiLength = headingLi.length;
 
-    for(var i=0; i<headingLiLength; i++){
+        for(var i=0; i<headingLiLength; i++){
 
-        var smallLiArr=headingLi.eq(i);
+            var smallLiArr=headingLi.eq(i);
 
-        var smallLiArray = smallLiArr.find('li');
+            var smallLiArray = smallLiArr.find('li');
 
-        if (smallLiArr.parent("ul").outerHeight()<230) {
+            if (smallLiArr.parent("ul").outerHeight()<230) {
 
-            smallLiArr.parent("ul").siblings('.wd-font').hide();
+                smallLiArr.parent("ul").siblings('.wd-font').hide();
+            };
+
+                // for(var j = 0; j<Math.ceil(smallLiArray.length/2); j++){
+
+                //      smallLiArray.eq(j).css({"float":"left"});
+
+                //      smallLiArray.eq(smallLiArray.length-j-1).css({"float":"right"});
+
+                //  }
         };
-
-            // for(var j = 0; j<Math.ceil(smallLiArray.length/2); j++){
-
-            //      smallLiArray.eq(j).css({"float":"left"});
-
-            //      smallLiArray.eq(smallLiArray.length-j-1).css({"float":"right"});
-
-            //  }
-
-    };
+    }
+    setTimeout(init,500);
 
     var flag = true;
     var animateHeight;
@@ -86,6 +88,6 @@
     backTop.click(function(event) {
         $(window).scrollTop(0);
     });
-})();
+};
 
 
