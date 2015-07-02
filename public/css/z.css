@@ -859,7 +859,7 @@ h4>code{
     border-radius:50%;
     display:none;
 }
-.content h1:nth-child(2){
+.content h1:nth-child(1){
     padding-bottom:35px;
     border-bottom:1px solid #e5e5e5;
 }
@@ -872,7 +872,7 @@ h4>code{
 #quickstart h2:first-child,#guide-content h2:first-child{
     padding-top:35px;
 }
-.content .top-heading{
+.top-heading{
     font-size:22px;
     font-weight:500;
     padding-bottom:10px;
