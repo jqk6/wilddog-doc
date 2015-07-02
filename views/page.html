@@ -20,7 +20,7 @@
 
     </div>
     <div class="col-sm-9">
-        <section class="content api-content" >
+        <div class="heading">
             {{#pages}} {{#files}} {{#active}}
             <h1 class="top-heading"> {{title}} </h1> 
             {{/active}} {{/files}} {{/pages}}
@@ -31,6 +31,8 @@
                 {{{toc}}}
                 <i class="wd-font">4</i>
             </div >
+        </div>
+        <section class="content api-content" >
 
             {{{ content }}}
 
