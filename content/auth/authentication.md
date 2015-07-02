@@ -4,7 +4,7 @@ Sort: 1
 Tmpl : page-quickstart
 */
 
-Wilddog提供非常简单的用户帐号系统。它能轻松集成到你的现有logic server,   或者只通过客户端集成。提供的功能包括， 通过邮箱&密码方式登录、通过第三方平台帐号登录，例如新浪微博帐号。
+Wilddog提供非常简单的用户帐号系统。它能轻松集成到你的现有logic server,   或者只通过客户端集成。通过野狗默认用户数据库、自定义用户数据库、社交账号登录，例如新浪微博帐号。
 
 
 
@@ -16,7 +16,7 @@ Wilddog提供非常简单的用户帐号系统。它能轻松集成到你的现�
 * auth变量在Wilddog Rules里有定义，如果auth变量为空，代表是一个未认证的用户。 对于一个认证用户， auth变量必须包含（auth.uid)，Rules规则与auth.uid配合使用，这种机制保证每个用户安全访问数据。
  
 当用户登录到app， Wilddog管理这些session， 确保用户在浏览器或应用程序重新启动被记住。
-Wilddog支持邮箱&密码登录、社交帐号登录。App使用Wilddog用户认证， 只需要添加App client代码， 不用写服务端代码。
+支持野狗默认用户数据库、自定义用户数据库、社交账号登录。App使用Wilddog用户认证， 只需要添加App client代码， 不用写服务端代码。
 
 如果你存在服务端用户认证，你也能轻松集成到Wilddog。
 
@@ -30,7 +30,7 @@ Wilddog支持邮箱&密码登录、社交帐号登录。App使用Wilddog用户�
 Platform	| 描述
 -------- | ---
 Custom	| 自己生成token的方式。使用这种方式，你能够集成到现有的用户认证系统。也能够在服务端使用。
-Email & Password| 让Wilddog管理为你管理用户的密码。使用email&password, 通过注册和认证用户。
+Email & Password| 使用野狗默认用户数据库（email&password），可以让Wilddog为你管理用户的账号和密码。 
 Anonymous	| 使用匿名认证的用户，无需分享自己的信息，系统会为每个用户生成唯一的标识，sessionl保持到会话结束。
 Weibo	     | 使用weibo账户认证，只需要添加客户端代码。
 
@@ -43,7 +43,7 @@ Weibo	     | 使用weibo账户认证，只需要添加客户端代码。
  [3]  :点击【终端用户认证】。
  [4] :点击一个认证方式。
  [5]:  选择以各种认证方式，并启用。
- [6]: 如果你使用第三方帐号登录，比如，微博，请b把博API Key和API Secret到表单里。
+ [6]: 如果你使用第三方帐号登录，比如，微博，请把微博的 API Key 和 API Secret 添加到表单中。
   
 
 # 用户登录
@@ -184,7 +184,7 @@ function getName(authData) {
 ```
 
 
-# Dealing with Popups and Redirects
+# 用弹出窗口和重定向的方式进行第三方用户认证 
 
 Wilddog的OAuth认证支持三种不同的方式，弹出pop-up、浏览器重定向、凭据登录。
 
@@ -227,7 +227,7 @@ ref.authWithOAuthPopup("weibo", function(error, authData) {
 ```
 --------
 
-# Handling Errors
+# 错误处理 
 
 当你的app调用的认证方法时，传入一个回调函数。这个函数的调用结果， 正确返回authData 对象，错误返回错误码。
 
@@ -284,7 +284,7 @@ ref.authWithPassword({
 
 
 
-# Full Error Listing
+# 错误列表 
 
 
 Error Code| Description

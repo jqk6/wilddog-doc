@@ -177,7 +177,7 @@ Wilddog提供了一个强大的，基于表达式的，类似javascript的规则
 | newData | 一个DataSnapshot对象，代表试图进行的操作完成之后的数据，包括旧的数据和新写入的数据 |
 | data | 一个DataSnapshot对象，代表试图进行的操作之前，该节点的数据 |
 | $variable | 一个路径的通配 |
-| auth | 当前登陆用户的信息 |
+| auth | 当前登录用户的信息 |
 
 #### data和newData
 data指的是写操作发生之前，当前节点的数据。newData则指的是，假定写操作会成功，那么写操作成功之后当前节点的数据。newData代表的是旧数据和即将写入的数据合并之后的数据。

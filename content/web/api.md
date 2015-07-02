@@ -30,7 +30,7 @@ new Wilddog ( wilddogUrl )
 
 ```js
 
-ref = new Wilddog("http://<appId>.wilddogio.com/city/Beijing");
+ref = new Wilddog("https://<appId>.wilddogio.com/city/Beijing");
 
 //Good, 我们已经创建了一个野狗客户端。
 

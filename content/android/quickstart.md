@@ -69,7 +69,7 @@ ref.addValueEventListener(new ValueEventListener(){
 ## 第四步 认证用户
 野狗提供以下用户认证方式：野狗默认用户数据库、自定义用户数据库、社交账户登录（微博、微信、QQ）、匿名登录。
 
-以为默认用户数据库为例，首先需要在控制面中启用此认证方式。
+以默认用户数据库为例，首先需要在控制面中启用此认证方式。
 
 1. 进入“终端用户认证”界面。
 2. 切换到“野狗默认用户数据库”标签，选中“开启野狗默认用户数据库”。
@@ -118,4 +118,3 @@ ref.addValueEventListener(new ValueEventListener(){
 
 1. [开发向导](/android/guide)
 2. [Java API](/android/api)
-3. [代码示例](/android/examples)

@@ -55,5 +55,5 @@ Tmpl : page-quickstart
 ## 第五步 了解更多
 
 1. [开发向导](guide)
-2. [C API文档](api)
+2. [C API文档](c_api)
 

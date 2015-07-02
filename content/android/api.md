@@ -27,7 +27,7 @@ Wilddog ref2 = ref.getParent();
 
 // 到达root
 
-Wilddog re3 = ref.getParent().getParent();
+Wilddog ref3 = ref.getParent().getParent();
 
 ```
 ----
@@ -58,9 +58,9 @@ Wilddog ref2 = ref.child("a");
 
 // 定位到 '/test/a/b'
 
-Wilddog re3 = ref.child("a/b");
+Wilddog ref3 = ref.child("a/b");
 
-Wilddog re4 = ref.child("a").child("b");
+Wilddog ref4 = ref.child("a").child("b");
 
 ```
 ----

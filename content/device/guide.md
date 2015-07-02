@@ -154,7 +154,7 @@ Wilddog没有原生支持 `List` 与 `Array` 。如果试图存储一个 `List` 
 
 #### Path  
 Path是用户访问节点的相对路径。
-例如你访问数据的URL为'coap://<appId>.wilddogio.com/test/data'时，
+例如你访问数据的URL为`coap://<appId>.wilddogio.com/test/data`时，
 /test/data为path，创建一个指向节点/test/data客户端如下:
 
 ```c
