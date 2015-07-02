@@ -703,9 +703,10 @@ blockquote{
     margin:0;
 }
 .content>.table{
-    width:100%;
+    width:auto;
     margin-top:14px;
     margin-bottom:20px;
+    margin-left:40px;
 }
 .table > tbody > tr > td,.table > thead > tr > th{
     border-top:0;
@@ -970,5 +971,6 @@ h4>code{
     }
     .guide-content .table,#quickstart .table{
         margin-left:0;
+        width:100%;
     }
 }
