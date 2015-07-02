@@ -46,7 +46,7 @@ function loadOver(){
 
             var smallLiArray = smallLiArr.find('li');
 
-            if (smallLiArr.parent("ul").outerHeight()<230) {
+            if (smallLiArr.parent("ul").outerHeight()<240) {
 
                 smallLiArr.parent("ul").siblings('.wd-font').hide();
             };
@@ -63,7 +63,7 @@ function loadOver(){
             flag = false;
         }
         else{
-            $(this).html("4").parent(".toc").animate({"height":230});
+            $(this).html("4").parent(".toc").animate({"height":240});
             flag = true;
         }
     });

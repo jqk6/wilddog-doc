@@ -648,12 +648,14 @@ footer {
     box-sizing:border-box;
     padding-right:20px;
     word-break:break-all;
+    padding-left:40px;
 }
 .toc>ul>li>a{
     display:block;
     font-size:18px;
     color:#333;
     line-height:30px;
+    padding-bottom:6px;
 }
 .toc ul{
     overflow:hidden;
@@ -814,7 +816,7 @@ h4>code{
 .toc{
     position: relative;
     padding-bottom:30px;
-    height:230px;
+    height:240px;
     overflow:hidden;
     display:none;
 }
