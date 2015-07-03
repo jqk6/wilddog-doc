@@ -815,11 +815,11 @@ h4>code{
 
 /*增加点击显示剩余目录效果*/
 .toc{
+    padding-top:35px;
     position: relative;
-    padding-bottom:30px;
     height:220px;
     overflow:hidden;
-    display:none;
+    height:0;
 }
 .wd-font{
     font-family:"wd-icon";
@@ -862,9 +862,6 @@ h4>code{
     cursor:pointer;
     border-radius:50%;
     display:none;
-}
-.toc{
-    padding-top:35px;
 }
 .api-content h2{
     padding-top:35px;
@@ -975,5 +972,11 @@ h4>code{
     #guide-content .table,#quickstart .table,.api-content .table{
         margin-left:0;
         width:100%;
+    }
+}
+
+@media print{
+    .col-sm-3,.header,footer,.container-fluid .toc{
+        display:none;
     }
 }
