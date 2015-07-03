@@ -896,6 +896,9 @@ h4>code{
 .heading{
     margin-top:32px;
 }
+.footer-container .first-link{
+    margin-left:0;
+}
 @media screen and (min-width:1200px){
     .container{
         max-width:980px;
