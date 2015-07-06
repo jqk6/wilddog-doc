@@ -28,9 +28,10 @@
 
 function loadOver(){
     var init = function(){
-        $(".toc").slideDown(300);
+        $(".toc").animate({"height":220}, 300);
         setTimeout(function(){
             $(".toc").parent().siblings('.content').fadeIn(300);
+            $("footer").show();
         },350)
         var headingLi = $(".toc>ul>li");
 
