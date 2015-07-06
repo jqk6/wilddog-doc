@@ -1,6 +1,7 @@
 /*
 Title: 概览
 Sort: 1
+Tmpl : page-guide
 */
 
 ## 初识野狗
@@ -36,7 +37,7 @@ Sort: 1
 
 ## 终端用户认证
 
-野狗提供了完善的终端用户认证功能。野狗可以帮助你维护应用的账户信息，使你的应用支持简单的Email/密码的登陆方式。野狗还支持社交账号登陆，你无需进行社交账号接入的开发工作，只需要简单的配置，就可以实现微博，微信等社交账号登陆。如果你已有一套用户账户体系，也没有问题，野狗同样支持自定义终端用户认证的方式，可以与你已有的账户体系完美结合。
+野狗提供了完善的终端用户认证功能。野狗可以帮助你维护应用的账户信息，使你的应用支持简单的Email/密码的登录方式。野狗还支持社交账号登录，你无需进行社交账号接入的开发工作，只需要简单的配置，就可以实现微博，微信等社交账号登录。如果你已有一套用户账户体系，也没有问题，野狗同样支持自定义终端用户认证的方式，可以与你已有的账户体系完美结合。
 
 ## 安全
 使用野狗，你无需担心安全的问题。野狗强制使用2048-bit的SSL加密通信。所有非安全的连接请求都是被拒绝的。
@@ -44,7 +45,7 @@ Sort: 1
 野狗还提供了一套强大的，基于规则的数据安全机制。使你可以控制所有数据的读取和写入的权限，以及数据完整性校验。这些规则表达式在应用的控制面板中集中配置，这样既能保障数据读写权限的控制，又不会侵入到业务处理逻辑之中。
 
 ## 如何开始
-* 如果你是web开发者，请参考我们的[5分钟快速入门](https://z.wilddog.com/5m)，或者[Javascript SDK快速入门](https://z.wilddog.com/web/quickstart)。
-* 如果是你Android开发者，请参考我们的[Android SDK快速入门](https://z.wilddog.com/android/quickstart)
-* 如果你是iOS开发者，请参考我们的[iOS SDK快速入门](https://z.wilddog.com/ios/quickstart)
-* 关于终端用户认证和规则表达式，请参考[规则表达式快速入门](https://z.wilddog.com/rule/quickstart)
+* 如果你是web开发者，请参考我们的 [5分钟快速入门](https://z.wilddog.com/5m)，或者 [Javascript SDK 快速入门](https://z.wilddog.com/web/quickstart)。
+* 如果是你Android开发者，请参考我们的 [Android SDK 快速入门](https://z.wilddog.com/android/quickstart)
+* 如果你是iOS开发者，请参考我们的 [iOS SDK 快速入门](https://z.wilddog.com/ios/quickstart)
+* 关于终端用户认证和规则表达式，请参考 [规则表达式快速入门](https://z.wilddog.com/rule/quickstart)

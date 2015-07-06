@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 
 <head>
     <meta charset="utf-8">
@@ -13,11 +13,13 @@
     <meta name="format-detection" content="telephone=no" />
 
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/bower_components/highlightjs/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="/bower_components/highlightjs/styles/color-brewer.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/index.css">
 
     <link rel="stylesheet" href="/styles/raneto.css">
+    <link rel="stylesheet" href="/styles/z.css">
+
 
     <style>
         .home-categories a{
@@ -36,27 +38,23 @@
     <header class="header">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-6">
 
                     <a href="/">
                         <div class="header-logo">
-                            <div style="float:left">
-                                <img width="36" height="36" src="/images/header-logo.png" style="
-    margin-top: 30px;
-">
-                            </div>
+                            <div class="logo" style="float:left"><i class="header-text z-wd-font">(</i></div>
 
-                            <div style="float:left;margin-top: -38px;margin-left: 10px;"><i style="color:white">(</i>
+                            <div class="text-wilddog" style="float:left; padding-left:10px; padding-top:40px;"><img src="/images/wilddog.png" alt="" height="26" width="123">
                             </div>
-                            <div style="font-size: 25px;margin-top: 33px;margin-left: 12px;float:left">知识库</div>
+                            <div class="knowledge">知识库</div>W
                         </div>
                     </a>
 
                 </div>
-                <div class="col-sm-6 col-xs-12 row">
+                <div class="col-sm-6 col-xs-6">
 
-                    <div class="col-xs-6 col-sm-12">
-                        <div class="link-index" style="float:right;">野狗官网
+                    <div class="col-xs-12 col-sm-12 wilddog-gov">
+                        <div class="link-index" style="float:right;" target="_blank">野狗官网<i style="float:right; height:1px; width:12px;">4</i>
                         </div>
                         <div style="clear:both"></div>
                     </div>
@@ -66,7 +64,7 @@
 
                         <div class="search-mag-glass">
                             <div style="margin-top:10px;text-align:center;">
-                                <i style="font-size:16px;font-family: wd-icon;font-style: normal;">p</i> 
+                                <i style="font-size:16px;font-family: wd-icon;font-style: normal;">p</i>
                             </div>
 
                         </div>
@@ -194,7 +192,23 @@
             $("#weixin-code").show();
         }, function () {
             $("#weixin-code").hide();
-        });        
+        });
+
+        var searchStart = function (data) {
+            if(data){
+            window.open("?search=" + data);
+            };
+        };
+        $("#search").click(function(){
+            var searchContent = $("#search-input").val(); 
+            searchStart(searchContent);
+        });
+        $(window).keypress(function(event) {
+            if(event.keyCode==13){
+                var searchContent = $("#search-input").val(); 
+                searchStart(searchContent);
+            }
+        });
     });
 
         
@@ -210,10 +224,26 @@
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-56016881-2', 'auto');
+        ga('create', 'UA-56016881-1', 'auto', {'allowLinker': true});
+        ga('require', 'linker');
+        ga('linker:autoLink', ['www.wilddog.com', 'wilddog.life'] );
         ga('send', 'pageview');
     </script>
-
+<script>
+        var _hmt = _hmt || [];
+        (function()
+        { var hm = document.createElement("script"); hm.src = "//hm.baidu.com/hm.js?b94d83d48fe0e3d8f6ce5b1e8023787a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); }
+        )();
+</script>
+<script type="text/javascript">
+    var oldOnload = window.onload;
+    if (typeof window.onload == 'function') {
+        window.onload = function(){
+            oldOnload();
+            loadOver();
+        }
+    }
+</script>
 
 </body>
 

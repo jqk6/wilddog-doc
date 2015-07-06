@@ -1,6 +1,7 @@
 /*
 Title : Q&A
 Sort : 2
+Tmpl : page-guide
 */
 
 ## 1.什么是野狗？

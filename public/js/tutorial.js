@@ -6,7 +6,6 @@
  var title6 = "第六步, 我们来从云端读取数据";
  var title7 = "第七步, 我们来监听云端数据的变化";
 
-
  var info2 = "<p style='font-size:20px;font-color:black'>在访问数据之前，需要在你的代码里创建一个Wilddog本地实例。</p><p>我们已经创建好了一个WildDog的云端数据库。它的网址是： https:/ / demochat.wilddogio.com / </p><p>为了完成这一步, 请在App中创建一个Wilddog实例： </p>";
  var info3 = "<p style='font-size:20px;font-color:black'>让我们发一个聊天消息吧。</p><p>你能够使用刚刚创建的reference通过set()方法写数据到野狗App。为了简单起见，我们通过text文本框来写消息， 通过回车键触发发送消息。为了完成这一步，使用set()方法来写消息， 代码如下：</p>";
  var info4 = "<p style='font-size:20px;font-color:black'>set()方法也能用于写数据object。</p><p>请修改你的代码，写一个带有text and name属性的数据object：</p>";
@@ -24,8 +23,7 @@
  //['myDataRef.on("child_added", function(snapshot) {', '//We"ll fill this in later.', '});'].join('\r\n');
  var codeline7 = "var message = snapshot.val();displayChatMessage(message.name, message.text);";
 
-
- var codelinestyle2 = "<span class=\"kwd\">var</span><span class=\"pln\"> myDataRef </span><span class=\"pun\">=</span><span class=\"pln\"> </span><span class=\"kwd\">new</span><span class=\"pln\"> </span><span class=\"typ\">Wilddog</span><span class=\"pun\">(</span><span class=\"str\">'https://demochat.wilddogio.com/'</span><span class=\"pun\">);</span>"
+ var codelinestyle2 = "<span class=\"kwd\">var</span><span class=\"pln\"> myDataRef </span><span class=\"pun\">=</span><span class=\"pln\"> </span><span class=\"kwd\">new</span><span class=\"pln\"> </span><span class=\"typ\">Wilddog</span><span class=\"pun\">(</span><span class=\"str\">'https://demochat.wilddogio.com/'</span><span class=\"pun\">);</span>";
 
  var codelinestyle3 = "<span class=\"pln\">myDataRef</span><span class=\"pun\">.</span><span class=\"kwd\">set</span><span class=\"pun\">(</span><span class=\"str\">'User '</span><span class=\"pln\"> </span><span class=\"pun\">+</span><span class=\"pln\"> name </span><span class=\"pun\">+</span><span class=\"pln\"> </span><span class=\"str\">' says '</span><span class=\"pln\"> </span><span class=\"pun\">+</span><span class=\"pln\"> text</span><span class=\"pun\">);</span>";
 
@@ -40,139 +38,140 @@
 
 
  //编辑框代码
- var html1 = [' <html>', '<head>', "[ 请将野狗示例代码粘贴在这 ]", '   </head>', '  <body>', '  </body>', ' </html>'].join('\r\n');
- var html2 = [' <html>', '  <head>', '   <script src=\"https://cdn.wilddog.com/js/client/current/wilddog.js\"><\/script>',
-'   </head>', '  <body>', '  <script>', '[ 请将野狗示例代码粘贴在这 ]', ' <\/script>', ' <\/body>', '</html > '].join('\r\n');
+ var html1 = [' <html>', '<head>', "[ 请将野狗示例代码粘贴在这 ]", '</head>', '<body>', '</body>', '</html>'].join('\r\n');
+ var html2 = [' <html>', '<head>', '   <script src=\"https://cdn.wilddog.com/js/client/current/wilddog.js\"><\/script>',
+     '   </head>', '  <body>', '  <script>', '[ 请将野狗示例代码粘贴在这 ]', ' <\/script>', ' <\/body>', '</html > '
+ ].join('\r\n');
 
  var html3 = [
- '<html>',
- '<head>',
- '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
- '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
- '</head>',
- '<body>',
- '  <input type="text" id="nameInput" placeholder="Name">',
- '  <input type="text" id="messageInput" placeholder="Message">',
- '  <script>',
- '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
- '    $("#messageInput").keypress(function (e) {',
- '      if (e.keyCode == 13) {',
- '        var name = $("#nameInput").val();',
- '        var text = $("#messageInput").val();',
- '        [ 请将野狗示例代码粘贴在这 ]',
- '        $("#messageInput").val("");',
- '      }',
- '    });',
- '  </scr' + 'ipt>',
- '</body>',
- '</html>'
+     '<html>',
+     '<head>',
+     '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
+     '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
+     '</head>',
+     '<body>',
+     '  <input type="text" id="nameInput" placeholder="Name">',
+     '  <input type="text" id="messageInput" placeholder="Message">',
+     '  <script>',
+     '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
+     '    $("#messageInput").keypress(function (e) {',
+     '      if (e.keyCode == 13) {',
+     '        var name = $("#nameInput").val();',
+     '        var text = $("#messageInput").val();',
+     '        [ 请将野狗示例代码粘贴在这 ]',
+     '        $("#messageInput").val("");',
+     '      }',
+     '    });',
+     '  </scr' + 'ipt>',
+     '</body>',
+     '</html>'
  ].join('\r\n');
 
  var html4 = [
- '<html>',
- '<head>',
- '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
- '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
- '</head>',
- '<body>',
- '  <input type="text" id="nameInput" placeholder="Name">',
- '  <input type="text" id="messageInput" placeholder="Message">',
- '  <script>',
- '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
- '    $("#messageInput").keypress(function (e) {',
- '      if (e.keyCode == 13) {',
- '        var name = $("#nameInput").val();',
- '        var text = $("#messageInput").val();',
- '        [ 请将野狗示例代码粘贴在这 myDataRef.set("User " + name + " says " + text);]',
- '        $("#messageInput").val("");',
- '      }',
- '    });',
- '  </scr' + 'ipt>',
- '</body>',
- '</html>'
+     '<html>',
+     '<head>',
+     '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
+     '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
+     '</head>',
+     '<body>',
+     '  <input type="text" id="nameInput" placeholder="Name">',
+     '  <input type="text" id="messageInput" placeholder="Message">',
+     '  <script>',
+     '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
+     '    $("#messageInput").keypress(function (e) {',
+     '      if (e.keyCode == 13) {',
+     '        var name = $("#nameInput").val();',
+     '        var text = $("#messageInput").val();',
+     '        [ 请将野狗示例代码粘贴在这 myDataRef.set("User " + name + " says " + text);]',
+     '        $("#messageInput").val("");',
+     '      }',
+     '    });',
+     '  </scr' + 'ipt>',
+     '</body>',
+     '</html>'
  ].join('\r\n');
 
 
  var html5 = [
- '<html>',
- '<head>',
- '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
- '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
- '</head>',
- '<body>',
- '  <input type="text" id="nameInput" placeholder="Name">',
- '  <input type="text" id="messageInput" placeholder="Message">',
- '  <script>',
- '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
- '    $("#messageInput").keypress(function (e) {',
- '      if (e.keyCode == 13) {',
- '        var name = $("#nameInput").val();',
- '        var text = $("#messageInput").val();',
- '        [ myDataRef.set({name: name, text: text}); //请将野狗示例代码粘贴在这。]',
- '        $("#messageInput").val("");',
- '      }',
- '    });',
- '  </scr' + 'ipt>',
- '</body>',
- '</html>'
+     '<html>',
+     '<head>',
+     '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
+     '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
+     '</head>',
+     '<body>',
+     '  <input type="text" id="nameInput" placeholder="Name">',
+     '  <input type="text" id="messageInput" placeholder="Message">',
+     '  <script>',
+     '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
+     '    $("#messageInput").keypress(function (e) {',
+     '      if (e.keyCode == 13) {',
+     '        var name = $("#nameInput").val();',
+     '        var text = $("#messageInput").val();',
+     '        [ myDataRef.set({name: name, text: text}); //请将野狗示例代码粘贴在这。]',
+     '        $("#messageInput").val("");',
+     '      }',
+     '    });',
+     '  </scr' + 'ipt>',
+     '</body>',
+     '</html>'
  ].join('\r\n');
 
  var html6 = [
- '<html>',
- '<head>',
- '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
- '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
- '</head>',
- '<body>',
- '  <input type="text" id="nameInput" placeholder="Name">',
- '  <input type="text" id="messageInput" placeholder="Message">',
- '  <script>',
- '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
- '    $("#messageInput").keypress(function (e) {',
- '      if (e.keyCode == 13) {',
- '        var name = $("#nameInput").val();',
- '        var text = $("#messageInput").val();',
- '        myDataRef.push({name: name, text: text});',
- '        $("#messageInput").val("");',
- '      }',
- '    });',
- '    [ 请将野狗示例代码粘贴在这 ] .',
- '  </scr' + 'ipt>',
- '</body>',
- '</html>'
+     '<html>',
+     '<head>',
+     '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
+     '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
+     '</head>',
+     '<body>',
+     '  <input type="text" id="nameInput" placeholder="Name">',
+     '  <input type="text" id="messageInput" placeholder="Message">',
+     '  <script>',
+     '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
+     '    $("#messageInput").keypress(function (e) {',
+     '      if (e.keyCode == 13) {',
+     '        var name = $("#nameInput").val();',
+     '        var text = $("#messageInput").val();',
+     '        myDataRef.push({name: name, text: text});',
+     '        $("#messageInput").val("");',
+     '      }',
+     '    });',
+     '    [ 请将野狗示例代码粘贴在这 ] .',
+     '  </scr' + 'ipt>',
+     '</body>',
+     '</html>'
  ].join('\r\n');
 
 
  var html7 = [
- '<html>',
- '<head>',
- '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
- '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
- '</head>',
- '<body>',
- '  <div id="messagesDiv"></div>',
- '  <input type="text" id="nameInput" placeholder="Name">',
- '  <input type="text" id="messageInput" placeholder="Message">',
- '  <script>',
- '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
- '    $("#messageInput").keypress(function (e) {',
- '      if (e.keyCode == 13) {',
- '        var name = $("#nameInput").val();',
- '        var text = $("#messageInput").val();',
- '        myDataRef.push({name: name, text: text});',
- '        $("#messageInput").val("");',
- '      }',
- '    });',
- '    myDataRef.on("child_added", function(snapshot) {',
- '      [ 请将回调函数放在这 ]',
- '    });',
- '    function displayChatMessage(name, text) {',
- '      $("<div/>").text(text).prepend($("<em/>").text(name+": ")).appendTo($("#messagesDiv"));',
- '      $("#messagesDiv")[0].scrollTop = $("#messagesDiv")[0].scrollHeight;',
- '    };',
- '  </scr' + 'ipt>',
- '</body>',
- '</html>'
+     '<html>',
+     '<head>',
+     '  <script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>',
+     '  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></scr' + 'ipt>',
+     '</head>',
+     '<body>',
+     '  <div id="messagesDiv"></div>',
+     '  <input type="text" id="nameInput" placeholder="Name">',
+     '  <input type="text" id="messageInput" placeholder="Message">',
+     '  <script>',
+     '    var myDataRef = new Wilddog("https://demochat.wilddogio.com/");',
+     '    $("#messageInput").keypress(function (e) {',
+     '      if (e.keyCode == 13) {',
+     '        var name = $("#nameInput").val();',
+     '        var text = $("#messageInput").val();',
+     '        myDataRef.push({name: name, text: text});',
+     '        $("#messageInput").val("");',
+     '      }',
+     '    });',
+     '    myDataRef.on("child_added", function(snapshot) {',
+     '      [ 请将回调函数放在这 ]',
+     '    });',
+     '    function displayChatMessage(name, text) {',
+     '      $("<div/>").text(text).prepend($("<em/>").text(name+": ")).appendTo($("#messagesDiv"));',
+     '      $("#messagesDiv")[0].scrollTop = $("#messagesDiv")[0].scrollHeight;',
+     '    };',
+     '  </scr' + 'ipt>',
+     '</body>',
+     '</html>'
  ].join('\r\n');
 
 
@@ -194,7 +193,7 @@
 
  var step = 1;
  var stepfinish = false;
- wd.tutorial.init = function () {
+ wd.tutorial.init = function() {
 
      var editor = ace.edit("editor");
      editor.setTheme("ace/theme/eclipse");
@@ -213,7 +212,7 @@
      });
      wd.tutorial.editor = editor;
 
-     $("#advanceButton").click(function (e) {
+     $("#advanceButton").click(function(e) {
          if (step > 7) {
              window.location.href = "https://z.wilddog.com";
          }
@@ -226,45 +225,48 @@
              step++;
              stepfinish = true;
          } else if (stepfinish) {
-             console.log("finish ok");
-
-             console.log("html" + step);
-
-             console.log(eval("html" + step));
              wd.tutorial.setCodeLines(eval("codeline" + step));
              $(".prettyprint").html(eval("codelinestyle" + step)).show();;
              wd.tutorial.setEditorValue(eval("html" + step));
              $("#step-info").html(eval("info" + step));
              wd.tutorial.editor.gotoLine(1);
              $("#headertext").text(eval("title" + step));
+             $(".steps .item").eq((step - 1)).addClass("scale-current").siblings().removeClass("scale-current");
              $("#editor").show();
              stepfinish = false;
          } else {
              console.log("write wrong");
              $("#errorText").css("visibility", "visible");
          }
-
-
-         //        wd.tutorial.doContinue(e);
      });
-     /*
-         $("#advanceButton").click(function (e) {
-             wd.tutorial.doNext(e);
-         });*/
 
+     $(".steps").find('.item').click(function() {
+         step = $(this).index();
+         if (step == 1) {
+             window.location.href = "/5m";
+         }
+         wd.tutorial.setCodeLines(eval("codeline" + step));
+         $(".prettyprint").html(eval("codelinestyle" + step)).show();
+         wd.tutorial.setEditorValue(eval("html" + step));
+         $("#step-info").html(eval("info" + step));
+         wd.tutorial.editor.gotoLine(1);
+         $("#headertext").text(eval("title" + step));
+         $(this).addClass("scale-current").siblings().removeClass("scale-current");
+         $("#editor").show();
+     })
 
      $("#editor").fadeIn("fast");
  }
 
- wd.tutorial.setEditorValue = function (value) {
+ wd.tutorial.setEditorValue = function(value) {
      wd.tutorial.editor.setValue(value);
  }
 
- wd.tutorial.setCodeLines = function (codelines) {
+ wd.tutorial.setCodeLines = function(codelines) {
      wd.tutorial.codelines = codelines;
  }
 
- wd.tutorial.doContinue = function (e) {
+ wd.tutorial.doContinue = function(e) {
      if (wd.tutorial._doContinue_isok()) {
          wd.tutorial._doContinue_showsuccess();
          return;
@@ -273,7 +275,7 @@
      return;
  }
 
- wd.tutorial._doContinue_isok = function () {
+ wd.tutorial._doContinue_isok = function() {
      var htmlValue = wd.tutorial.editor.getValue();
      if (!htmlValue || !wd.tutorial.codelines) {
          return false;
@@ -289,14 +291,14 @@
      return true;
  }
 
- wd.tutorial._doContinue_showerror = function () {
+ wd.tutorial._doContinue_showerror = function() {
      // $("#fadeOutArea-1 #errorText").show();
      $("#errorText").css('visibility', 'visible')
 
      $("#fadeOutArea-2").hide();
  }
 
- wd.tutorial._doContinue_showsuccess = function () {
+ wd.tutorial._doContinue_showsuccess = function() {
      $("#errorText").css('visibility', 'hidden');
      alert(1);
      $("#fadeOutArea-1").hide();
@@ -306,7 +308,7 @@
      wd.tutorial.editor.setReadOnly(true);
  }
 
- wd.tutorial.doNext = function () {
+ wd.tutorial.doNext = function() {
      var step = parseInt($("li.active").text().trim());
      if (step < 0 || step > 7) {
          return;

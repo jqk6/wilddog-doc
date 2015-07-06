@@ -3,9 +3,9 @@ var path = require('path'),
 	glob = require('glob'),
 	_ = require('underscore'),
 	_s = require('underscore.string'),
-	marked = require('marked'),
+	marked = require('./marked'),
 	lunr = require('lunr');
-
+var idx=null;
 var raneto = {
 
 	metaRegex: /^\/\*([\s\S]*?)\*\//i,
@@ -109,15 +109,18 @@ var raneto = {
 					}
 				}
 
-				
-				filesProcessed.push({
+				var dirObj={
 					slug: shortPath,
+					path:filePath,
+					subDir:[],
 					title: _s.titleize(_s.humanize(path.basename(shortPath))),
 					is_index: false,
 					class: 'category-'+ raneto.cleanString(shortPath.replace(/\//g, ' ')),
 					sort: sort,
 					files: []
-				});
+				};
+				filesProcessed.push(dirObj);
+				
 			}
 			if(stat.isFile() && path.extname(shortPath) == '.md'){
 				try {
@@ -165,8 +168,9 @@ var raneto = {
 	},
 
 	search: function(query) {
+		if(idx == null){
 		var files = glob.sync(__dirname +'/content/**/*.md');
-		var idx = lunr(function(){
+		idx = lunr(function(){
 			this.field('title', { boost: 10 });
 			this.field('body');
 		});
@@ -185,7 +189,7 @@ var raneto = {
 			}
 			catch(e){}
 		});
-
+		}
 		return idx.search(query);
 	}
 

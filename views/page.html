@@ -20,15 +20,24 @@
 
     </div>
     <div class="col-sm-9">
-        <section class="content" style="min-height:760px;">
+        <div class="heading">
             {{#pages}} {{#files}} {{#active}}
-            <h1> {{title}} </h1> {{/active}} {{/files}} {{/pages}}
+            <h1 class="top-heading"> {{title}} </h1> 
+            {{/active}} {{/files}} {{/pages}}
             <div class="last-updated pull-right" style="margin-top:-28px;color:#ddd">
                 上次更改时间 {{last_modified}}
             </div>
+            <div class="toc">
+                {{{toc}}}
+                <i class="wd-font">4</i>
+            </div >
+        </div>
+        <section class="content api-content" >
+
             {{{ content }}}
 
         </section>
 
     </div>
 </div>
+<div class="clearfix back-top-ab"><div class="back-top"><i class="wd-font">R</i></div></div>

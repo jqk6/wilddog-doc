@@ -1,6 +1,7 @@
 /*
 Title : Roadmap
 Sort : 1
+Tmpl : page-guide
 */
 
 
@@ -18,7 +19,7 @@ Sort : 1
 
 ### 2015年Q3
 
-我们计划在６月份底之前完成第一个release版本．
+我们计划在7 月份完成第一个release版本．
 
 完善Sync架构．并推出WildGraph的alpha版本．
 

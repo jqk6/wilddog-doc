@@ -970,7 +970,7 @@ pre code strong {
 }
 
 .grid-fixed {
-    width: 960px;
+    /*width: 960px;*/
     margin: 0 auto;
 }
 
@@ -978,6 +978,7 @@ pre code strong {
     min-height: 450px;
     padding: 60px;
     margin-top: 20px;
+    position: relative;
 }
 
 #tutorialbodyheader {

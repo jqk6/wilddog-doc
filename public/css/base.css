@@ -203,7 +203,7 @@ th {
 html {
     color: #333130;
     font: 12px/1.5 arial, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
-    /*    -webkit-font-smoothing: antialiased;*/
+    -webkit-font-smoothing: antialiased;
     height: 100%;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
@@ -220,7 +220,7 @@ body {
    ========================================================================== */
 
 ol,
-ul {
+ul ,li{
     list-style: none;
 }
 input,

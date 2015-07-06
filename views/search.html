@@ -23,12 +23,16 @@
     <div class="col-sm-9">
 
         <section class="content search">
-            <h3 class="title">Search results for: {{search}}</h3> {{#searchResults.length}} {{#searchResults}}
+            <h3 class="title">Search results for: {{search}}</h3> 
+            {{#searchResults.length}}
+             {{#searchResults}}
             <div class="page">
                 <h2 class="page-title"><a href="/{{slug}}">{{title}}</a></h2>
                 <div class="page-excerpt">{{excerpt}}</div>
             </div>
-            {{/searchResults}} {{/searchResults.length}} {{^searchResults.length}}
+            {{/searchResults}} 
+            {{/searchResults.length}} 
+            {{^searchResults.length}}
             <p class="nothing-found">Nothing found for "{{search}}"</p>
             {{/searchResults.length}}
         </section>

@@ -5,11 +5,12 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     fs = require('fs'),
-	marked = require('marked'),
+	marked = require('./marked'),
     moment = require('moment'),
     raneto = require('./raneto'),
     config = require('./config'),
-    toc = require('markdown-toc'),
+    toc = require('./markdown-toc'),
+    pinyin=require("pinyin"),
     app = express(); // 使用nodejs express
 
 // view engine setup
@@ -25,14 +26,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/bower_components",express.static(path.join(__dirname, 'bower_components')));
 
 /**
 * 对所有路径进行解析.
 */
+
+
 app.all('*', function(req, res, next){
     if(req.query.search){
-        var searchResults = raneto.search(req.query.search);
-        searchResults.forEach(function(result){
+        var searchResults =[];
+
+        raneto.search(req.query.search).forEach(function(result){         
             searchResults.push(raneto.getPage(__dirname +'/content/'+ result.ref, config));
         });
 
@@ -48,11 +53,11 @@ app.all('*', function(req, res, next){
 	else if(req.params[0]){
         var slug = req.params[0];
         if(slug == '/') slug = '/index'; //如果是首页,那么转向/index
- 
+        
         
         var filePath = __dirname +'/content'+ slug +'.md',
             pageList = raneto.getPages(slug, config);
-
+        
         if(slug == '/index' && !fs.existsSync(filePath)){
             return res.render('home', {
                 config: config,
@@ -66,6 +71,13 @@ app.all('*', function(req, res, next){
                 body_class: 'page-home',
                 layout:'5m_layout'
             });
+        } else if(slug == '/outmen' && !fs.existsSync(filePath)){
+            return res.render('outmen', {
+		config : {},
+		pages : {},
+		body_class: '',
+		layout: ''
+	    });
         } else {
             fs.readFile(filePath, 'utf8', function(err, content) {
                 if(err){
@@ -78,14 +90,22 @@ app.all('*', function(req, res, next){
                 var stat = fs.lstatSync(filePath);
                 // Meta
                 var meta = raneto.processMeta(content);
+
                 content = raneto.stripMeta(content);
                 // Content
                 content = raneto.processVars(content, config);
                 var html = marked(content);
-               // var _toc=toc(content,{maxDepth:1});
-               // var _tocHtml=marked(_toc.content);
-                return res.render('page', {
+                var _toc=toc(content,{maxdepth:3,slugify:function(raw){
+	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
+                }});
+                var _tocHtml=marked(_toc.content);
+		var tmpl="page";
+		if(meta["tmpl"]){
+			tmpl=meta["tmpl"];
+		}
+                return res.render(tmpl, {
                     config: config,
+                    toc:_tocHtml,
                     pages: pageList,
                     meta: meta,
                     content: html,
@@ -129,3 +149,4 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
