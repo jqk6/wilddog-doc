@@ -37,9 +37,7 @@ app.all('*', function(req, res, next){
     if(req.query.search){
         var searchResults =[];
 
-        raneto.search(req.query.search).forEach(function(result){
-            console.log(result);
-            
+        raneto.search(req.query.search).forEach(function(result){         
             searchResults.push(raneto.getPage(__dirname +'/content/'+ result.ref, config));
         });
 
@@ -59,7 +57,7 @@ app.all('*', function(req, res, next){
         
         var filePath = __dirname +'/content'+ slug +'.md',
             pageList = raneto.getPages(slug, config);
-
+        
         if(slug == '/index' && !fs.existsSync(filePath)){
             return res.render('home', {
                 config: config,
