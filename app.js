@@ -95,8 +95,15 @@ app.all('*', function(req, res, next){
                 // Content
                 content = raneto.processVars(content, config);
                 var html = marked(content);
+		var counter={};
                 var _toc=toc(content,{maxdepth:3,slugify:function(raw){
-	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
+				if(counter[raw]!=null){
+					counter[raw]+=1;
+				}
+				else{
+					counter[raw]=0;
+				}
+	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')+counter[raw]		
                 }});
                 var _tocHtml=marked(_toc.content);
 		var tmpl="page";
