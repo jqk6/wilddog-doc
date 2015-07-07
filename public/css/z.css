@@ -970,6 +970,9 @@ h4>code{
     }
 }
 @media screen and (max-width:767px) {
+    .toc>ul>li li{
+        padding-left:10px;
+    }
     /*header*/
     .container{
         padding:0;
