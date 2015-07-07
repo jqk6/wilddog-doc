@@ -1,3 +1,6 @@
+html{
+    -webkit-font-smoothing: antialiased;
+}
 #index-header {
     position: fixed;
     top: 0;
