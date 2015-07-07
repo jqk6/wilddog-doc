@@ -14,7 +14,7 @@
  var info7 = "<p style='font-size:20px;font-color:black'>你只需要把聊天信息放到页面上。</p><p>对于每条聊天消息，野狗在回调函数中提供一个snapshot快照方法。获取消息数据时只需要调用snapshot的val()方法，并赋值给一个变量。然后，调用displayChatMessage()把消息显示出来：</p>";
 
  //需要填入的代码
- var codeline1 = '<script src="https://cdn.wilddog.com/js/client/current/wilddog.js"></scr' + 'ipt>';
+ var codeline1 = '<script src=\"https://cdn.wilddog.com/js/client/current/wilddog.js\"></scr' + 'ipt>';
  var codeline2 = "var myDataRef = new Wilddog('https://demochat.wilddogio.com/')";
  var codeline3 = "myDataRef.set('User ' + name + ' says ' + text);";
  var codeline4 = "myDataRef.set({name: name, text: text});";

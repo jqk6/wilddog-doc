@@ -31,7 +31,6 @@ function loadOver(){
         $(".toc").animate({"height":220}, 300);
         setTimeout(function(){
             $(".toc").parent().siblings('.content').fadeIn(300);
-            $("footer").show();
         },350)
         var headingLi = $(".toc>ul>li");
 
@@ -54,7 +53,7 @@ function loadOver(){
         };
     }
     init();
-
+    /*api文档顶部目录动画*/
     var flag = true;
     var animateHeight;
     $(".toc .wd-font").click(function(event) {
@@ -68,7 +67,7 @@ function loadOver(){
             flag = true;
         }
     });
-
+    /*返回顶部按钮*/
     var backTop = $(".back-top");
     var windHeight = $(window).height();
     var scrollT;

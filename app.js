@@ -54,7 +54,6 @@ app.all('*', function(req, res, next){
         var slug = req.params[0];
         if(slug == '/') slug = '/index'; //如果是首页,那么转向/index
         
-        
         var filePath = __dirname +'/content'+ slug +'.md',
             pageList = raneto.getPages(slug, config);
         
@@ -62,7 +61,8 @@ app.all('*', function(req, res, next){
             return res.render('home', {
                 config: config,
                 pages: pageList,
-                body_class: 'page-home'
+                body_class: 'page-home',
+                layout:'index_layout'
             });
         } else if(slug == '/5m' && !fs.existsSync(filePath)){
             return res.render('5m', {

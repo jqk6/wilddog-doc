@@ -1,3 +1,10 @@
+<ul class="menu" style="display:none">
+    <li class="category">
+        <h5 class="category-title">搜索结果</h5>
+        <ul class="pages active">
+        </ul>
+    </li>
+</ul>
 <div class="row">
     <div class="col-sm-3">
 
@@ -21,7 +28,6 @@
 
 
     <div class="col-sm-9">
-
         <section class="content search">
             <h3 class="title">Search results for: {{search}}</h3> 
             {{#searchResults.length}}
@@ -30,12 +36,11 @@
                 <h2 class="page-title"><a href="/{{slug}}">{{title}}</a></h2>
                 <div class="page-excerpt">{{excerpt}}</div>
             </div>
-            {{/searchResults}} 
-            {{/searchResults.length}} 
+            {{/searchResults}}
+            {{/searchResults.length}}
             {{^searchResults.length}}
             <p class="nothing-found">Nothing found for "{{search}}"</p>
             {{/searchResults.length}}
         </section>
-
     </div>
 </div>
