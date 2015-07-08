@@ -20,17 +20,17 @@
 	    /*菜单显示当前分类目录*/
 	    function actShow(){
 	    	var act = $(".category .active");
-		    act.parent().show();
-		    var i=0;
+		    act.parents().show();
 		    $(".category-title").click(function(event) {
-		    	i++;
-		    	console.log(i);
 		        $(this).siblings('.pages').toggle();
 	    	});
 	    };
 	    /*判断手机与PC*/
 	    if($(window).width()<768){
-	    	$('.menu .pages').append("<li class='page'><a href='\/'>返回知识库<\/a><\/li>");
+	    	$('.category>.pages').append("<li class='page'><a href='\/'>返回知识库<\/a><\/li><li class='page'><a href='https:\/\/www.wilddog.com'>返回官网<\/a><\/li>");
+		    $(".category-title2").click(function(event) {
+		        $(this).siblings('.pages2').toggle();
+	    	});
 	    }
 	    else{
 	    	actShow();
