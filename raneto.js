@@ -87,38 +87,36 @@ var raneto = {
     		var category_sort = config.category_sort || false;
     		var files = glob.sync(currentDir+"/*");
     		var filesProcessed=[];
-    		var parentTitle=null;
-    		var parentSlug=null;
 			files.forEach(function(filePath){
 				var shortPath = filePath.replace(__dirname +'/content/', '').trim(),
 				stat = fs.lstatSync(filePath);
 				if(stat.isDirectory()){
 				var sort = 0;
-				if(category_sort){
+				var title=_s.titleize(_s.humanize(path.basename(shortPath)));
+				var slug=shortPath;
 					try {
-						var sortFile = fs.readFileSync(__dirname +'/content/'+ shortPath +'/sort');
-						sort = parseInt(sortFile.toString('utf-8'), 10);
+						var metaFile = fs.readFileSync(__dirname +'/content/'+ shortPath +'/meta');
+						var meta = raneto.processMeta(metaFile.toString('utf-8'));
+						if(meta["sort"])
+							sort = parseInt(meta["sort"], 10);
+						if(meta["title"])
+							title=meta["title"];
+						if(meta["slug"])
+							slug=meta["slug"];
 					}
 					catch(e){
 						console.log(e);
 					}
-				}
-
-
-				var subRes=subDir(filePath,level+1)
-				var subfiles=subRes.files;
-				var dirTitle=subRes.parentTitle;
-				var dirSlug=subRes.parentSlug;
 				var dirObj={
 					is_dir:true,
-					slug: dirSlug?dirSlug:shortPath,
+					slug: slug,
 					path: filePath,
-					title: dirTitle?dirTitle:_s.titleize(_s.humanize(path.basename(shortPath))),
+					title: title,
 					is_index: false,
 					class: 'category-'+ (level+1),
-					sort: sort+1000,
+					sort: sort,
 					active:(activeSlug.trim().indexOf( '/'+ shortPath)==0),
-					files:subfiles 
+					files:subDir(filePath,level+1)
 				};
 				filesProcessed.push(dirObj);
 				
@@ -137,12 +135,7 @@ var raneto = {
 
 					var dir = path.dirname(shortPath),
 						meta = raneto.processMeta(file.toString('utf-8'));
-					var page_sort_meta=config.page_sort_meta;
-					if(page_sort_meta && meta[page_sort_meta]) pageSort = parseInt(meta[page_sort_meta], 10);
-					if(isIndex){
-						parentTitle=meta.title;
-					}
-					else{
+					if(meta["sort"]) pageSort = parseInt(meta["sort"], 10);
 					filesProcessed.push({
 						is_md:true,
 						is_index:isIndex,
@@ -151,18 +144,14 @@ var raneto = {
 						active: (activeSlug.trim().indexOf( '/'+ slug)==0),
 						sort: pageSort
 					});
-				}
-                   
+				  
 				}
 			});  
 			filesProcessed=_.sortBy(filesProcessed, function(file){ return file.sort; });
-			if(filesProcessed.length>0){
-				parentSlug=filesProcessed[0].slug;
-			}
-			return {"files":filesProcessed,"parentSlug":parentSlug,"parentTitle":parentTitle}
+			return filesProcessed;
     	}
 
-    	return subDir(__dirname+"/content",0,activeSlug).files;
+    	return subDir(__dirname+"/content",0,activeSlug);
     	
 
     },

@@ -58,7 +58,7 @@ app.all('*', function(req, res, next){
 
             console.log(slug,config)
             var pageList = raneto.getPages(slug, config);
-            console.log(pageList)
+            console.log(pageList[1])
 
         
         if(slug == '/index' && !fs.existsSync(filePath)){
