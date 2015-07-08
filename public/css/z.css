@@ -32,12 +32,6 @@ a:hover, a:focus{
     padding-top:20px;
 }
 
-
-
-
-
-
-
 .menu {
     margin: 40px 20px;
     padding: 0;
@@ -52,16 +46,23 @@ a:hover, a:focus{
 .menu .pages {
     margin: 0;
     padding: 0;
+    padding-left:10px;
     list-style: none;
 }
-
+.menu .pages2{
+    padding-left:4px;
+}
 .menu li {
     line-height: 30px;
 }
 
 .menu .category-title {
-    margin: 25px 0 10px 0;
+    margin: 25px 0 16px 0;
     font-size: 12px;
+}
+.menu .category-title2{
+    margin:0;
+    line-height:25px;
 }
 
 .menu a {
@@ -75,9 +76,9 @@ a:hover, a:focus{
     text-decoration: none;
 }
 
-.menu .active a {
+.menu .pages .active a {
     font-weight: bold;
-    color: #444;
+    color: #333;
 }
 
 .page-home .header .search-form {
@@ -310,7 +311,7 @@ h5 {
 }
 
 .menu li {
-    line-height: 25px;
+    line-height: 34px;
     padding-left: 10px;
 }
 
@@ -911,6 +912,9 @@ h4>code{
 .pages{
     display:none;
 }
+.category .page a,.footer-container a,.category .pages a{
+    color:#666;
+}
 @media screen and (min-width:1200px){
     .container{
         max-width:980px;
@@ -1127,7 +1131,15 @@ h4>code{
         -o-transform:translateY(-50%);
         transform:translateY(-50%);
     }
-    .category .page{
+    .category .page,.category2{
+        padding-left:0;
+        width: 33%;
+        margin: 0 auto;
+        padding-bottom: 4%;
+        padding-top:4%;
+        border-bottom: 1px dashed #ccc;
+    }
+    .category .page2,.category .pages2{
         padding-left:0;
     }
     .pages{display:block;}
@@ -1149,21 +1161,11 @@ h4>code{
         text-decoration:none;
         border:none;
     }
-    .category .page a{
-        display:inline-block;
-        width:33%;
-        border-bottom:1px dashed #e5e5e5;
-        padding-top:2%;
-        padding-bottom:2%;
-    }
     .category .page a,.footer-container a{
         margin:0;
         text-align:center;
         font-size:14px;
         color:#666;
-    }
-    .category .active a{
-        color:#333;
     }
     /* 五分钟 */
     #instructions .prettyprint{
@@ -1172,12 +1174,6 @@ h4>code{
     .continue-btn{
         float:none;
         text-align:center;
-    }
-}
-@media screen and (max-width:479px) {
-    .category .page a{
-        padding-top:4%;
-        padding-bottom:4%;
     }
 }
 @media print {
