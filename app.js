@@ -55,8 +55,11 @@ app.all('*', function(req, res, next){
         if(slug == '/') slug = '/index'; //如果是首页,那么转向/index
         
         
-        var filePath = __dirname +'/content'+ slug +'.md',
-            pageList = raneto.getPages(slug, config);
+        var filePath = __dirname +'/content'+ slug +'.md';
+
+            console.log(slug,config)
+            var pageList = raneto.getPages(slug, config);
+            console.log(pageList)
         
         if(slug == '/index' && !fs.existsSync(filePath)){
             return res.render('home', {
@@ -95,7 +98,7 @@ app.all('*', function(req, res, next){
                 // Content
                 content = raneto.processVars(content, config);
                 var html = marked(content);
-		var counter={};
+                var counter={};
                 var _toc=toc(content,{maxdepth:3,slugify:function(raw){
 				if(counter[raw]!=null){
 					counter[raw]+=1;
@@ -106,10 +109,10 @@ app.all('*', function(req, res, next){
 	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')+counter[raw]		
                 }});
                 var _tocHtml=marked(_toc.content);
-		var tmpl="page";
-		if(meta["tmpl"]){
-			tmpl=meta["tmpl"];
-		}
+                var tmpl="page";
+                if(meta["tmpl"]){
+                    tmpl=meta["tmpl"];
+                }
                 return res.render(tmpl, {
                     config: config,
                     toc:_tocHtml,
