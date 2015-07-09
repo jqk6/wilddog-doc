@@ -1133,9 +1133,12 @@ h4>code{
         padding-top:4%;
         border-bottom: 1px dashed #ccc;
         line-height:normal;
+        display:block;
+        position: static;
     }
     .category .page2,.category .pages2{
         padding-left:0;
+        width:100%;
         line-height:50px;
     }
     .category .page2 a{
