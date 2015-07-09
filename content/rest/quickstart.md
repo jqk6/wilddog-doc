@@ -42,5 +42,5 @@ curl -X PUT -d '{ "alanisawesome": { "name": "Alan Turing", "birthday": "June 23
 ```
 ----
 
-现在你已经知道了REST API的基础知识，更多细节请参见 [开发向导](https://z.wilddog.com/rest/guide)。
+现在你已经知道了REST API的基础知识，更多细节请参见 [开发向导](guide/1)。
 

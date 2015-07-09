@@ -12,10 +12,30 @@ Tmpl : page-quickstart
 
 ## 第二步 引入 Wilddog Java SDK
 
-###获得 SDK
-[下载地址](https://cdn.wilddog.com/android/client/current/wilddog-client-jvm-0.4.0-SNAPSHOT.jar)
-（目前只提供java版SDK，android版的SDK即将推出）
+请注意：目前只提供java版SDK，android版的SDK即将推出。
 
+#### 使用Maven中央仓库获得SDK：
+```XML
+<dependency>
+	<groupId>com.wilddog</groupId>
+	<artifactId>wilddog-client-jvm</artifactId>
+	<version>0.4.1</version>
+</dependency>
+```
+
+#### 直接下载：
+
+１，　Version 0.4.1　RELEASE版本 [下载地址](https://cdn.wilddog.com/android/client/wilddog-client-jvm-0.4.1.jar)
+
+| 描述 | 约束 |
+| --- | --- |
+|MD5值|774a8cd5a65b98e8c36837524c58512a|
+|SHA1值|c9ac946c9320777236fbdecdbb58f64eb56dd75d|
+|SHA512值|fb55e53be7642f7fc550d4036fc8fcf20d1dc99257681e186881eabff80208ccc08ddc7e05f820ae6cb1d139e019a18757b8c6641c37c8cd59ac5a777e6f40bc|
+
+２，最新SNAPSHOT版本 [下载地址](https://cdn.wilddog.com/android/client/wilddog-client-jvm-current-SNAPSHOT.jar)
+
+<br><br><br>
 ###导入 SDK
 将wilddog-client-jvm-xxx.jar拷贝到Android应用的libs目录中，然后在IDE中将jar文件添加到应用的classpath。
 
@@ -116,5 +136,5 @@ ref.addValueEventListener(new ValueEventListener(){
 ```
 ## 第六步 了解更多
 
-1. [开发向导](/android/guide)
+1. [开发向导](/android/guide/1)
 2. [Java API](/android/api)

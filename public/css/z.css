@@ -1133,10 +1133,16 @@ h4>code{
         padding-top:4%;
         border-bottom: 1px dashed #ccc;
         line-height:normal;
+        display:block;
+        position: static;
     }
     .category .page2,.category .pages2{
         padding-left:0;
+        width:100%;
         line-height:50px;
+    }
+    .category .page2{
+        border:0;
     }
     .category .page2 a{
         font-size:14px;
@@ -1155,6 +1161,9 @@ h4>code{
         display:none;
         width:auto;
         margin:0 5%;
+    }
+    .menu .category>ul{
+        display:block;
     }
     .footer-container{
         margin-top:0;

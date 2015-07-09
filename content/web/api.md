@@ -815,7 +815,7 @@ setWithPriority ( value , priority , [oncomplete] )
 
 ###### 说明
 
-把数据写到当前位置，类似set,不同之处是需要指定一个优先级。默认排序按照优先级排序。(参考[setPriority](#setPriority-))
+把数据写到当前位置，类似set,不同之处是需要指定一个优先级。默认排序按照优先级排序。(参考[setPriority](#setPriority-0))
 
 ###### 参数
 

@@ -14,7 +14,7 @@ Tmpl : page-quickstart
 ## 第二步 使用Wilddog C/嵌入式SDK
 
 ### 获得 SDK
-你可以在这里下载 [Wilddog C/嵌入式 SDK](https://cdn.wilddog.com/c/client/0.4.2/wilddog.0.4.2.tar.gz)（我们的SDK已经在Linux平台和Wiced平台上成功移植，在此仅以Linux为例，Wiced平台请查看 [开发向导](https://z.wilddog.com/device/guide)中的移植SDK。）
+你可以在这里下载 [Wilddog C/嵌入式 SDK](https://cdn.wilddog.com/c/client/0.4.2/wilddog.0.4.2.tar.gz)（我们的SDK已经在Linux平台和Wiced平台上成功移植，在此仅以Linux为例，Wiced平台请查看 [开发向导](guide/1)中的移植SDK。）
 
 
 ----
@@ -54,6 +54,6 @@ Tmpl : page-quickstart
 
 ## 第五步 了解更多
 
-1. [开发向导](guide)
-2. [C API文档](c_api)
+1. [开发向导](guide/1)
+2. [API文档](api)
 
