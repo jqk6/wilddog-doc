@@ -7,7 +7,7 @@
                 {{#is_dir}}
 
             <li class="category {{#active}} active{{/active}}">
-                <h5 class="category-title">{{title}}</h5>
+                <h5 class="category-title"><a href="{{slug}}">{{title}}</a></h5>
                 <ul class="pages">
                     {{#files}}
                     {{#is_md}}
@@ -15,12 +15,12 @@
                     </li>
                     {{/is_md}}
                     {{^is_md}}
-                    <li class="category2">
-                    <h6 class="category-title category-title2">{{title}}</h6>
+                    <li class="category category2 {{#active}} active{{/active}}">
+                    <h6 class="category-title category-title2"><a href="{{slug}}">{{title}}</a></h6>
 
                     <ul class="pages pages2">
                         {{#files}}
-                        <li class="page2{{#active}} active{{/active}}"><a href="/{{slug}}">{{title}}</a>
+                        <li class="page2 page{{#active}} active{{/active}}"><a href="/{{slug}}">{{title}}</a>
                         </li>
                         {{/files}}
                     </ul>
@@ -35,6 +35,7 @@
             {{/pages}}
 
             </ul>
+
 
     </div>
     <div class="col-sm-9">

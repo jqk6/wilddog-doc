@@ -32,7 +32,7 @@
 		        $(this).siblings('.pages2').toggle();
 	    	});
 	    }
-	    else{
+/*	    else{
 	    	actShow();
-		};
+		};*/
 })();

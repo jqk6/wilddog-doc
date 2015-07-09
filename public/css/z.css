@@ -57,7 +57,7 @@ a:hover, a:focus{
 }
 
 .menu .category-title {
-    margin: 25px 0 16px 0;
+    margin: 25px 0 6px 0;
     font-size: 12px;
 }
 .menu .category-title2{
@@ -80,7 +80,15 @@ a:hover, a:focus{
     font-weight: bold;
     color: #333;
 }
-
+.menu .category>ul{
+    display: none;
+}
+.menu .category2>ul{
+    display: none;
+}
+.menu .active>ul{
+    display: block;
+}
 .page-home .header .search-form {
     display: none;
 }
@@ -315,9 +323,9 @@ h5 {
     padding-left: 10px;
 }
 
-.menu a {
+/*.menu a {
     color: rgb(230, 80, 30);
-}
+}*/
 
 .menu {
     margin: 0;
