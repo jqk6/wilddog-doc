@@ -136,5 +136,5 @@ ref.addValueEventListener(new ValueEventListener(){
 ```
 ## 第六步 了解更多
 
-1. [开发向导](/android/guide)
+1. [开发向导](/android/guide/1)
 2. [Java API](/android/api)
