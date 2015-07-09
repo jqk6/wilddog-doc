@@ -1,31 +1,45 @@
-<ul class="menu" style="display:none">
-    <li class="category">
-        <h5 class="category-title">搜索结果</h5>
-        <ul class="pages active">
-        </ul>
-    </li>
-</ul>
-<div class="row">
+<div class="row" style="padding-bottom:20px;"> 
     <div class="col-sm-3">
 
+
         <ul class="menu">
-            {{#pages}} {{#is_index}} {{#files}}
-            <li class="page{{#active}} active{{/active}}"><a href="/{{slug}}">{{title}}</a>
-            </li>
-            {{/files}} {{/is_index}} {{^is_index}}
-            <li class="category">
-                <h5 class="category-title">{{title}}</h5>
+
+            {{#pages}}
+                {{#is_dir}}
+
+            <li class="category {{#active}} active{{/active}}">
+                <h5 class="category-title"><a href="{{slug}}">{{title}}</a></h5>
                 <ul class="pages">
                     {{#files}}
+                    {{#is_md}}
                     <li class="page{{#active}} active{{/active}}"><a href="/{{slug}}">{{title}}</a>
                     </li>
+                    {{/is_md}}
+                    {{^is_md}}
+                    <li class="category category2 {{#active}} active{{/active}}">
+                    <h6 class="category-title category-title2"><a href="{{slug}}">{{title}}</a></h6>
+
+                    <ul class="pages pages2">
+                        {{#files}}
+                        <li class="page2{{#active}} active{{/active}}"><a href="/{{slug}}">{{title}}</a>
+                        </li>
+                        {{/files}}
+                    </ul>
+
+                    {{/is_md}}
+
                     {{/files}}
                 </ul>
             </li>
-            {{/is_index}} {{/pages}}
-        </ul>
-    </div>
 
+
+            {{/is_dir}}
+            {{/pages}}
+
+            </ul>
+
+
+    </div>
 
     <div class="col-sm-9">
         <section class="content search">
