@@ -18,9 +18,8 @@
 	    	}
 	    });
 	    /*菜单显示当前分类目录*/
+	    var act = $(".active");
 	    function actShow(){
-	    	var act = $(".category .active");
-		    act.parents().show();
 		    $(".category-title").click(function(event) {
 		        $(this).siblings('.pages').toggle();
 	    	});
@@ -31,8 +30,6 @@
 		    $(".category-title2").click(function(event) {
 		        $(this).siblings('.pages2').toggle();
 	    	});
+		    act.parents(".pages").show();
 	    }
-/*	    else{
-	    	actShow();
-		};*/
 })();

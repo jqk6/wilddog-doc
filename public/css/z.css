@@ -31,7 +31,9 @@ a:hover, a:focus{
     display:inline-block;
     padding-top:20px;
 }
-
+.panel-default:hover{
+    border:1px solid rgb(44, 44, 44);
+}
 .menu {
     margin: 40px 20px;
     padding: 0;
@@ -51,6 +53,7 @@ a:hover, a:focus{
 }
 .menu .pages2{
     padding-left:4px;
+    display:none;
 }
 .menu li {
     line-height: 30px;
@@ -76,7 +79,7 @@ a:hover, a:focus{
     text-decoration: none;
 }
 
-.menu .pages .active a {
+.menu .pages .active>a{
     font-weight: bold;
     color: #333;
 }
@@ -189,7 +192,7 @@ a:hover, a:focus{
 
 body {
     color: #666;
-    font: 12px/1.5 arial, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif !important;
+    font: 12px/1.5  arial, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei",sans-serif;
     height: 100%;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -314,12 +317,8 @@ a:hover {
     top: 4px;
 }
 
-h5 {
-    font-weight: 500;
-}
-
 .menu li {
-    line-height: 34px;
+    line-height: 36px;
     padding-left: 10px;
 }
 
@@ -331,7 +330,9 @@ h5 {
     margin: 0;
     margin-top: 84px;
 }
-
+.menu .category{
+    padding-bottom:2px;
+}
 .content-title {
     font-size: 20px;
     font-weight: 500;
@@ -373,8 +374,6 @@ h3 {
 
 h4,h6 {
     font-size: 14px;
-    /*    font-weight: bold;*/
-    
     margin: 0;
     margin-left: 20px;
 }
@@ -391,19 +390,7 @@ hr {
     margin-top: 40px;
     margin-bottom: 20px;
 }
-/*
-.last-updated {
-    margin-right: 20px;
-}
-*/
-
-.content {
-    /*margin-top:84px;*/
-}
-
 .content .page-meta {
-    /*border-bottom: 1px solid rgb(229 ,229 ,229);*/
-    
     padding-bottom: 27px;
 }
 
@@ -1122,33 +1109,46 @@ h4>code{
         height:100%;
         background-color:#fff;
         text-align:center;
+        overflow-y:auto;
     }
     .menu .category-title{
         font-size:20px;
-        color:#ccc;
-        padding-bottom:5%;
+    }
+    .category .page a, .menu .category-title2{
+        font-size:16px;
+        line-height:50px;
+        font-weight:normal;
     }
     .category{
         position:absolute;
         width:100%;
-        top:50%;
+        top:5%;
         left: 0;
-        -webkit-transform:translateY(-50%);
-        -moz-transform:translateY(-50%);
-        -ms-transform:translateY(-50%);
-        -o-transform:translateY(-50%);
-        transform:translateY(-50%);
     }
-    .category .page,.category2{
+    .category .page,.menu .category2{
         padding-left:0;
         width: 33%;
         margin: 0 auto;
         padding-bottom: 4%;
         padding-top:4%;
         border-bottom: 1px dashed #ccc;
+        line-height:normal;
     }
     .category .page2,.category .pages2{
         padding-left:0;
+        line-height:50px;
+    }
+    .category .page2 a{
+        font-size:14px;
+    }
+    .menu .category-title{
+        margin-bottom:27px;
+    }
+    .menu .category-title2{
+        margin-bottom:0;
+    }
+    .menu .active>.category-title{
+        color:#ccc;
     }
     .pages{display:block;}
     footer{
@@ -1169,10 +1169,9 @@ h4>code{
         text-decoration:none;
         border:none;
     }
-    .category .page a,.footer-container a{
+    .category .page a{
         margin:0;
         text-align:center;
-        font-size:14px;
         color:#666;
     }
     /* 五分钟 */
