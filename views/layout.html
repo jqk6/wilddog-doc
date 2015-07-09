@@ -30,16 +30,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6 col-xs-6">
-                            <a href="/">
-                                <div class="header-logo">
-                                    <div class="logo" style="float:left">
-                                        <img width="36" height="36" src="/images/header-logo.png"></div>
-                                    <div class="text-wilddog" style="float:left; padding-left:10px; padding-top:40px;"><img src="/images/wilddog.png" alt="" height="26" width="123"></div>
-                                    <div class="knowledge">知识库</div>
-                                </div>
-                            </a>
+                            <a href="/" class="header-logo"><img src="/images/header-logo.jpg" alt=""></a>
                         </div>
-                        <div class="col-sm-6 col-xs-6">
+                        <div class="col-sm-6 col-xs-6 search-box">
                             <div class="col-xs-12 col-sm-12 wilddog-gov">
                                 <div class="link-index" style="float:right;">
                                     <a style="color:#ddd" href="https://www.wilddog.com" target="_blank">野狗官网<i style="float:right; height:1px; width:12px;">4</i></a>
@@ -61,6 +54,15 @@
                                 <div style="clear:both"></div>
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-list">
+                    <div class="menu-show-btnArea">
+                        <div class="menu-btn">
+                            <span class="menu-show-line menu-show-line-t"></span>
+                            <span class="menu-show-line menu-show-line-m"></span>
+                            <span class="menu-show-line menu-show-line-b"></span>
                         </div>
                     </div>
                 </div>
@@ -93,6 +95,7 @@
 <script src="/bower_components/fitvids/jquery.fitvids.js"></script>
 <script src="/bower_components/masonry/dist/masonry.pkgd.min.js"></script>
 <script src="/scripts/raneto.js"></script>
+<script src="/scripts/mobile.js" type="text/javascript"></script>
 
 <script>
         $(document).ready(function () {
@@ -104,7 +107,7 @@
 
         var searchStart = function (data) {
             if(data){
-            window.open("?search=" + data);
+            window.location.href="?search=" + data;
             };
         };
         $("#search").click(function(){

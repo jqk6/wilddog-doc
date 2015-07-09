@@ -54,15 +54,17 @@ app.all('*', function(req, res, next){
         var slug = req.params[0];
         if(slug == '/') slug = '/index'; //如果是首页,那么转向/index
         
-        
-        var filePath = __dirname +'/content'+ slug +'.md',
-            pageList = raneto.getPages(slug, config);
+        var filePath = __dirname +'/content'+ slug +'.md';
+
+            var pageList = raneto.getPages(slug, config);
+
         
         if(slug == '/index' && !fs.existsSync(filePath)){
             return res.render('home', {
                 config: config,
                 pages: pageList,
-                body_class: 'page-home'
+                body_class: 'page-home',
+                layout:'index_layout'
             });
         } else if(slug == '/5m' && !fs.existsSync(filePath)){
             return res.render('5m', {
@@ -95,14 +97,21 @@ app.all('*', function(req, res, next){
                 // Content
                 content = raneto.processVars(content, config);
                 var html = marked(content);
+                var counter={};
                 var _toc=toc(content,{maxdepth:3,slugify:function(raw){
-	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')		
+				if(counter[raw]!=null){
+					counter[raw]+=1;
+				}
+				else{
+					counter[raw]=0;
+				}
+	           		return pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')+counter[raw]		
                 }});
                 var _tocHtml=marked(_toc.content);
-		var tmpl="page";
-		if(meta["tmpl"]){
-			tmpl=meta["tmpl"];
-		}
+                var tmpl="page";
+                if(meta["tmpl"]){
+                    tmpl=meta["tmpl"];
+                }
                 return res.render(tmpl, {
                     config: config,
                     toc:_tocHtml,

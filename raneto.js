@@ -78,94 +78,83 @@ var raneto = {
     /**
     * 获得页面列表
     */
-	getPages: function(activeSlug, config) {
-		var page_sort_meta = config.page_sort_meta || '',
-			category_sort = config.category_sort || false,
-			files = glob.sync(__dirname +'/content/**/*'),
-			filesProcessed = [];
 
-		filesProcessed.push({
-			slug: '.',
-			title: '',
-			is_index: true,
-			class: 'category-index',
-			sort: 0,
-			files: []
-		});
+    getPages: function(activeSlug,config) {
+    	// body...
 
-		files.forEach(function(filePath){
-			var shortPath = filePath.replace(__dirname +'/content/', '').trim(),
+    	var subDir=function(currentDir,level){
+    		var filesProcessed=[];
+    		var category_sort = config.category_sort || false;
+    		var files = glob.sync(currentDir+"/*");
+    		var filesProcessed=[];
+			files.forEach(function(filePath){
+				var shortPath = filePath.replace(__dirname +'/content/', '').trim(),
 				stat = fs.lstatSync(filePath);
-
-			if(stat.isDirectory()){
+				if(stat.isDirectory()){
 				var sort = 0;
-				if(category_sort){
+				var title=_s.titleize(_s.humanize(path.basename(shortPath)));
+				var slug=shortPath;
 					try {
-						var sortFile = fs.readFileSync(__dirname +'/content/'+ shortPath +'/sort');
-						sort = parseInt(sortFile.toString('utf-8'), 10);
+						var metaFile = fs.readFileSync(__dirname +'/content/'+ shortPath +'/meta');
+						var meta = raneto.processMeta(metaFile.toString('utf-8'));
+						if(meta["sort"])
+							sort = parseInt(meta["sort"], 10);
+						if(meta["title"])
+							title=meta["title"];
+						if(meta["slug"])
+							slug=meta["slug"];
 					}
 					catch(e){
 						console.log(e);
 					}
-				}
-
 				var dirObj={
-					slug: shortPath,
-					path:filePath,
-					subDir:[],
-					title: _s.titleize(_s.humanize(path.basename(shortPath))),
+					is_dir:true,
+					slug: slug,
+					path: filePath,
+					title: title,
 					is_index: false,
-					class: 'category-'+ raneto.cleanString(shortPath.replace(/\//g, ' ')),
+					class: 'category-'+ (level+1),
 					sort: sort,
-					files: []
+					active:(activeSlug.trim().indexOf( '/'+ shortPath)==0),
+					files:subDir(filePath,level+1)
 				};
 				filesProcessed.push(dirObj);
 				
 			}
-			if(stat.isFile() && path.extname(shortPath) == '.md'){
-				try {
+			else if(stat.isFile()&& path.extname(shortPath) == '.md'){
 					var file = fs.readFileSync(filePath),
 						slug = shortPath,
 						pageSort = 0;
                     var  isIndex=false;
 					if(shortPath.indexOf('index.md') > -1){
 						slug = slug.replace('index.md', '');
+
                         isIndex=true;
 					}
 					slug = slug.replace('.md', '').trim();
 
 					var dir = path.dirname(shortPath),
 						meta = raneto.processMeta(file.toString('utf-8'));
-
-					if(page_sort_meta && meta[page_sort_meta]) pageSort = parseInt(meta[page_sort_meta], 10);
-
-					var val = _.find(filesProcessed, function(item){ return item.slug == dir; });
-                        if(isIndex){
-                            val.title= meta.title?meta.title:val.title;
-
-                        } else{
- 							val.files.push({
-								slug: slug,
-								title: meta.title ? meta.title : 'Untitled',
-								active: (activeSlug.trim() == '/'+ slug),
-								sort: pageSort
-							});                       
-                        
-                        }
-
-                   
+					if(meta["sort"]) pageSort = parseInt(meta["sort"], 10);
+					filesProcessed.push({
+						is_md:true,
+						is_index:isIndex,
+						slug:slug,
+						title:meta.title ? meta.title : 'Untitled',
+						active: (activeSlug.trim().indexOf( '/'+ slug)==0),
+						sort: pageSort
+					});
+				  
 				}
-				catch(e){}
-			}
-		});
+			});  
+			filesProcessed=_.sortBy(filesProcessed, function(file){ return file.sort; });
+			return filesProcessed;
+    	}
 
-		filesProcessed = _.sortBy(filesProcessed, function(cat){ return cat.sort; });
-		filesProcessed.forEach(function(category){
-			category.files = _.sortBy(category.files, function(file){ return file.sort; });
-		});
+    	return subDir(__dirname+"/content",0,activeSlug);
+    	
 
-		return filesProcessed;
-	},
+    },
 
 	search: function(query) {
 		if(idx == null){
@@ -177,6 +166,10 @@ var raneto = {
 
 		files.forEach(function(filePath){
 			try {
+				//skip index
+				if(filePath.indexOf("index.md")>=0){
+					return;
+				};
 				var shortPath = filePath.replace(__dirname +'/content/', '').trim(),
 					file = fs.readFileSync(filePath);
 

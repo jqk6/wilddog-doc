@@ -4,7 +4,7 @@ Sort: 3
 */
 
 
-# Wilddog
+# Wilddog (*Methods*)
 
 ## new Wilddog()
 
@@ -1006,7 +1006,7 @@ Wilddog平台托管的终端用户可以通过`removeUser` 删除帐号
 
 -----
 
-## resetPassword
+## resetPassword()
 
 ###### 定义
 
@@ -1075,9 +1075,9 @@ Wilddog.goOffline(); // All local Wilddog instances are disconnected
 
 -----
 
+<p style="border:1px;display:inherit;border-top:1px solid #eee;margin-top:60px;margin-bottom:20px;"/>
 
-
-# Query
+# Query (*Methods*)
 
 ## on()
 ###### 定义
@@ -1154,20 +1154,20 @@ off ( [type] , [callback] , [context] )
 
 var onValueChange = function(dataSnapshot) { /* handle... */ };
 
-firebaseRef.on('value', onValueChange);
+wilddogRef.on('value', onValueChange);
 
 // Sometime later...
 
-firebaseRef.off('value', onValueChange);
+wilddogRef.off('value', onValueChange);
 
 ```
 ```js
 
-var onValueChange = firebaseRef.on('value', function(dataSnapshot) { /* handle... */ });
+var onValueChange = wilddogRef.on('value', function(dataSnapshot) { /* handle... */ });
 
 // Sometime later...
 
-firebaseRef.off('value', onValueChange);
+wilddogRef.off('value', onValueChange);
 
 ```
 
@@ -1584,13 +1584,296 @@ var locationRef=query.ref();//ref===locationRef
 
 ```
 
+-----
+<p style="border:1px;display:inherit;border-top:1px solid #eee;margin-top:60px;margin-bottom:20px;"/>
+
+# Wilddog.onDisconnect (*Methods*)
+
+----
+## set()
+
+###### 定义
+
+set (value,[onComplete])
+
+###### 说明
+
+当客户端断开连接后，保证在地址上的数据被设置到一个指定的值。
+
+###### 参数
+
+* value `Object,String,Number,Boolean,Null`
+
+在连接中断时需要写入当前位置的值（可以是对象，数组，字符串，数组，布尔型或null）
+
+
+* onComplete `Function *optional`
+
+一个可选参数。当与服务端同步结束后会被调用，函数被调用时会传入一个参数：传入null代表成功，传入一个Error对象代表失败。
+
+
+
+###### 返回值
+
+* 没有返回值
+
+###### 示例
+
+```js
+
+var disconnectRef = new Wilddog("https://<appId>.wilddogio.com/student");
+
+disconnectRef.onDisconnect().set('I disconnected!');
+
+```
 ----
 
 
-# Snapshot
+## update()
 
-Snapshot是当前时间,某个节点数据的副本,Snapshot不会随当前节点数据的变化而发生改变.
-用户不会主动创建一个Snapshot,而是和 on或once 配合使用.
+###### 定义
+
+update(value,[onComplete])
+
+###### 说明
+
+当客户端断开连接后，指定的子节点将被写入到当前位置的子节点集合中。
+
+
+###### 参数
+
+* value `Object`
+
+包含要写入当前位置子节点的集合。
+
+* onComplete `Function *optional`
+
+一个可选参数。当与服务端同步结束后会被调用，函数被调用时会传入一个参数：传入null代表成功，传入一个Error对象代表失败。
+
+
+###### 返回值
+
+无返回值
+
+###### 示例
+
+```js
+
+var disconnectRef = new Wilddog("https://<appId>.wilddogio.com/student");
+
+disconnectRef.onDisconnect().update({message:'I disconnected!'});
+
+```
+
+----
+
+## remove()
+
+###### 定义
+
+remove([onComplete])
+
+###### 说明
+
+当客户端断开连接后，删除当前位置上的数据。
+
+###### 参数
+
+* onComplete `Function *optional`
+
+一个可选参数。当与服务端同步结束后会被调用，函数被调用时会传入一个参数：传入null代表成功，传入一个Error对象代表失败。
+
+
+###### 返回值
+
+无返回值
+
+###### 示例
+
+```js
+
+var disconnectRef = new Wilddog("https://<appId>.wilddogio.com/student");
+
+disconnectRef.onDisconnect().remove();
+
+```
+
+----
+
+## setWithPriority()
+
+###### 定义
+
+setWithPriority(value, priority, [onComplete])
+
+###### 说明
+当客户端断开连接后，指定的数据和其优先级会被写入当前位置。
+
+
+###### 参数
+
+* value `Object`, `String`, `Number`, `Boolean`, `Null`
+
+在连接中断时需要写入当前位置的值（可以是对象，数组，字符串，数组，布尔型或null）
+
+
+* priority `String`,`Number`
+
+value的优先级
+
+
+* onComplete `Function *optional`
+
+一个可选参数。当与服务端同步结束后会被调用，函数被调用时会传入一个参数：传入null代表成功，传入一个Error对象代表失败。
+
+
+###### 返回值
+
+无返回值
+
+###### 示例
+
+```js
+
+var disconnectRef = new Wilddog("https://<appId>.wilddogio.com/student");
+
+disconnectRef.onDisconnect().setWithPriority('I disconnected', 10);
+
+```
+
+----
+
+## cancel()
+
+###### 定义
+
+cancel()
+
+###### 说明
+
+取消之前所有注册的离线操作。
+
+###### 返回值
+
+* 无返回值
+
+###### 示例
+
+```js
+
+var fredOnlineRef = new Wilddog("https://<appId>.wilddogio.com/users/fred/online");
+
+fredOnlineRef.onDisconnect().set(false);
+
+// cancel the previously set onDisconnect().set() event
+
+fredOnlineRef.onDisconnect().cancel();
+
+```
+
+-----
+
+# Wilddog.ServerValue (*Constants*)
+
+----
+
+## TIMESTAMP
+
+###### 定义
+
+Wilddog.ServerValue.TIMESTAMP
+
+###### 说明
+
+获取当前服务端的时间戳。
+
+
+###### 返回值
+
+无返回值
+
+###### 示例
+
+```js
+
+var sessionsRef = new WildDog('https://<appId>.wilddogio.com.com/sessions/');
+
+var mySessionRef = sessionsRef.push();
+
+mySessionRef.onDisconnect().update({ endedAt: Wilddog.ServerValue.TIMESTAMP });
+
+mySessionRef.update({ startedAt: Wilddog.ServerValue.TIMESTAMP });
+
+```
+----
+
+<p style="border:1px;display:inherit;border-top:1px solid #eee;margin-top:60px;margin-bottom:20px;"/>
+
+# DataSnapshot (*Methods*)
+
+---
+ <p style="margin-top:40px;"/>
+DataSnapshot是当前时间,某个节点数据的副本,Snapshot不会随当前节点数据的变化而发生改变.
+用户不会主动创建一个DataSnapshot,而是和 on或once 配合使用.
+
+
+## exists()
+
+###### 定义
+
+exists()
+
+###### 说明
+
+如果Datasnapshot对象包含数据返回 true，否则返回false
+
+###### 返回值
+
+Datasnapshot是否包含数据
+
+###### 示例
+
+假如我们有以下数据：
+
+``` json
+
+{
+  "name" : {
+    "first" : "Jim",
+    "last" : "Gordon"
+  } 
+
+}
+
+```
+
+我们可以用exists检测是否包含特定字节点
+
+``` js
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/samplechat/users/jim");
+ref.once("value", function(snapshot) {
+  var a = snapshot.exists();
+  // a === true
+
+  var b = snapshot.child("name").exists();
+  // b === true
+
+  var c = snapshot.child("name/first").exists();
+  // c === true
+
+  var d = snapshot.child("name/middle").exists();
+  // d === false (because there is no "name/middle" child in the data snapshot)
+});
+
+
+```
+
+
+
+
+----
+
 
 ## val()
 
@@ -1729,7 +2012,7 @@ ref.update({"PM2.5":432})
 
 ```
 
-----------------------------------------------------
+----
 
 ## hasChild()
 
@@ -1785,8 +2068,67 @@ ref.update({"PM2.5":432})
 
 ```
 
+----
 
-------------------------------------------------------------------------------------------
+## hasChildren()
+
+  
+
+###### 定义
+
+hasChildren()
+
+###### 说明
+
+如果 `Datasnapshot` 有任何子节点返回true，否则false。
+
+###### 返回值
+
+* `boolean` 如果snapshot 有任何子节点 `true` ,否则 `false`
+
+###### 示例
+
+假设我们已经有如下的数据
+
+``` json
+
+{
+  "name": {
+    "first": "Jim",
+    "last": "Gordon"
+  }
+}
+
+
+```
+
+我们可以用 `hasChildren` 检测 `DataSnapshot` 是否包含任何子节点：
+
+``` js
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/samplechat/users/jim");
+ref.once("value", function(snapshot) {
+  var a = snapshot.hasChildren();
+  // a === true
+
+  var b = snapshot.child("name").hasChildren();
+  // b === true
+
+  var c = snapshot.child("name/first").hasChildren();
+  // c === false (because "Fred" is a string and therefore has no children)
+});
+
+
+```
+
+
+
+
+
+
+
+
+----
 
 ## key()
 
@@ -1897,4 +2239,70 @@ ref.on('child_changed',function(snapshot){
 })
 
 ```
+
+----
+
+## getPriority()
+
+###### 定义
+
+getPriority()
+
+###### 说明
+
+获取当前节点的优先级
+
+###### 返回值
+
+* Stirng , Number , Null 优先级，或者不存在
+
+###### 示例
+
+```js
+
+var ref = new Wilddog("https://<appId>.wilddogio.com/samplechat/users");
+ref.setWithPriority("fred", 500, function(error) {
+  ref.once("value", function(snapshot) {
+    var priority = snapshot.getPriority();
+    // priority === 500
+  });
+});
+
+```
+
+
+----
+
+
+## exportVal()
+
+
+###### 定义
+
+exportVal()
+
+###### 说明
+
+导出DataSnapshot中的内容到Javascript 对象，与 `val()`类似，不同指出在于exportVal 导出的数据包含优先级。
+
+###### 返回值
+
+DataSnapshot 的内容
+
+###### 示例
+
+
+``` js
+
+ref.setWithPriority("hello", 500, function(error) {
+  ref.once("value", function(snapshot) {
+    var data = snapshot.exportVal();
+    // data is { ".value": "hello", ".priority": 500 }
+    // data[".value"] === "hello"
+    // data[".priority"] ===  500
+  });
+});
+
+```
+
 

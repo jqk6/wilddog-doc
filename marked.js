@@ -753,6 +753,7 @@ InlineLexer.prototype.mangle = function(text) {
 
 function Renderer(options) {
   this.options = options || {};
+  this.counter = {}
 }
 
 Renderer.prototype.code = function(code, lang, escaped) {
@@ -787,11 +788,17 @@ Renderer.prototype.html = function(html) {
 };
 
 Renderer.prototype.heading = function(text, level, raw) {
+  if(this.counter[text]!=null){
+    this.counter[text]+=1;
+  }
+   else{
+    this.counter[text]=0
+  }
   return '<h'
     + level
     + ' id="'
     + this.options.headerPrefix
-    + pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')
+    + pinyin(raw,{style:pinyin.STYLE_NORMAL}).join("-").replace(/[^\w]+/g, '-')+this.counter[text]
     + '">'
     + text
     + '</h'
@@ -898,7 +905,7 @@ function Parser(options) {
   this.tokens = [];
   this.token = null;
   this.options = options || marked.defaults;
-  this.options.renderer = this.options.renderer || new Renderer;
+  this.options.renderer = new Renderer;
   this.renderer = this.options.renderer;
   this.renderer.options = this.options;
 }
@@ -908,6 +915,7 @@ function Parser(options) {
  */
 
 Parser.parse = function(src, options, renderer) {
+ 
   var parser = new Parser(options, renderer);
   return parser.parse(src);
 };
