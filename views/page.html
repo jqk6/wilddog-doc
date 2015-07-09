@@ -16,12 +16,12 @@
                     </li>
                     {{/is_md}}
                     {{^is_md}}
-                    <li class="category category2 {{#active}} active{{/active}}">
+                    <li class="category2">
                     <h6 class="category-title category-title2">{{title}}</h6>
 
                     <ul class="pages pages2">
                         {{#files}}
-                        <li class="page2 page{{#active}} active{{/active}}"><a href="/{{slug}}">{{title}}</a>
+                        <li class="page2{{#active}} active{{/active}}"><a href="/{{slug}}">{{title}}</a>
                         </li>
                         {{/files}}
                     </ul>
@@ -31,6 +31,7 @@
                     {{/files}}
                 </ul>
             </li>
+
 
             {{/is_dir}}
             {{/pages}}
